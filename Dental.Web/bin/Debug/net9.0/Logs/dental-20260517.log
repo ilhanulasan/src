@@ -1,0 +1,21 @@
+2026-05-17 10:14:11.015 +03:00 [INF] Dental.Web started
+2026-05-17 10:14:12.258 +03:00 [ERR] An error occurred using the connection to database 'Dental' on server 'tcp://localhost:5432'.
+2026-05-17 10:14:13.802 +03:00 [INF] Now listening on: http://localhost:5011
+2026-05-17 10:14:13.803 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-17 10:14:13.804 +03:00 [INF] Hosting environment: Development
+2026-05-17 10:14:13.805 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-17 10:15:09.951 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-17 10:15:10.416 +03:00 [INF] HTTP GET /api/patients responded 200 in 465.0075 ms
+2026-05-17 10:15:29.168 +03:00 [INF] HTTP POST /api/patients responded 400 in 70.8906 ms
+2026-05-17 10:15:50.048 +03:00 [INF] HTTP POST /api/patients responded 400 in 3.2728 ms
+2026-05-17 10:18:13.838 +03:00 [INF] Application is shutting down...
+2026-05-17 10:18:18.331 +03:00 [INF] Dental.Web started
+2026-05-17 10:18:18.929 +03:00 [INF] Now listening on: http://localhost:5011
+2026-05-17 10:18:18.931 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-17 10:18:18.932 +03:00 [INF] Hosting environment: Development
+2026-05-17 10:18:18.932 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-17 10:18:26.688 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-17 10:18:27.030 +03:00 [INF] Created patient "8ecacf68-324d-499e-9ba5-141aecfb5bfc"
+2026-05-17 10:18:27.067 +03:00 [INF] HTTP POST /api/patients responded 201 in 380.2213 ms
+2026-05-17 10:18:27.494 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc responded 200 in 390.5158 ms
+2026-05-17 10:18:35.569 +03:00 [INF] HTTP GET /api/patients responded 200 in 43.4181 ms

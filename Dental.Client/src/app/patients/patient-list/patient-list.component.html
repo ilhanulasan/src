@@ -1,0 +1,49 @@
+<section class="page">
+  @if (loadFailed()) {
+    <p class="error">{{ 'patients.loadError' | translate }}</p>
+  }
+
+  <div class="toolbar">
+    <h1>{{ 'patients.title' | translate }}</h1>
+    <a routerLink="/patients/new" class="btn primary">{{ 'patients.add' | translate }}</a>
+  </div>
+
+  @if (!loadFailed()) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ 'patients.name' | translate }}</th>
+          <th>{{ 'patients.surname' | translate }}</th>
+          <th>{{ 'patients.ssn' | translate }}</th>
+          <th>{{ 'patients.phone' | translate }}</th>
+          <th>{{ 'patients.dateOfBirth' | translate }}</th>
+          <th>{{ 'patients.education' | translate }}</th>
+          <th>{{ 'patients.actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of rows(); track p.id) {
+          <tr>
+            <td>{{ p.name }}</td>
+            <td>{{ p.surname }}</td>
+            <td>{{ p.socialSecurityNumber }}</td>
+            <td>{{ p.phone }}</td>
+            <td>{{ p.dateOfBirth }}</td>
+            <td>{{ eduKey(p.education) | translate }}</td>
+            <td class="actions">
+              <a routerLink="/patients/{{ p.id }}" class="link">{{ 'patients.view' | translate }}</a>
+              <a routerLink="/patients/{{ p.id }}/edit" class="link">{{ 'patients.edit' | translate }}</a>
+              <button type="button" class="link danger" (click)="delete(p.id, $event)">
+                {{ 'patients.delete' | translate }}
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7">{{ 'patients.empty' | translate }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

@@ -1,0 +1,60 @@
+<section class="page">
+  <div class="toolbar">
+    <h1>{{ titleKey() | translate }}</h1>
+    <a routerLink="/patients" class="btn ghost">{{ 'patients.back' | translate }}</a>
+  </div>
+
+  @if (submitErrorKey(); as errKey) {
+    <p class="error">{{ errKey | translate }}</p>
+  }
+
+  <form [formGroup]="form" class="card" (ngSubmit)="save()">
+    <label>
+      <span>{{ 'patients.name' | translate }}</span>
+      <input formControlName="name" autocomplete="given-name" />
+    </label>
+    <label>
+      <span>{{ 'patients.surname' | translate }}</span>
+      <input formControlName="surname" autocomplete="family-name" />
+    </label>
+    <label>
+      <span>{{ 'patients.ssn' | translate }}</span>
+      <input formControlName="socialSecurityNumber" autocomplete="off" />
+    </label>
+    <label class="full">
+      <span>{{ 'patients.address' | translate }}</span>
+      <input formControlName="address" autocomplete="street-address" />
+    </label>
+    <label>
+      <span>{{ 'patients.phone' | translate }}</span>
+      <input formControlName="phone" autocomplete="tel" />
+    </label>
+    <label>
+      <span>{{ 'patients.dateOfBirth' | translate }}</span>
+      <input type="date" formControlName="dateOfBirth" />
+    </label>
+    <label>
+      <span>{{ 'patients.gender' | translate }}</span>
+      <select formControlName="gender">
+        <option value="Male">{{ 'gender.male' | translate }}</option>
+        <option value="Female">{{ 'gender.female' | translate }}</option>
+        <option value="Other">{{ 'gender.other' | translate }}</option>
+      </select>
+    </label>
+    <label>
+      <span>{{ 'patients.education' | translate }}</span>
+      <select formControlName="education">
+        @for (e of educationLevels; track e) {
+          <option [ngValue]="e">{{ eduKey(e) | translate }}</option>
+        }
+      </select>
+    </label>
+
+    <div class="actions">
+      <button type="button" class="btn ghost" (click)="cancel()">{{ 'patients.cancel' | translate }}</button>
+      <button type="submit" class="btn primary" [disabled]="form.invalid">
+        {{ 'patients.save' | translate }}
+      </button>
+    </div>
+  </form>
+</section>

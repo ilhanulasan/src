@@ -1,0 +1,51 @@
+<section class="page">
+  @if (loading()) {
+    <p class="muted">{{ 'patients.loading' | translate }}</p>
+  } @else if (failed()) {
+    <p class="error">{{ 'patients.loadError' | translate }}</p>
+    <a routerLink="/patients" class="btn ghost">{{ 'patients.back' | translate }}</a>
+  } @else if (patient(); as p) {
+    <div class="toolbar">
+      <h1>{{ 'patients.detailTitle' | translate }}</h1>
+      <div class="toolbar-actions">
+        <a routerLink="/patients" class="btn ghost">{{ 'patients.back' | translate }}</a>
+        <a routerLink="/patients/{{ id }}/edit" class="btn primary">{{ 'patients.edit' | translate }}</a>
+      </div>
+    </div>
+
+    <dl class="detail">
+      <div>
+        <dt>{{ 'patients.name' | translate }}</dt>
+        <dd>{{ p.name }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'patients.surname' | translate }}</dt>
+        <dd>{{ p.surname }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'patients.ssn' | translate }}</dt>
+        <dd>{{ p.socialSecurityNumber }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'patients.address' | translate }}</dt>
+        <dd>{{ p.address }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'patients.phone' | translate }}</dt>
+        <dd>{{ p.phone }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'patients.dateOfBirth' | translate }}</dt>
+        <dd>{{ p.dateOfBirth }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'patients.gender' | translate }}</dt>
+        <dd>{{ genderKey(p.gender) | translate }}</dd>
+      </div>
+      <div>
+        <dt>{{ 'patients.education' | translate }}</dt>
+        <dd>{{ eduKey(p.education) | translate }}</dd>
+      </div>
+    </dl>
+  }
+</section>

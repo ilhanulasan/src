@@ -1,0 +1,18 @@
+<header class="topbar">
+  <div class="topbar-inner">
+    <strong class="title">{{ 'app.title' | translate }}</strong>
+    <nav class="nav">
+      <a routerLink="/patients">{{ 'nav.patients' | translate }}</a>
+      <label class="lang">
+        <span class="sr-only">Language</span>
+        <select (change)="onLangChange($event)" [attr.aria-label]="'Language'">
+          <option value="en" [selected]="translate.getCurrentLang() === 'en'">{{ 'lang.en' | translate }}</option>
+          <option value="tr" [selected]="translate.getCurrentLang() === 'tr'">{{ 'lang.tr' | translate }}</option>
+        </select>
+      </label>
+    </nav>
+  </div>
+</header>
+<main class="main">
+  <router-outlet />
+</main>
