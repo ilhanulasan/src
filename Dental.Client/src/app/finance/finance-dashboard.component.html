@@ -1,0 +1,75 @@
+<section class="page">
+  <div class="toolbar">
+    <h1>{{ 'finance.title' | translate }}</h1>
+  </div>
+
+  <h2>{{ 'finance.accounts' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'finance.accountName' | translate }}</th>
+        <th>{{ 'finance.accountType' | translate }}</th>
+        <th>{{ 'finance.balance' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (a of accounts(); track a.id) {
+        <tr>
+          <td>{{ a.name }}</td>
+          <td>{{ a.accountType }}</td>
+          <td>{{ a.balance | number: '1.2-2' }} {{ a.currency }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="3">{{ 'finance.emptyAccounts' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <h2>{{ 'finance.invoices' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'finance.invoiceNo' | translate }}</th>
+        <th>{{ 'finance.issueDate' | translate }}</th>
+        <th>{{ 'finance.total' | translate }}</th>
+        <th>{{ 'finance.paid' | translate }}</th>
+        <th>{{ 'clinical.status' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (i of invoices(); track i.id) {
+        <tr>
+          <td>{{ i.invoiceNumber }}</td>
+          <td>{{ i.issueDate }}</td>
+          <td>{{ i.totalAmount | number: '1.2-2' }}</td>
+          <td>{{ i.paidAmount | number: '1.2-2' }}</td>
+          <td>{{ i.status }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="5">{{ 'finance.emptyInvoices' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <h2>{{ 'finance.payments' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'finance.paidAt' | translate }}</th>
+        <th>{{ 'finance.amount' | translate }}</th>
+        <th>{{ 'finance.method' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of payments(); track p.id) {
+        <tr>
+          <td>{{ p.paidAt }}</td>
+          <td>{{ p.amount | number: '1.2-2' }}</td>
+          <td>{{ p.method }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="3">{{ 'finance.emptyPayments' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

@@ -1,0 +1,54 @@
+<section class="page">
+  <div class="toolbar">
+    <h1>{{ 'clinical.title' | translate }}</h1>
+    <a routerLink="/patients" class="btn ghost">{{ 'patients.title' | translate }}</a>
+  </div>
+
+  @if (loadFailed()) {
+    <p class="error">{{ 'common.loadError' | translate }}</p>
+  }
+
+  <h2>{{ 'clinical.examinations' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'clinical.examDate' | translate }}</th>
+        <th>{{ 'clinical.status' | translate }}</th>
+        <th>{{ 'clinical.complaint' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (e of examinations(); track e.id) {
+        <tr>
+          <td>{{ e.examinedAt }}</td>
+          <td>{{ e.status }}</td>
+          <td>{{ e.chiefComplaint }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="3">{{ 'clinical.emptyExams' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <h2>{{ 'clinical.treatmentPlans' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'clinical.planTitle' | translate }}</th>
+        <th>{{ 'clinical.status' | translate }}</th>
+        <th>{{ 'clinical.estimatedTotal' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of plans(); track p.id) {
+        <tr>
+          <td>{{ p.title }}</td>
+          <td>{{ p.status }}</td>
+          <td>{{ p.estimatedTotal | number: '1.2-2' }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="3">{{ 'clinical.emptyPlans' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

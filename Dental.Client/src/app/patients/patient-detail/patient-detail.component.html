@@ -14,39 +14,102 @@
       </div>
     </div>
 
-    <dl class="detail">
-      <div>
-        <dt>{{ 'patients.name' | translate }}</dt>
-        <dd>{{ p.name }}</dd>
-      </div>
-      <div>
-        <dt>{{ 'patients.surname' | translate }}</dt>
-        <dd>{{ p.surname }}</dd>
-      </div>
-      <div>
-        <dt>{{ 'patients.ssn' | translate }}</dt>
-        <dd>{{ p.socialSecurityNumber }}</dd>
-      </div>
-      <div>
-        <dt>{{ 'patients.address' | translate }}</dt>
-        <dd>{{ p.address }}</dd>
-      </div>
-      <div>
-        <dt>{{ 'patients.phone' | translate }}</dt>
-        <dd>{{ p.phone }}</dd>
-      </div>
-      <div>
-        <dt>{{ 'patients.dateOfBirth' | translate }}</dt>
-        <dd>{{ p.dateOfBirth }}</dd>
-      </div>
-      <div>
-        <dt>{{ 'patients.gender' | translate }}</dt>
-        <dd>{{ genderKey(p.gender) | translate }}</dd>
-      </div>
-      <div>
-        <dt>{{ 'patients.education' | translate }}</dt>
-        <dd>{{ eduKey(p.education) | translate }}</dd>
-      </div>
-    </dl>
+    <nav class="tabs">
+      <button type="button" [class.active]="activeTab() === 'overview'" (click)="setTab('overview')">
+        {{ 'patients.tabOverview' | translate }}
+      </button>
+      <button type="button" [class.active]="activeTab() === 'clinical'" (click)="setTab('clinical')">
+        {{ 'patients.tabClinical' | translate }}
+      </button>
+      <button type="button" [class.active]="activeTab() === 'documents'" (click)="setTab('documents')">
+        {{ 'patients.tabDocuments' | translate }}
+      </button>
+      <button type="button" [class.active]="activeTab() === 'kvkk'" (click)="setTab('kvkk')">
+        {{ 'patients.tabKvkk' | translate }}
+      </button>
+      <button type="button" [class.active]="activeTab() === 'finance'" (click)="setTab('finance')">
+        {{ 'patients.tabFinance' | translate }}
+      </button>
+    </nav>
+
+    @if (activeTab() === 'overview') {
+      <dl class="detail">
+        <div><dt>{{ 'patients.name' | translate }}</dt><dd>{{ p.name }}</dd></div>
+        <div><dt>{{ 'patients.surname' | translate }}</dt><dd>{{ p.surname }}</dd></div>
+        <div><dt>{{ 'patients.ssn' | translate }}</dt><dd>{{ p.socialSecurityNumber }}</dd></div>
+        <div><dt>{{ 'patients.email' | translate }}</dt><dd>{{ p.email }}</dd></div>
+        <div><dt>{{ 'patients.phone' | translate }}</dt><dd>{{ p.phone }}</dd></div>
+        <div><dt>{{ 'patients.bloodType' | translate }}</dt><dd>{{ p.bloodType }}</dd></div>
+        <div><dt>{{ 'patients.emergencyContact' | translate }}</dt><dd>{{ p.emergencyContactName }} — {{ p.emergencyContactPhone }}</dd></div>
+        <div><dt>{{ 'patients.clinicalSummary' | translate }}</dt><dd>{{ p.clinicalSummary }}</dd></div>
+      </dl>
+    }
+
+    @if (activeTab() === 'clinical') {
+      <h2>{{ 'patients.allergies' | translate }}</h2>
+      <ul class="list">
+        @for (a of allergies(); track a.id) {
+          <li><strong>{{ a.substance }}</strong> — {{ a.severity }} @if (!a.isActive) { ({{ 'patients.inactive' | translate }}) }</li>
+        } @empty {
+          <li class="muted">{{ 'patients.noAllergies' | translate }}</li>
+        }
+      </ul>
+
+      <h2>{{ 'patients.medicalHistory' | translate }}</h2>
+      <ul class="list">
+        @for (h of histories(); track h.id) {
+          <li><strong>{{ h.title }}</strong> — {{ h.description }}</li>
+        } @empty {
+          <li class="muted">{{ 'patients.noHistory' | translate }}</li>
+        }
+      </ul>
+
+      <h2>{{ 'patients.clinicalNotes' | translate }}</h2>
+      <ul class="list">
+        @for (n of notes(); track n.id) {
+          <li><strong>{{ n.title }}</strong><p>{{ n.content }}</p></li>
+        } @empty {
+          <li class="muted">{{ 'patients.noNotes' | translate }}</li>
+        }
+      </ul>
+    }
+
+    @if (activeTab() === 'documents') {
+      <p>
+        <label class="btn secondary">
+          {{ 'patients.uploadDocument' | translate }}
+          <input type="file" hidden (change)="onFileSelected($event)" />
+        </label>
+      </p>
+      <ul class="list">
+        @for (d of documents(); track d.id) {
+          <li>{{ d.fileName }} ({{ d.category }}) — {{ d.fileSizeBytes | number }} B</li>
+        } @empty {
+          <li class="muted">{{ 'patients.noDocuments' | translate }}</li>
+        }
+      </ul>
+    }
+
+    @if (activeTab() === 'kvkk') {
+      <p class="muted">{{ 'patients.kvkkHint' | translate }}</p>
+      <button type="button" class="btn primary" (click)="grantKvkk()">{{ 'patients.grantKvkk' | translate }}</button>
+      <ul class="list">
+        @for (c of consents(); track c.id) {
+          <li>{{ c.consentType }} — {{ c.isGranted ? ('patients.granted' | translate) : ('patients.denied' | translate) }} ({{ c.consentedAt }})</li>
+        } @empty {
+          <li class="muted">{{ 'patients.noKvkk' | translate }}</li>
+        }
+      </ul>
+    }
+
+    @if (activeTab() === 'finance') {
+      @if (balance(); as b) {
+        <dl class="detail">
+          <div><dt>{{ 'finance.totalCharges' | translate }}</dt><dd>{{ b.totalCharges | number: '1.2-2' }}</dd></div>
+          <div><dt>{{ 'finance.totalPayments' | translate }}</dt><dd>{{ b.totalPayments | number: '1.2-2' }}</dd></div>
+          <div><dt>{{ 'finance.balance' | translate }}</dt><dd>{{ b.balance | number: '1.2-2' }}</dd></div>
+        </dl>
+      }
+    }
   }
 </section>

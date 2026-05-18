@@ -36,13 +36,13 @@ export const routes: Routes = [
       {
         path: 'appointments',
         loadComponent: () =>
-          import('./sections/section-placeholder.component').then((m) => m.SectionPlaceholderComponent),
+          import('./appointments/appointment-list.component').then((m) => m.AppointmentListComponent),
         data: { titleKey: 'nav.appointments' },
       },
       {
         path: 'clinical',
         loadComponent: () =>
-          import('./sections/section-placeholder.component').then((m) => m.SectionPlaceholderComponent),
+          import('./clinical/clinical-workspace.component').then((m) => m.ClinicalWorkspaceComponent),
         data: { titleKey: 'nav.clinical' },
       },
       {
@@ -54,13 +54,13 @@ export const routes: Routes = [
       {
         path: 'finance',
         loadComponent: () =>
-          import('./sections/section-placeholder.component').then((m) => m.SectionPlaceholderComponent),
+          import('./finance/finance-dashboard.component').then((m) => m.FinanceDashboardComponent),
         data: { titleKey: 'nav.finance' },
       },
       {
         path: 'inventory',
         loadComponent: () =>
-          import('./sections/section-placeholder.component').then((m) => m.SectionPlaceholderComponent),
+          import('./inventory/inventory-dashboard.component').then((m) => m.InventoryDashboardComponent),
         data: { titleKey: 'nav.inventory' },
       },
       {

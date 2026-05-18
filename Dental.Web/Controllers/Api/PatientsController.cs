@@ -78,9 +78,16 @@ public class PatientsController(ApplicationDbContext db, ILogger<PatientsControl
         existing.SocialSecurityNumber = input.SocialSecurityNumber;
         existing.Address = input.Address;
         existing.Phone = input.Phone;
+        existing.Email = input.Email;
         existing.DateOfBirth = input.DateOfBirth;
         existing.Gender = input.Gender;
         existing.Education = input.Education;
+        existing.BloodType = input.BloodType;
+        existing.EmergencyContactName = input.EmergencyContactName;
+        existing.EmergencyContactPhone = input.EmergencyContactPhone;
+        existing.ClinicalSummary = input.ClinicalSummary;
+        existing.IsActive = input.IsActive;
+        existing.UpdatedAt = DateTimeOffset.UtcNow;
 
         try
         {

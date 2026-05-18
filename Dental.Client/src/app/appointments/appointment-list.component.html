@@ -1,0 +1,46 @@
+<section class="page">
+  @if (loadFailed()) {
+    <p class="error">{{ 'common.loadError' | translate }}</p>
+  }
+
+  <div class="toolbar">
+    <div>
+      <h1>{{ 'appointments.title' | translate }}</h1>
+      <p class="muted">{{ 'appointments.waitlistCount' | translate }}: {{ waitlistCount() }}</p>
+    </div>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'appointments.start' | translate }}</th>
+        <th>{{ 'appointments.end' | translate }}</th>
+        <th>{{ 'appointments.status' | translate }}</th>
+        <th>{{ 'appointments.resource' | translate }}</th>
+        <th>{{ 'patients.actions' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (a of rows(); track a.id) {
+        <tr>
+          <td>{{ a.startAt | date: 'short' }}</td>
+          <td>{{ a.endAt | date: 'short' }}</td>
+          <td>{{ a.status }}</td>
+          <td>{{ a.primaryResource?.name ?? a.primaryResourceId }}</td>
+          <td class="actions">
+            @if (a.status === 'Scheduled') {
+              <button type="button" class="link" (click)="confirm(a.id)">{{ 'appointments.confirm' | translate }}</button>
+            }
+            @if (a.status !== 'Cancelled' && a.status !== 'Completed') {
+              <button type="button" class="link danger" (click)="cancel(a.id)">{{ 'appointments.cancel' | translate }}</button>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr>
+          <td colspan="5">{{ 'appointments.empty' | translate }}</td>
+        </tr>
+      }
+    </tbody>
+  </table>
+</section>

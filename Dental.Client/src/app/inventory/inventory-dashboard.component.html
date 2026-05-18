@@ -1,0 +1,71 @@
+<section class="page">
+  <div class="toolbar">
+    <h1>{{ 'inventory.title' | translate }}</h1>
+  </div>
+
+  <h2>{{ 'inventory.expiryAlerts' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'inventory.product' | translate }}</th>
+        <th>{{ 'inventory.batch' | translate }}</th>
+        <th>{{ 'inventory.expiry' | translate }}</th>
+        <th>{{ 'inventory.qty' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (a of expiryAlerts(); track a.lotId) {
+        <tr [class.danger]="a.isExpired">
+          <td>{{ a.productName }}</td>
+          <td>{{ a.batchNumber }}</td>
+          <td>{{ a.expiryDate }}</td>
+          <td>{{ a.quantityOnHand }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="4">{{ 'inventory.noAlerts' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <h2>{{ 'inventory.suppliers' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'inventory.company' | translate }}</th>
+        <th>{{ 'patients.phone' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (s of suppliers(); track s.id) {
+        <tr>
+          <td>{{ s.companyName }}</td>
+          <td>{{ s.phone }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="2">{{ 'inventory.emptySuppliers' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+
+  <h2>{{ 'inventory.products' | translate }}</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ 'inventory.product' | translate }}</th>
+        <th>{{ 'inventory.barcode' | translate }}</th>
+        <th>{{ 'inventory.minStock' | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (p of products(); track p.id) {
+        <tr>
+          <td>{{ p.name }}</td>
+          <td>{{ p.barcode }}</td>
+          <td>{{ p.minimumStockLevel }}</td>
+        </tr>
+      } @empty {
+        <tr><td colspan="3">{{ 'inventory.emptyProducts' | translate }}</td></tr>
+      }
+    </tbody>
+  </table>
+</section>

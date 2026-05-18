@@ -67,6 +67,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddSingleton<IPatientDocumentStorageService, PatientDocumentStorageService>();
 
 builder.Services.Configure<OpenDentalOptions>(builder.Configuration.GetSection(OpenDentalOptions.SectionName));
 builder.Services.AddHttpClient<IOpenDentalApiClient, OpenDentalApiClient>((sp, client) =>

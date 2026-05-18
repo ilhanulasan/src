@@ -1,0 +1,10 @@
+@use '../patients/patient-list/patient-list.component.scss';
+
+h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1.1rem;
+}
+
+tr.danger td {
+  color: var(--color-danger, #c0392b);
+}
