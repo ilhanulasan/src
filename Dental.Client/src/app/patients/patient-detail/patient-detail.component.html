@@ -9,6 +9,7 @@
       <h1>{{ 'patients.detailTitle' | translate }}</h1>
       <div class="toolbar-actions">
         <a routerLink="/patients" class="btn ghost">{{ 'patients.back' | translate }}</a>
+        <a routerLink="/patients/{{ id }}/odontogram" class="btn secondary">{{ 'odontogram.openChart' | translate }}</a>
         <a routerLink="/patients/{{ id }}/edit" class="btn primary">{{ 'patients.edit' | translate }}</a>
       </div>
     </div>

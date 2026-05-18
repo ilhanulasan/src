@@ -20,6 +20,10 @@
         <span class="material-symbols-outlined" aria-hidden="true">group</span>
         <span>{{ 'nav.patients' | translate }}</span>
       </a>
+      <a routerLink="/integrations/opendental" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+        <span class="material-symbols-outlined" aria-hidden="true">hub</span>
+        <span>{{ 'nav.opendental' | translate }}</span>
+      </a>
       <a routerLink="/appointments" routerLinkActive="active" (click)="sidebarOpen.set(false)">
         <span class="material-symbols-outlined" aria-hidden="true">event</span>
         <span>{{ 'nav.appointments' | translate }}</span>

@@ -1,0 +1,290 @@
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 20px;
+  margin: 16px 0 8px;
+
+  &.ok {
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #c8e6c9;
+  }
+
+  &.err {
+    background: #ffebee;
+    color: #b71c1c;
+    border: 1px solid #ffcdd2;
+  }
+}
+
+.banner-dismiss {
+  flex-shrink: 0;
+}
+
+.muted-link {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.muted-link:hover {
+  text-decoration: underline;
+}
+
+.editor-page {
+  padding: 8px 0 40px;
+}
+
+.editor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.odontogram-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.odontogram-type-tag {
+  background: #edf4ff;
+  color: #1d4f91;
+  border: 1px solid #cfe0fb;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.editor-toolbar {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+}
+
+.tabs-navigation {
+  display: flex;
+  gap: 0;
+  border-bottom: 2px solid #e9edf4;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 3px solid transparent;
+  cursor: pointer;
+  font-weight: 600;
+  color: #666;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  margin-bottom: -2px;
+}
+
+.tab-button:hover {
+  color: #333;
+  background: #f9f9f9;
+}
+
+.tab-button.active {
+  color: #1d4f91;
+  border-bottom-color: #1d4f91;
+}
+
+.tools {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.tools button {
+  padding: 10px 20px;
+  border: 1px solid #ddd;
+  background: white;
+  border-left: 6px solid;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.tools button.active {
+  background: #f4f4f4;
+  border-color: #333;
+}
+
+.tools.treatments-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: fit-content;
+  align-items: flex-start;
+}
+
+.treatment-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.row-label {
+  font-weight: 600;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.treatment-btn {
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  background: white;
+  cursor: pointer;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 13px;
+  border-left: 6px solid;
+  transition: all 0.2s ease;
+}
+
+.treatment-btn.active {
+  background: #f4f4f4;
+  border-color: #333;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.delete-row {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #e9edf4;
+}
+
+.delete-btn {
+  padding: 10px 18px;
+  border: 2px solid #dc3545;
+  background: white;
+  color: #dc3545;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.delete-btn:hover {
+  background: #f8d7da;
+}
+
+.delete-btn.active {
+  background: #dc3545;
+  color: white;
+}
+
+.odontogram-visual {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 44px 34px;
+  background: white;
+  padding: 42px;
+  border-radius: 12px;
+  border: 1px solid #e9edf4;
+  overflow: hidden;
+}
+
+.quadrant {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quadrant h3 {
+  margin: 0 0 14px;
+  color: #3a7896;
+  font-size: 20px;
+  font-weight: 700;
+  text-align: center;
+  width: 100%;
+}
+
+.teeth-row {
+  display: flex;
+  gap: 2px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cross-line {
+  position: absolute;
+  background: #ff8a9c;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.cross-line.vertical {
+  width: 2px;
+  height: calc(100% - 64px);
+  left: 50%;
+  top: 32px;
+  transform: translateX(-50%);
+}
+
+.cross-line.horizontal {
+  height: 2px;
+  width: calc(100% - 64px);
+  top: 50%;
+  left: 32px;
+  transform: translateY(-50%);
+}
+
+.save-button {
+  background: #277339;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.muted {
+  color: #666;
+}
+
+@media (max-width: 1200px) {
+  .quadrant h3 {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 980px) {
+  .editor-header {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .odontogram-visual {
+    grid-template-columns: 1fr;
+    gap: 26px;
+    padding: 24px;
+  }
+
+  .cross-line {
+    display: none;
+  }
+}

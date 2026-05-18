@@ -1,0 +1,63 @@
+<div class="page">
+  <div class="toolbar">
+    <div>
+      <p class="eyebrow">{{ 'opendental.eyebrow' | translate }}</p>
+      <h1>{{ 'opendental.patientsTitle' | translate }}</h1>
+      <p class="hint">{{ 'opendental.hint' | translate }}</p>
+    </div>
+    <div class="toolbar-actions">
+      <button type="button" class="btn ghost" (click)="reload()" [disabled]="busy()">
+        {{ 'opendental.refresh' | translate }}
+      </button>
+    </div>
+  </div>
+
+  @if (loadFailed()) {
+    <p class="error">{{ 'opendental.loadError' | translate }}</p>
+  }
+
+  @if (!loadFailed() && !busy() && rows().length === 0) {
+    <p class="muted">{{ 'opendental.empty' | translate }}</p>
+  }
+
+  @if (rows().length > 0) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ 'opendental.colPatNum' | translate }}</th>
+          <th>{{ 'opendental.colName' | translate }}</th>
+          <th>{{ 'opendental.colPhone' | translate }}</th>
+          <th>{{ 'opendental.colBirth' | translate }}</th>
+          <th>{{ 'patients.actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of rows(); track $index) {
+          <tr>
+            <td>{{ p.PatNum }}</td>
+            <td>{{ p.FName }} {{ p.LName }}</td>
+            <td>{{ p.WirelessPhone || p.HmPhone || p.WkPhone || '—' }}</td>
+            <td>{{ p.Birthdate || '—' }}</td>
+            <td class="actions">
+              @if (p.PatNum != null) {
+                <a class="btn subtle" [routerLink]="['patient', p.PatNum]">{{ 'patients.view' | translate }}</a>
+              }
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+
+    @if (loadMoreAvailable()) {
+      <div class="more-row">
+        <button type="button" class="btn primary" (click)="loadMore()" [disabled]="busy()">
+          {{ 'opendental.loadMore' | translate }}
+        </button>
+      </div>
+    }
+  }
+
+  @if (busy() && rows().length === 0) {
+    <p class="muted">{{ 'patients.loading' | translate }}</p>
+  }
+</div>

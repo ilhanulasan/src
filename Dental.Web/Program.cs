@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using Dental.Web.Data;
 using Dental.Web.Models;
 using Dental.Web.Services;
+using Dental.Web.Services.OpenDental;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -66,6 +67,14 @@ builder.Services.ConfigureApplicationCookie(options =>
 });
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+builder.Services.Configure<OpenDentalOptions>(builder.Configuration.GetSection(OpenDentalOptions.SectionName));
+builder.Services.AddHttpClient<IOpenDentalApiClient, OpenDentalApiClient>((sp, client) =>
+{
+    var od = sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<OpenDentalOptions>>().Value;
+    client.BaseAddress = new Uri(od.BaseUrl.TrimEnd('/') + "/");
+    client.Timeout = TimeSpan.FromMinutes(2);
+});
 
 builder.Services
     .AddAuthentication(options =>

@@ -1,0 +1,174 @@
+@if (alert(); as a) {
+  <div class="banner" [class.ok]="a.level === 'ok'" [class.err]="a.level === 'err'" role="status">
+    <span>{{ a.key | translate }}</span>
+    <button type="button" class="banner-dismiss btn ghost" (click)="dismissAlert()">
+      {{ 'odontogram.dismiss' | translate }}
+    </button>
+  </div>
+}
+
+<div class="editor-page">
+  @if (chartBusy()) {
+    <p class="muted">{{ 'odontogram.loading' | translate }}</p>
+  }
+
+  @if (odontogram()) {
+    <header class="editor-header">
+      <div class="header-titles">
+        <a class="muted-link" [routerLink]="['/patients', patientRouteId()]">
+          ← {{ 'patients.back' | translate }}
+        </a>
+        <h2 class="odontogram-heading">
+          {{ 'odontogram.title' | translate }}
+          <span class="odontogram-type-tag">{{ odontogramType() === 'child' ? ('odontogram.child' | translate) : ('odontogram.adult' | translate) }}</span>
+        </h2>
+      </div>
+      <button class="save-button" type="button" (click)="save()" [disabled]="saveBusy()">
+        {{ saveBusy() ? ('odontogram.saving' | translate) : ('odontogram.save' | translate) }}
+      </button>
+    </header>
+
+    <div class="editor-toolbar">
+      <div class="tabs-navigation">
+        <button
+          type="button"
+          class="tab-button"
+          [class.active]="activeTab() === 'pathologies'"
+          (click)="onTabChange('pathologies')">
+          {{ 'odontogram.tabPathologies' | translate }}
+        </button>
+        <button
+          type="button"
+          class="tab-button"
+          [class.active]="activeTab() === 'treatments'"
+          (click)="onTabChange('treatments')">
+          {{ 'odontogram.tabTreatments' | translate }}
+        </button>
+      </div>
+
+      @if (activeTab() === 'pathologies') {
+        <div class="tools">
+          @for (p of pathologies(); track p.id) {
+            <button
+              type="button"
+              [class.active]="selectedPathology()?.id === p.id"
+              (click)="selectPathology(p)"
+              [style.border-left-color]="p.color"
+              [title]="pathologyLabel(p.id) | translate">
+              {{ pathologyLabel(p.id) | translate }}
+            </button>
+          }
+        </div>
+      }
+
+      @if (activeTab() === 'treatments') {
+        <div class="tools treatments-tools">
+          <div class="treatment-row">
+            <span class="row-label pending-label">{{ 'odontogram.pendingLabel' | translate }}</span>
+            @for (t of treatments(); track t.id) {
+              <button
+                type="button"
+                [class.active]="selectedTreatment()?.id === t.id && selectedTreatmentStatus() === 'pending'"
+                (click)="selectTreatment(t); selectedTreatmentStatus.set('pending')"
+                class="treatment-btn"
+                [style.border-left-color]="selectedTreatmentStatus() === 'pending' ? '#FF0000' : '#666'"
+                [title]="treatmentLabel(t.id) | translate">
+                {{ treatmentLabel(t.id) | translate }}
+              </button>
+            }
+          </div>
+
+          <div class="treatment-row">
+            <span class="row-label done-label">{{ 'odontogram.doneLabel' | translate }}</span>
+            @for (t of treatments(); track t.id) {
+              <button
+                type="button"
+                [class.active]="selectedTreatment()?.id === t.id && selectedTreatmentStatus() === 'done'"
+                (click)="selectTreatment(t); selectedTreatmentStatus.set('done')"
+                class="treatment-btn"
+                [style.border-left-color]="selectedTreatmentStatus() === 'done' ? '#0000FF' : '#666'"
+                [title]="treatmentLabel(t.id) | translate">
+                {{ treatmentLabel(t.id) | translate }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      <div class="delete-row">
+        <button type="button" [class.active]="isDeleteMode()" (click)="toggleDeleteMode()" class="delete-btn">
+          @if (activeTab() === 'pathologies') {
+            🗑️ {{ isDeleteMode() ? ('odontogram.deleteCancel' | translate) : ('odontogram.deletePathology' | translate) }}
+          } @else {
+            🗑️ {{ isDeleteMode() ? ('odontogram.deleteCancel' | translate) : ('odontogram.deleteTreatment' | translate) }}
+          }
+        </button>
+      </div>
+    </div>
+
+    <div class="odontogram-visual">
+      <div class="cross-line vertical"></div>
+      <div class="cross-line horizontal"></div>
+
+      <section class="quadrant top-right">
+        <h3>{{ 'odontogram.qUpperRight' | translate }}</h3>
+        <div class="teeth-row">
+          @for (n of upperRightTeeth(); track n) {
+            <app-tooth
+              [toothNumber]="n"
+              [appliedPathologies]="getPatosForTooth(n)"
+              [appliedTreatments]="getTreatmentsForTooth(n)"
+              [appliedBridges]="getBridgesForTooth(n)"
+              [activeTab]="activeTab()"
+              (onFaceClick)="handleFaceClick(n, $event)" />
+          }
+        </div>
+      </section>
+
+      <section class="quadrant top-left">
+        <h3>{{ 'odontogram.qUpperLeft' | translate }}</h3>
+        <div class="teeth-row">
+          @for (n of upperLeftTeeth(); track n) {
+            <app-tooth
+              [toothNumber]="n"
+              [appliedPathologies]="getPatosForTooth(n)"
+              [appliedTreatments]="getTreatmentsForTooth(n)"
+              [appliedBridges]="getBridgesForTooth(n)"
+              [activeTab]="activeTab()"
+              (onFaceClick)="handleFaceClick(n, $event)" />
+          }
+        </div>
+      </section>
+
+      <section class="quadrant bottom-right">
+        <h3>{{ 'odontogram.qLowerRight' | translate }}</h3>
+        <div class="teeth-row">
+          @for (n of lowerRightTeeth(); track n) {
+            <app-tooth
+              [toothNumber]="n"
+              [appliedPathologies]="getPatosForTooth(n)"
+              [appliedTreatments]="getTreatmentsForTooth(n)"
+              [appliedBridges]="getBridgesForTooth(n)"
+              [activeTab]="activeTab()"
+              (onFaceClick)="handleFaceClick(n, $event)" />
+          }
+        </div>
+      </section>
+
+      <section class="quadrant bottom-left">
+        <h3>{{ 'odontogram.qLowerLeft' | translate }}</h3>
+        <div class="teeth-row">
+          @for (n of lowerLeftTeeth(); track n) {
+            <app-tooth
+              [toothNumber]="n"
+              [appliedPathologies]="getPatosForTooth(n)"
+              [appliedTreatments]="getTreatmentsForTooth(n)"
+              [appliedBridges]="getBridgesForTooth(n)"
+              [activeTab]="activeTab()"
+              (onFaceClick)="handleFaceClick(n, $event)" />
+          }
+        </div>
+      </section>
+    </div>
+  }
+</div>

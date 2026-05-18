@@ -8,6 +8,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     : IdentityDbContext<ApplicationUser>(options)
 {
     public DbSet<Patient> Patients => Set<Patient>();
+    public DbSet<PatientOdontogram> PatientOdontograms => Set<PatientOdontogram>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -18,6 +19,16 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
             entity.ToTable("patients");
             entity.HasIndex(p => p.SocialSecurityNumber).IsUnique();
             entity.Property(p => p.Education).HasConversion<string>();
+        });
+
+        modelBuilder.Entity<PatientOdontogram>(entity =>
+        {
+            entity.ToTable("patient_odontograms");
+            entity.HasIndex(o => o.PatientId).IsUnique();
+            entity.HasOne(o => o.Patient)
+                .WithMany()
+                .HasForeignKey(o => o.PatientId)
+                .OnDelete(DeleteBehavior.Cascade);
         });
     }
 }

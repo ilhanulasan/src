@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Dental.Web.Data;
 using Dental.Web.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -107,5 +108,68 @@ public class PatientsController(ApplicationDbContext db, ILogger<PatientsControl
         await db.SaveChangesAsync(ct);
         log.LogInformation("Deleted patient {PatientId}", id);
         return NoContent();
+    }
+
+    [HttpGet("{id:guid}/odontogram")]
+    public async Task<ActionResult<OdontogramDocumentDto>> GetOdontogram(Guid id, CancellationToken ct)
+    {
+        var exists = await db.Patients.AsNoTracking().AnyAsync(p => p.Id == id, ct);
+        if (!exists)
+        {
+            return NotFound();
+        }
+
+        var entity = await db.PatientOdontograms.AsNoTracking().FirstOrDefaultAsync(o => o.PatientId == id, ct);
+        if (entity is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(OdontogramDocumentDto.FromEntity(entity));
+    }
+
+    [HttpPut("{id:guid}/odontogram")]
+    public async Task<ActionResult<OdontogramDocumentDto>> UpsertOdontogram(
+        Guid id,
+        [FromBody] OdontogramDocumentDto body,
+        CancellationToken ct)
+    {
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        var patientExists = await db.Patients.AnyAsync(p => p.Id == id, ct);
+        if (!patientExists)
+        {
+            return NotFound();
+        }
+
+        var snapshot = body.ToSnapshot();
+        var normalizedType = OdontogramDocumentDto.NormalizedChartType(body.Type);
+        var json = JsonSerializer.Serialize(snapshot, SerializationOptions.Json);
+
+        var entity = await db.PatientOdontograms.FirstOrDefaultAsync(o => o.PatientId == id, ct);
+        if (entity is null)
+        {
+            entity = new PatientOdontogram
+            {
+                Id = Guid.NewGuid(),
+                PatientId = id,
+                Type = normalizedType,
+                PayloadJson = json,
+            };
+
+            db.PatientOdontograms.Add(entity);
+        }
+        else
+        {
+            entity.Type = normalizedType;
+            entity.PayloadJson = json;
+        }
+
+        await db.SaveChangesAsync(ct);
+        log.LogInformation("Upserted odontogram for patient {PatientId}", id);
+        return Ok(OdontogramDocumentDto.FromEntity(entity));
     }
 }

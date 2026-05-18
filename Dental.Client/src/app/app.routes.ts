@@ -29,6 +29,11 @@ export const routes: Routes = [
         loadChildren: () => import('./patients/patients.routes').then((m) => m.patientRoutes),
       },
       {
+        path: 'integrations/opendental',
+        loadChildren: () =>
+          import('./integrations/opendental/opendental.routes').then((m) => m.openDentalRoutes),
+      },
+      {
         path: 'appointments',
         loadComponent: () =>
           import('./sections/section-placeholder.component').then((m) => m.SectionPlaceholderComponent),

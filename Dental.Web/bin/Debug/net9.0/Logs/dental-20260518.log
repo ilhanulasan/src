@@ -12,3 +12,85 @@
 2026-05-18 12:39:44.195 +03:00 [INF] Application started. Press Ctrl+C to shut down.
 2026-05-18 12:39:44.196 +03:00 [INF] Hosting environment: Development
 2026-05-18 12:39:44.196 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-18 14:30:11.108 +03:00 [INF] Dental.Web started
+2026-05-18 14:30:11.937 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-18 14:30:11.942 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-18 14:30:11.943 +03:00 [INF] Hosting environment: Development
+2026-05-18 14:30:11.946 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-18 22:51:12.658 +03:00 [INF] Dental.Web started
+2026-05-18 22:51:15.088 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-18 22:51:15.090 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-18 22:51:15.091 +03:00 [INF] Hosting environment: Development
+2026-05-18 22:51:15.091 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-18 22:51:30.496 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-18 22:51:30.619 +03:00 [INF] HTTP GET /api/patients responded 200 in 124.1140 ms
+2026-05-18 22:51:32.750 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:51:32.751 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:51:33.998 +03:00 [INF] Received HTTP response headers after 1244.4611ms - 200
+2026-05-18 22:51:34.005 +03:00 [INF] End processing HTTP request after 1256.615ms - 200
+2026-05-18 22:51:34.013 +03:00 [INF] HTTP GET /api/opendental/patients responded 200 in 1276.6102 ms
+2026-05-18 22:51:37.428 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients/11
+2026-05-18 22:51:37.429 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients/11
+2026-05-18 22:51:37.840 +03:00 [INF] Received HTTP response headers after 409.4284ms - 200
+2026-05-18 22:51:37.841 +03:00 [INF] End processing HTTP request after 414.0795ms - 200
+2026-05-18 22:51:37.842 +03:00 [INF] HTTP GET /api/opendental/patients/11 responded 200 in 429.7012 ms
+2026-05-18 22:51:40.038 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:51:40.039 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:51:41.206 +03:00 [INF] Received HTTP response headers after 1165.9983ms - 200
+2026-05-18 22:51:41.208 +03:00 [INF] End processing HTTP request after 1170.9395ms - 200
+2026-05-18 22:51:41.211 +03:00 [INF] HTTP GET /api/opendental/patients responded 200 in 1174.3054 ms
+2026-05-18 22:51:44.724 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:51:44.725 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:51:45.046 +03:00 [INF] Received HTTP response headers after 320.1213ms - 200
+2026-05-18 22:51:45.048 +03:00 [INF] End processing HTTP request after 323.7565ms - 200
+2026-05-18 22:51:45.049 +03:00 [INF] HTTP GET /api/opendental/patients responded 200 in 325.9245 ms
+2026-05-18 22:51:55.650 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients/11
+2026-05-18 22:51:55.651 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients/11
+2026-05-18 22:51:56.520 +03:00 [INF] Received HTTP response headers after 867.48ms - 200
+2026-05-18 22:51:56.522 +03:00 [INF] End processing HTTP request after 871.6404ms - 200
+2026-05-18 22:51:56.524 +03:00 [INF] HTTP GET /api/opendental/patients/11 responded 200 in 874.5204 ms
+2026-05-18 22:52:06.221 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:52:06.222 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 22:52:06.649 +03:00 [INF] Received HTTP response headers after 426.1798ms - 200
+2026-05-18 22:52:06.652 +03:00 [INF] End processing HTTP request after 431.0515ms - 200
+2026-05-18 22:52:06.653 +03:00 [INF] HTTP GET /api/opendental/patients responded 200 in 433.6194 ms
+2026-05-18 22:52:19.267 +03:00 [INF] HTTP GET /api/patients responded 200 in 30.5708 ms
+2026-05-18 23:05:09.694 +03:00 [INF] Dental.Web started
+2026-05-18 23:05:10.571 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-18 23:05:10.573 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-18 23:05:10.573 +03:00 [INF] Hosting environment: Development
+2026-05-18 23:05:10.573 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-18 23:05:16.302 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-18 23:05:16.393 +03:00 [INF] HTTP GET /api/patients responded 200 in 91.7930 ms
+2026-05-18 23:05:36.893 +03:00 [INF] HTTP GET /api/patients responded 200 in 31.8199 ms
+2026-05-18 23:05:39.785 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 23:05:39.787 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 23:05:40.668 +03:00 [INF] Received HTTP response headers after 876.6924ms - 200
+2026-05-18 23:05:40.674 +03:00 [INF] End processing HTTP request after 890.1259ms - 200
+2026-05-18 23:05:40.679 +03:00 [INF] HTTP GET /api/opendental/patients responded 200 in 906.1401 ms
+2026-05-18 23:06:21.218 +03:00 [INF] HTTP GET /api/patients responded 200 in 1.9559 ms
+2026-05-18 23:06:26.304 +03:00 [INF] HTTP GET /api/patients responded 200 in 1.9974 ms
+2026-05-18 23:06:28.000 +03:00 [INF] Start processing HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 23:06:28.000 +03:00 [INF] Sending HTTP request GET https://api.opendental.com/api/v1/patients?*
+2026-05-18 23:06:29.028 +03:00 [INF] Received HTTP response headers after 1026.9241ms - 200
+2026-05-18 23:06:29.029 +03:00 [INF] End processing HTTP request after 1029.5731ms - 200
+2026-05-18 23:06:29.031 +03:00 [INF] HTTP GET /api/opendental/patients responded 200 in 1032.5972 ms
+2026-05-18 23:06:57.913 +03:00 [INF] HTTP GET /api/patients responded 200 in 1.7769 ms
+2026-05-18 23:07:00.739 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc responded 200 in 9.6732 ms
+2026-05-18 23:07:02.489 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/odontogram responded 404 in 26.9038 ms
+2026-05-18 23:07:02.494 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc responded 200 in 1.1867 ms
+2026-05-18 23:07:47.983 +03:00 [INF] HTTP GET /api/patients responded 200 in 1.6513 ms
+2026-05-18 23:07:52.099 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc responded 200 in 1.4967 ms
+2026-05-18 23:07:53.753 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/odontogram responded 404 in 2.2761 ms
+2026-05-18 23:07:53.758 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc responded 200 in 1.1987 ms
+2026-05-18 23:08:04.517 +03:00 [INF] HTTP GET /api/patients responded 200 in 1.8894 ms
+2026-05-18 23:08:26.955 +03:00 [INF] Created patient "2ad5d450-0321-438e-939b-4a3b0556591d"
+2026-05-18 23:08:26.967 +03:00 [INF] HTTP POST /api/patients responded 201 in 78.0174 ms
+2026-05-18 23:08:26.977 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d responded 200 in 1.7221 ms
+2026-05-18 23:08:30.424 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d/odontogram responded 404 in 2.1492 ms
+2026-05-18 23:08:30.437 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d responded 200 in 1.2545 ms
+2026-05-18 23:08:56.772 +03:00 [INF] Upserted odontogram for patient "2ad5d450-0321-438e-939b-4a3b0556591d"
+2026-05-18 23:08:56.777 +03:00 [INF] HTTP PUT /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d/odontogram responded 200 in 39.9348 ms
+2026-05-18 23:08:59.100 +03:00 [INF] HTTP GET /api/patients responded 200 in 1.7983 ms
+2026-05-18 23:09:01.246 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d responded 200 in 1.5664 ms
+2026-05-18 23:09:02.483 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d/odontogram responded 200 in 1.7756 ms

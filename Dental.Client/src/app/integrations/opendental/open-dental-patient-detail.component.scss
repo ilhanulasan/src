@@ -1,0 +1,69 @@
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-fg, #64748b);
+  margin: 0 0 0.35rem;
+}
+
+h1 {
+  font-size: 1.35rem;
+  margin: 0 0 1.25rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(8rem, 32%) 1fr;
+  gap: 0.65rem 1rem;
+  margin: 0 0 1.5rem;
+  padding: 1rem;
+  background: var(--surface, #fff);
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgb(15 23 42 / 8%);
+}
+
+dt {
+  margin: 0;
+  font-weight: 600;
+  color: var(--muted-fg, #64748b);
+}
+
+dd {
+  margin: 0;
+}
+
+.multiline {
+  white-space: pre-wrap;
+}
+
+.actions {
+  margin: 0;
+}
+
+.btn {
+  display: inline-block;
+  border-radius: 6px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.9rem;
+  border: 1px solid var(--border, #e2e8f0);
+  text-decoration: none;
+  color: inherit;
+}
+
+.btn.ghost:hover {
+  border-color: var(--admin-accent-strong, #0277bd);
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.muted {
+  color: var(--muted-fg, #64748b);
+}

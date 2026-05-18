@@ -1,0 +1,222 @@
+<div class="tooth-container">
+  <span class="tooth-label">{{ toothNumber() }}</span>
+
+  @if (activeTab() === 'treatments') {
+    <div class="tooth-overlay-wrapper">
+      <svg
+        width="45"
+        height="45"
+        viewBox="0 0 45 45"
+        xmlns="http://www.w3.org/2000/svg"
+        class="tooth-base">
+        <polygon
+          points="0,0 45,0 35,10 10,10"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(1)" />
+        <polygon
+          points="45,0 45,45 35,35 35,10"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(4)" />
+        <polygon
+          points="0,45 45,45 35,35 10,35"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(2)" />
+        <polygon
+          points="0,0 0,45 10,35 10,10"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(3)" />
+        <rect
+          x="10"
+          y="10"
+          width="25"
+          height="25"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(5)" />
+      </svg>
+
+      @for (treatment of appliedTreatments(); track treatment.treatment.id) {
+        @let color = treatment.status === 'pending' ? '#FF0000' : '#0000FF';
+        @let isWholeTooth = treatment.toothFace === 0;
+        @if (treatment.treatment.kind === 'crown' && isWholeTooth) {
+          <div
+            class="treatment-crown-overlay"
+            [style.background-color]="color"
+            (click)="onFaceClick.emit(0)"
+            [title]="treatment.status">
+          </div>
+        } @else if (treatment.treatment.kind === 'endo') {
+          <svg
+            width="45"
+            height="45"
+            viewBox="0 0 45 45"
+            xmlns="http://www.w3.org/2000/svg"
+            class="treatment-overlay-svg">
+            <text
+              x="22.5"
+              y="26"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-size="24"
+              font-weight="bold"
+              [attr.fill]="color"
+              (click)="onFaceClick.emit(treatment.toothFace)">
+              E
+            </text>
+          </svg>
+        } @else if (treatment.treatment.kind === 'extraction') {
+          <svg
+            width="45"
+            height="45"
+            viewBox="0 0 45 45"
+            xmlns="http://www.w3.org/2000/svg"
+            class="treatment-overlay-svg">
+            <text
+              x="22.5"
+              y="26"
+              text-anchor="middle"
+              dominant-baseline="middle"
+              font-size="28"
+              font-weight="bold"
+              [attr.fill]="color"
+              (click)="onFaceClick.emit(treatment.toothFace)">
+              ✕
+            </text>
+          </svg>
+        }
+      }
+
+      @for (bridge of getBridgesIncludingTooth(); track bridge.treatment.id) {
+        @let color = bridge.status === 'pending' ? '#FF0000' : '#0000FF';
+        @if (isLeftPillarTooth()) {
+          <div
+            class="bridge-circle bridge-pilar-left"
+            [style.border-color]="color"
+            (click)="onFaceClick.emit(0)"
+            [title]="bridge.status"></div>
+        }
+        @if (isIntermediateTooth()) {
+          <div
+            class="bridge-line"
+            [style.background-color]="color"
+            (click)="onFaceClick.emit(0)"
+            [title]="bridge.status"></div>
+        }
+        @if (isRightPillarTooth()) {
+          <div
+            class="bridge-circle bridge-pilar-right"
+            [style.border-color]="color"
+            (click)="onFaceClick.emit(0)"
+            [title]="bridge.status"></div>
+        }
+      }
+    </div>
+  } @else if (hasPathologyId4()) {
+    <div class="tooth-overlay-wrapper">
+      <svg
+        width="45"
+        height="45"
+        viewBox="0 0 45 45"
+        xmlns="http://www.w3.org/2000/svg"
+        class="tooth-base">
+        <polygon
+          points="0,0 45,0 35,10 10,10"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(1)" />
+        <polygon
+          points="45,0 45,45 35,35 35,10"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(4)" />
+        <polygon
+          points="0,45 45,45 35,35 10,35"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(2)" />
+        <polygon
+          points="0,0 0,45 10,35 10,10"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(3)" />
+        <rect
+          x="10"
+          y="10"
+          width="25"
+          height="25"
+          fill="#ffffff"
+          stroke="#333"
+          stroke-width="1"
+          (click)="onFaceClick.emit(5)" />
+      </svg>
+
+      <svg
+        width="45"
+        height="45"
+        viewBox="0 0 45 45"
+        xmlns="http://www.w3.org/2000/svg"
+        class="treatment-overlay-svg">
+        <text
+          x="22.5"
+          y="26"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          font-size="28"
+          font-weight="bold"
+          fill="#333"
+          (click)="onFaceClick.emit(0)">
+          X
+        </text>
+      </svg>
+    </div>
+  } @else {
+    <svg width="45" height="45" viewBox="0 0 45 45" xmlns="http://www.w3.org/2000/svg">
+      <polygon
+        points="0,0 45,0 35,10 10,10"
+        [attr.fill]="getFaceColor(1)"
+        stroke="#333"
+        stroke-width="1"
+        (click)="onFaceClick.emit(1)" />
+      <polygon
+        points="45,0 45,45 35,35 35,10"
+        [attr.fill]="getFaceColor(4)"
+        stroke="#333"
+        stroke-width="1"
+        (click)="onFaceClick.emit(4)" />
+      <polygon
+        points="0,45 45,45 35,35 10,35"
+        [attr.fill]="getFaceColor(2)"
+        stroke="#333"
+        stroke-width="1"
+        (click)="onFaceClick.emit(2)" />
+      <polygon
+        points="0,0 0,45 10,35 10,10"
+        [attr.fill]="getFaceColor(3)"
+        stroke="#333"
+        stroke-width="1"
+        (click)="onFaceClick.emit(3)" />
+      <rect
+        x="10"
+        y="10"
+        width="25"
+        height="25"
+        [attr.fill]="getFaceColor(5)"
+        stroke="#333"
+        stroke-width="1"
+        (click)="onFaceClick.emit(5)" />
+    </svg>
+  }
+</div>

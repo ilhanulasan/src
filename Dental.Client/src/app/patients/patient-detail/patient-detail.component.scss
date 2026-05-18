@@ -59,6 +59,16 @@ h1 {
   color: inherit;
 }
 
+.btn.secondary {
+  border-color: var(--accent, #0f766e);
+  color: var(--accent, #0f766e);
+  background: transparent;
+}
+
+.btn.secondary:hover {
+  background: color-mix(in srgb, var(--accent, #0f766e) 8%, transparent);
+}
+
 .muted {
   color: #64748b;
 }
