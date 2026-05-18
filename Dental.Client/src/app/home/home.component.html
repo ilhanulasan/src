@@ -1,0 +1,72 @@
+<section class="hero">
+  <div class="hero-copy">
+    <p class="eyebrow">
+      <app-tooth-icon />
+      {{ 'home.eyebrow' | translate }}
+    </p>
+    <h1>{{ 'home.title' | translate }}</h1>
+    <p class="lead">{{ 'home.lead' | translate }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" routerLink="/patients">
+        <app-tooth-icon />
+        {{ 'home.ctaPatients' | translate }}
+      </a>
+      <a class="btn btn-outline" routerLink="/appointments">
+        <app-tooth-icon />
+        {{ 'home.ctaAppointments' | translate }}
+      </a>
+      <a class="btn btn-ghost" routerLink="/clinical">
+        <app-tooth-icon />
+        {{ 'home.ctaClinical' | translate }}
+      </a>
+    </div>
+    <ul class="role-strip" [attr.aria-label]="'home.rolesLabel' | translate">
+      <li>Admin</li>
+      <li>Patient</li>
+      <li>Doctor</li>
+      <li>Nurse</li>
+      <li>Technician</li>
+      <li>Finance</li>
+    </ul>
+  </div>
+  <div class="hero-visual">
+    <img [src]="heroImageUrl" alt="" decoding="async" loading="eager" />
+    <div class="hero-frame" aria-hidden="true"></div>
+  </div>
+</section>
+
+<section class="panels">
+  <article class="panel">
+    <h2>
+      <app-tooth-icon />
+      {{ 'home.panelOpsTitle' | translate }}
+    </h2>
+    <p>{{ 'home.panelOpsBody' | translate }}</p>
+    <a routerLink="/inventory">
+      <app-tooth-icon />
+      {{ 'home.panelOpsLink' | translate }}
+    </a>
+  </article>
+  <article class="panel">
+    <h2>
+      <app-tooth-icon />
+      {{ 'home.panelCareTitle' | translate }}
+    </h2>
+    <p>{{ 'home.panelCareBody' | translate }}</p>
+    <a routerLink="/reports">
+      <app-tooth-icon />
+      {{ 'home.panelCareLink' | translate }}
+    </a>
+  </article>
+  <article class="panel">
+    <h2>
+      <app-tooth-icon />
+      {{ 'home.panelFinanceTitle' | translate }}
+    </h2>
+    <p>{{ 'home.panelFinanceBody' | translate }}</p>
+    <a routerLink="/finance">
+      <app-tooth-icon />
+      {{ 'home.panelFinanceLink' | translate }}
+    </a>
+  </article>
+</section>

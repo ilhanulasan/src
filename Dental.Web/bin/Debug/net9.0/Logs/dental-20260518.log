@@ -1,0 +1,14 @@
+2026-05-18 07:41:13.595 +03:00 [INF] HTTP GET /api/patients responded 200 in 47.9165 ms
+2026-05-18 12:23:22.655 +03:00 [INF] Dental.Web started
+2026-05-18 12:23:24.564 +03:00 [INF] Now listening on: http://localhost:5011
+2026-05-18 12:23:24.566 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-18 12:23:24.567 +03:00 [INF] Hosting environment: Development
+2026-05-18 12:23:24.567 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-18 12:32:56.777 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-18 12:32:57.137 +03:00 [INF] HTTP GET /api/patients responded 200 in 359.9064 ms
+2026-05-18 12:34:08.524 +03:00 [INF] HTTP GET /api/patients responded 200 in 31.9789 ms
+2026-05-18 12:39:43.432 +03:00 [INF] Dental.Web started
+2026-05-18 12:39:44.193 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-18 12:39:44.195 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-18 12:39:44.196 +03:00 [INF] Hosting environment: Development
+2026-05-18 12:39:44.196 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web

@@ -19,3 +19,4 @@
 2026-05-17 10:18:27.067 +03:00 [INF] HTTP POST /api/patients responded 201 in 380.2213 ms
 2026-05-17 10:18:27.494 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc responded 200 in 390.5158 ms
 2026-05-17 10:18:35.569 +03:00 [INF] HTTP GET /api/patients responded 200 in 43.4181 ms
+2026-05-17 16:42:18.264 +03:00 [INF] HTTP GET /api/patients responded 200 in 78.9606 ms

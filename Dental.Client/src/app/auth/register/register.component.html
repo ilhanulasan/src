@@ -1,0 +1,80 @@
+<section class="auth-card">
+  <div class="auth-head">
+    <p class="eyebrow">
+      <app-tooth-icon />
+      {{ 'auth.registerEyebrow' | translate }}
+    </p>
+    <h1>{{ 'auth.registerTitle' | translate }}</h1>
+    <p class="sub">{{ 'auth.registerSubtitle' | translate }}</p>
+    <p class="badge">
+      <app-tooth-icon />
+      {{ 'auth.defaultPatientRole' | translate }}
+    </p>
+  </div>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    @if (serverError(); as errKey) {
+      <div class="alert" role="alert">{{ errKey | translate }}</div>
+    }
+
+    @if (form.errors?.['mismatch'] && (form.touched || form.dirty)) {
+      <div class="alert" role="alert">{{ 'auth.passwordMismatch' | translate }}</div>
+    }
+
+    <div class="grid2">
+      <label class="field">
+        <span>{{ 'auth.firstName' | translate }} *</span>
+        <input type="text" autocomplete="given-name" formControlName="firstName" />
+      </label>
+      <label class="field">
+        <span>{{ 'auth.lastName' | translate }} *</span>
+        <input type="text" autocomplete="family-name" formControlName="lastName" />
+      </label>
+    </div>
+
+    <label class="field">
+      <span>{{ 'auth.email' | translate }} *</span>
+      <input type="email" autocomplete="email" formControlName="email" />
+    </label>
+
+    <label class="field">
+      <span>{{ 'auth.phone' | translate }} *</span>
+      <input type="tel" autocomplete="tel" formControlName="phoneNumber" />
+    </label>
+
+    <label class="field">
+      <span>{{ 'auth.address' | translate }}</span>
+      <textarea rows="3" formControlName="address"></textarea>
+    </label>
+
+    <label class="field">
+      <span>{{ 'auth.pictureUrl' | translate }}</span>
+      <input type="url" formControlName="pictureUrl" [placeholder]="heroExampleUrl" />
+      <small class="hint">{{ 'auth.pictureHint' | translate }}</small>
+    </label>
+
+    <div class="grid2">
+      <label class="field">
+        <span>{{ 'auth.password' | translate }} *</span>
+        <input type="password" autocomplete="new-password" formControlName="password" />
+      </label>
+      <label class="field">
+        <span>{{ 'auth.confirmPassword' | translate }} *</span>
+        <input
+          type="password"
+          autocomplete="new-password"
+          formControlName="confirmPassword" />
+      </label>
+    </div>
+
+    <button class="submit" type="submit" [disabled]="submitting()">
+      <app-tooth-icon />
+      {{ 'auth.registerCta' | translate }}
+    </button>
+
+    <p class="switch">
+      {{ 'auth.haveAccount' | translate }}
+      <a routerLink="/login">{{ 'auth.goLogin' | translate }}</a>
+    </p>
+  </form>
+</section>

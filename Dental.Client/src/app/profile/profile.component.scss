@@ -1,0 +1,131 @@
+:host {
+  display: block;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2.25rem 1rem 3rem;
+}
+
+.head h1 {
+  margin: 0.35rem 0 0.45rem;
+  color: var(--color-navy, #0d324d);
+}
+
+.sub {
+  margin: 0;
+  color: color-mix(in srgb, var(--color-ink, #020202) 68%, transparent);
+}
+
+.eyebrow {
+  display: inline-flex;
+  gap: 0.45rem;
+  align-items: center;
+  margin: 0;
+  font-weight: 750;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--color-mauve-dark, #7f5a83);
+}
+
+.card {
+  margin-top: 1.25rem;
+  border-radius: 20px;
+  border: 1px solid color-mix(in srgb, var(--color-navy, #0d324d) 16%, transparent);
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, #fff 92%, var(--color-mauve, #a188a6)),
+    color-mix(in srgb, #fff 94%, var(--color-mist, #9da2ab))
+  );
+  padding: 1.35rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 1rem;
+  align-items: center;
+}
+
+.avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 22px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--color-navy, #0d324d) 18%, transparent);
+  background: color-mix(in srgb, #fff 84%, var(--color-mauve, #a188a6));
+  display: grid;
+  place-items: center;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.initials {
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  color: var(--color-navy, #0d324d);
+}
+
+.name {
+  font-size: 1.35rem;
+  font-weight: 850;
+  color: var(--color-navy, #0d324d);
+}
+
+.meta {
+  margin-top: 0.25rem;
+  color: color-mix(in srgb, var(--color-ink, #020202) 72%, transparent);
+}
+
+.address {
+  white-space: pre-wrap;
+}
+
+.roles {
+  margin-top: 1.1rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid color-mix(in srgb, var(--color-mist, #9da2ab) 70%, transparent);
+}
+
+.roles h2 {
+  margin: 0 0 0.55rem;
+  font-size: 1rem;
+  color: var(--color-navy, #0d324d);
+}
+
+.roles ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.roles li {
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--color-mauve-dark, #7f5a83) 42%, transparent);
+  background: color-mix(in srgb, #fff 88%, var(--color-mauve, #a188a6));
+  font-weight: 800;
+  color: var(--color-navy, #0d324d);
+}
+
+.back {
+  margin-top: 1.15rem;
+  display: inline-flex;
+  gap: 0.45rem;
+  align-items: center;
+  font-weight: 850;
+  color: var(--color-mauve-dark, #7f5a83);
+  text-decoration: none;
+}
+
+.empty {
+  margin-top: 1rem;
+  color: color-mix(in srgb, var(--color-ink, #020202) 72%, transparent);
+}

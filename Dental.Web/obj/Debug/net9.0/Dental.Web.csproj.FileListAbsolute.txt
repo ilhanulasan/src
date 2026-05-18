@@ -203,3 +203,17 @@ C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\obj\Debug\net9.0\refint
 C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\obj\Debug\net9.0\Dental.Web.pdb
 C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\obj\Debug\net9.0\Dental.Web.genruntimeconfig.cache
 C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\obj\Debug\net9.0\ref\Dental.Web.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.Extensions.Identity.Core.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.Extensions.Identity.Stores.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
+c:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\obj\Debug\net9.0\Dental.Web.sourcelink.json

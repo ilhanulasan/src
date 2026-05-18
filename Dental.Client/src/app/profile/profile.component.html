@@ -1,0 +1,50 @@
+<section class="profile">
+  <div class="head">
+    <p class="eyebrow">
+      <app-tooth-icon />
+      {{ 'profile.eyebrow' | translate }}
+    </p>
+    <h1>{{ 'profile.title' | translate }}</h1>
+    <p class="sub">{{ 'profile.subtitle' | translate }}</p>
+  </div>
+
+  @if (user(); as u) {
+    <div class="card">
+      <div class="row">
+        <div class="avatar">
+          @if (u.pictureUrl) {
+            <img [src]="u.pictureUrl" alt="" />
+          } @else {
+            <span class="initials">{{ u.firstName.charAt(0) }}{{ u.lastName.charAt(0) }}</span>
+          }
+        </div>
+        <div class="identity">
+          <div class="name">{{ u.firstName }} {{ u.lastName }}</div>
+          <div class="meta">{{ u.email }}</div>
+          @if (u.phoneNumber) {
+            <div class="meta">{{ u.phoneNumber }}</div>
+          }
+          @if (u.address) {
+            <div class="meta address">{{ u.address }}</div>
+          }
+        </div>
+      </div>
+
+      <div class="roles">
+        <h2>{{ 'profile.rolesTitle' | translate }}</h2>
+        <ul>
+          @for (role of u.roles; track role) {
+            <li>{{ role }}</li>
+          }
+        </ul>
+      </div>
+
+      <a class="back" routerLink="/">
+        <app-tooth-icon />
+        {{ 'profile.backHome' | translate }}
+      </a>
+    </div>
+  } @else {
+    <p class="empty">{{ 'profile.missing' | translate }}</p>
+  }
+</section>

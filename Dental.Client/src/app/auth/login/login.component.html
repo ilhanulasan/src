@@ -1,0 +1,36 @@
+<section class="auth-card">
+  <div class="auth-head">
+    <p class="eyebrow">
+      <app-tooth-icon />
+      {{ 'auth.loginEyebrow' | translate }}
+    </p>
+    <h1>{{ 'auth.loginTitle' | translate }}</h1>
+    <p class="sub">{{ 'auth.loginSubtitle' | translate }}</p>
+  </div>
+
+  <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    @if (error(); as errKey) {
+      <div class="alert" role="alert">{{ errKey | translate }}</div>
+    }
+
+    <label class="field">
+      <span>{{ 'auth.email' | translate }}</span>
+      <input type="email" autocomplete="email" formControlName="email" />
+    </label>
+
+    <label class="field">
+      <span>{{ 'auth.password' | translate }}</span>
+      <input type="password" autocomplete="current-password" formControlName="password" />
+    </label>
+
+    <button class="submit" type="submit" [disabled]="submitting()">
+      <app-tooth-icon />
+      {{ 'auth.loginCta' | translate }}
+    </button>
+
+    <p class="switch">
+      {{ 'auth.needAccount' | translate }}
+      <a routerLink="/register">{{ 'auth.goRegister' | translate }}</a>
+    </p>
+  </form>
+</section>

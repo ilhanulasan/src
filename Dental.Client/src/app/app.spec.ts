@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import {
   provideTranslateLoader,
@@ -14,6 +15,7 @@ describe('App', () => {
       imports: [App],
       providers: [
         provideRouter([]),
+        provideHttpClient(),
         ...provideTranslateService({
           fallbackLang: 'en',
           lang: 'en',
