@@ -1,20 +1,15 @@
 import { afterNextRender, Component, inject } from '@angular/core';
-import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-
-import { AuthService } from './core/auth.service';
-import { ToothIconComponent } from './shared/tooth-icon.component';
+import { RouterOutlet } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, RouterLink, RouterLinkActive, TranslatePipe, ToothIconComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  readonly translate = inject(TranslateService);
-  readonly auth = inject(AuthService);
-  private readonly router = inject(Router);
+  private readonly translate = inject(TranslateService);
 
   constructor() {
     afterNextRender(() => {
@@ -27,37 +22,5 @@ export class App {
         void this.translate.use(saved);
       }
     });
-  }
-
-  initials(): string {
-    const u = this.auth.user();
-    if (!u) {
-      return '';
-    }
-
-    const a = u.firstName?.charAt(0) ?? '';
-    const b = u.lastName?.charAt(0) ?? '';
-    return `${a}${b}`.toUpperCase();
-  }
-
-  logout(): void {
-    this.auth.logout();
-    void this.router.navigateByUrl('/');
-  }
-
-  closeUserMenu(details: HTMLDetailsElement): void {
-    details.open = false;
-  }
-
-  onLangChange(event: Event): void {
-    const value = (event.target as HTMLSelectElement).value;
-    if (value !== 'en' && value !== 'tr') {
-      return;
-    }
-
-    void this.translate.use(value);
-    if (typeof localStorage !== 'undefined') {
-      localStorage.setItem('dental-lang', value);
-    }
   }
 }

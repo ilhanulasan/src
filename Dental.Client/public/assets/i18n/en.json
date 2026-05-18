@@ -1,5 +1,8 @@
 {
   "app.title": "Dental Management System",
+  "layout.dashboardKicker": "Dashboard",
+  "layout.sidebarHint": "Admin-style shell for faster navigation across modules.",
+  "layout.closeMenu": "Close menu",
   "nav.primary": "Primary navigation",
   "nav.home": "Home",
   "nav.profile": "Profile",

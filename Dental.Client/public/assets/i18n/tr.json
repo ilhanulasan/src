@@ -1,5 +1,8 @@
 {
   "app.title": "Diş Yönetim Sistemi",
+  "layout.dashboardKicker": "Panel",
+  "layout.sidebarHint": "Modüller arasında hızlı gezinme için yönetici tarzı düzen.",
+  "layout.closeMenu": "Menüyü kapat",
   "nav.primary": "Ana gezinme",
   "nav.home": "Ana sayfa",
   "nav.profile": "Profil",

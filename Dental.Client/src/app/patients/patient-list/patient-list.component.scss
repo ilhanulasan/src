@@ -55,14 +55,15 @@ td {
 }
 
 .btn.primary {
-  background: var(--accent, #0f766e);
+  background: var(--admin-accent, #03a9f4);
   color: #fff;
+  border-color: var(--admin-accent-strong, #0277bd);
 }
 
 .link {
   border: none;
   background: none;
-  color: var(--accent, #0f766e);
+  color: var(--admin-accent-strong, #0277bd);
   cursor: pointer;
   padding: 0;
   font: inherit;
