@@ -1,12 +1,13 @@
 import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Appointment } from '../models/appointments';
 import { AppointmentService } from './appointment.service';
 
 @Component({
   selector: 'app-appointment-list',
-  imports: [TranslatePipe, DatePipe],
+  imports: [RouterLink, TranslatePipe, DatePipe],
   templateUrl: './appointment-list.component.html',
   styleUrl: './appointment-list.component.scss',
 })

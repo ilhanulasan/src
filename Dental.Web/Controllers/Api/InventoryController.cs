@@ -1,10 +1,12 @@
 using Dental.Web.Data;
 using Dental.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
+[Authorize(Policy = "AdminOnly")]
 [ApiController]
 [Route("api/suppliers")]
 public class SuppliersController(ApplicationDbContext db) : ControllerBase
@@ -44,6 +46,7 @@ public class SuppliersController(ApplicationDbContext db) : ControllerBase
     }
 }
 
+[Authorize(Policy = "AdminOnly")]
 [ApiController]
 [Route("api/products")]
 public class ProductsController(ApplicationDbContext db) : ControllerBase
@@ -86,6 +89,7 @@ public class ProductsController(ApplicationDbContext db) : ControllerBase
     }
 }
 
+[Authorize(Policy = "AdminOnly")]
 [ApiController]
 [Route("api/stock")]
 public class StockController(ApplicationDbContext db) : ControllerBase

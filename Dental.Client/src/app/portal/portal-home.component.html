@@ -1,0 +1,120 @@
+<section class="page portal">
+  <div class="toolbar">
+    <h1>{{ 'portal.title' | translate }}</h1>
+    <a routerLink="/" class="btn ghost">{{ 'sections.back' | translate }}</a>
+  </div>
+
+  @if (messageKey(); as msg) {
+    <p class="success">{{ msg | translate }}</p>
+  }
+  @if (errorKey(); as err) {
+    <p class="error">{{ err | translate }}</p>
+  }
+
+  @if (patient(); as p) {
+    <p class="welcome">{{ 'portal.welcome' | translate }}, {{ p.name }} {{ p.surname }}</p>
+  }
+
+  <nav class="tabs">
+    @if (needsLink()) {
+      <button type="button" [class.active]="activeTab() === 'link'" (click)="activeTab.set('link')">
+        {{ 'portal.tabLink' | translate }}
+      </button>
+    }
+    <button type="button" [class.active]="activeTab() === 'book'" (click)="activeTab.set('book')" [disabled]="needsLink()">
+      {{ 'portal.tabBook' | translate }}
+    </button>
+    <button type="button" [class.active]="activeTab() === 'mine'" (click)="activeTab.set('mine')" [disabled]="needsLink()">
+      {{ 'portal.tabMine' | translate }}
+    </button>
+  </nav>
+
+  @if (activeTab() === 'link') {
+    <form class="form" [formGroup]="linkForm" (ngSubmit)="linkProfile()">
+      <p class="muted">{{ 'portal.linkHint' | translate }}</p>
+      <label>
+        {{ 'patients.ssn' | translate }}
+        <input type="text" formControlName="socialSecurityNumber" />
+      </label>
+      <label class="checkbox">
+        <input type="checkbox" formControlName="createFromProfile" />
+        {{ 'portal.createFromProfile' | translate }}
+      </label>
+      <button type="submit" class="btn primary">{{ 'portal.linkCta' | translate }}</button>
+    </form>
+  }
+
+  @if (activeTab() === 'book' && !needsLink()) {
+    <form class="form" [formGroup]="bookForm" (ngSubmit)="submitBooking()">
+      <label>
+        {{ 'portal.doctor' | translate }}
+        <select formControlName="resourceId" (change)="onBookParamsChange()">
+          <option value="">{{ 'appointments.selectResource' | translate }}</option>
+          @for (r of resources(); track r.id) {
+            <option [value]="r.id">{{ r.name }}</option>
+          }
+        </select>
+      </label>
+      <label>
+        {{ 'appointments.date' | translate }}
+        <input type="date" formControlName="date" (change)="onBookParamsChange()" />
+      </label>
+
+      <p class="slots-label">{{ 'portal.availableSlots' | translate }}</p>
+      <div class="slots">
+        @for (s of slots(); track s.startAt) {
+          <button
+            type="button"
+            class="slot-btn"
+            [class.selected]="bookForm.getRawValue().slotStart === s.startAt"
+            (click)="bookSlot(s)">
+            {{ s.startAt | date: 'HH:mm' }}
+          </button>
+        } @empty {
+          <span class="muted">{{ 'portal.noSlots' | translate }}</span>
+        }
+      </div>
+      @if (bookForm.getRawValue().slotStart) {
+        <p class="muted">{{ 'portal.selected' | translate }}: {{ selectedSlotLabel() }}</p>
+      }
+
+      <label>
+        {{ 'appointments.notes' | translate }}
+        <textarea formControlName="notes" rows="2"></textarea>
+      </label>
+
+      <button type="submit" class="btn primary">{{ 'portal.bookCta' | translate }}</button>
+    </form>
+  }
+
+  @if (activeTab() === 'mine' && !needsLink()) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ 'appointments.start' | translate }}</th>
+          <th>{{ 'appointments.resource' | translate }}</th>
+          <th>{{ 'appointments.status' | translate }}</th>
+          <th>{{ 'patients.actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (a of appointments(); track a.id) {
+          <tr>
+            <td>{{ a.startAt | date: 'medium' }}</td>
+            <td>{{ a.primaryResource?.name }}</td>
+            <td>{{ a.status }}</td>
+            <td>
+              @if (a.status !== 'Cancelled' && a.status !== 'Completed') {
+                <button type="button" class="link danger" (click)="cancelAppt(a.id)">
+                  {{ 'appointments.cancel' | translate }}
+                </button>
+              }
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="4">{{ 'portal.noAppointments' | translate }}</td></tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

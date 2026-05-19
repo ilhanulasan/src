@@ -4,6 +4,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 
 import { AuthService } from '../core/auth.service';
+import { AppRoles } from '../core/roles';
 import { ToothIconComponent } from '../shared/tooth-icon.component';
 
 @Component({
@@ -18,11 +19,24 @@ export class MainLayoutComponent {
   private readonly router = inject(Router);
 
   readonly sidebarOpen = signal(false);
+  readonly AppRoles = AppRoles;
 
   constructor() {
     this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd)).subscribe(() => {
       this.sidebarOpen.set(false);
     });
+  }
+
+  showAdminNav(): boolean {
+    return this.auth.isAdmin();
+  }
+
+  showStaffNav(): boolean {
+    return this.auth.hasAnyRole([AppRoles.Admin, AppRoles.Doctor]);
+  }
+
+  showPortalNav(): boolean {
+    return this.auth.hasAnyRole([AppRoles.Patient, AppRoles.Admin]);
   }
 
   initials(): string {
@@ -38,7 +52,7 @@ export class MainLayoutComponent {
 
   logout(): void {
     this.auth.logout();
-    void this.router.navigateByUrl('/');
+    void this.router.navigateByUrl('/login');
   }
 
   closeUserMenu(details: HTMLDetailsElement): void {

@@ -1,10 +1,12 @@
 using Dental.Web.Data;
 using Dental.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/icd10")]
 public class Icd10Controller(ApplicationDbContext db) : ControllerBase

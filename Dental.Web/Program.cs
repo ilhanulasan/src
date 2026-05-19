@@ -5,7 +5,6 @@ using System.Text.Json.Serialization;
 using Dental.Web.Data;
 using Dental.Web.Models;
 using Dental.Web.Services;
-using Dental.Web.Services.OpenDental;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -68,13 +67,13 @@ builder.Services.ConfigureApplicationCookie(options =>
 
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 builder.Services.AddSingleton<IPatientDocumentStorageService, PatientDocumentStorageService>();
+builder.Services.AddSingleton<IProfilePictureStorageService, ProfilePictureStorageService>();
 
-builder.Services.Configure<OpenDentalOptions>(builder.Configuration.GetSection(OpenDentalOptions.SectionName));
-builder.Services.AddHttpClient<IOpenDentalApiClient, OpenDentalApiClient>((sp, client) =>
+builder.Services.AddAuthorization(options =>
 {
-    var od = sp.GetRequiredService<Microsoft.Extensions.Options.IOptions<OpenDentalOptions>>().Value;
-    client.BaseAddress = new Uri(od.BaseUrl.TrimEnd('/') + "/");
-    client.Timeout = TimeSpan.FromMinutes(2);
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole(AppRoles.Admin));
+    options.AddPolicy("Staff", policy => policy.RequireRole(AppRoles.Admin, AppRoles.Doctor));
+    options.AddPolicy("PatientPortal", policy => policy.RequireRole(AppRoles.Patient, AppRoles.Admin));
 });
 
 builder.Services
@@ -102,6 +101,7 @@ builder.Services.AddControllersWithViews()
     .AddJsonOptions(o =>
     {
         o.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        o.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
         o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
     });
 
@@ -156,6 +156,8 @@ try
                 await roleManager.CreateAsync(new IdentityRole(role));
             }
         }
+
+        await ClinicSeedData.SeedAsync(db);
     }
 
     app.Run();

@@ -1,0 +1,81 @@
+<section class="elegant-page">
+  <header class="elegant-header">
+    <div>
+      <p class="elegant-eyebrow">{{ 'clinical.eyebrow' | translate }}</p>
+      <h1>{{ 'clinical.newPlan' | translate }}</h1>
+    </div>
+    <a routerLink="/clinical" class="btn ghost">{{ 'clinical.title' | translate }}</a>
+  </header>
+
+  @if (errorKey(); as key) {
+    <p class="error">{{ key | translate }}</p>
+  }
+
+  <form class="elegant-card elegant-form" [formGroup]="form" (ngSubmit)="save()">
+    <label>
+      {{ 'appointments.patient' | translate }}
+      <select formControlName="patientId">
+        <option value="">{{ 'appointments.selectPatient' | translate }}</option>
+        @for (p of patients(); track p.id) {
+          <option [value]="p.id">{{ p.name }} {{ p.surname }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      {{ 'clinical.planTitle' | translate }}
+      <input type="text" formControlName="title" />
+    </label>
+
+    <label>
+      {{ 'clinical.planDescription' | translate }}
+      <textarea formControlName="description" rows="2"></textarea>
+    </label>
+
+    <div class="row-2">
+      <label>
+        {{ 'clinical.plannedStart' | translate }}
+        <input type="date" formControlName="plannedStartDate" />
+      </label>
+      <label>
+        {{ 'clinical.plannedEnd' | translate }}
+        <input type="date" formControlName="plannedEndDate" />
+      </label>
+    </div>
+
+    <h2>{{ 'clinical.planItems' | translate }}</h2>
+    <div formArrayName="items">
+      @for (item of items.controls; track $index; let i = $index) {
+        <fieldset class="item-block" [formGroupName]="i">
+          <label>
+            {{ 'clinical.procedure' | translate }}
+            <input type="text" formControlName="procedureName" />
+          </label>
+          <label>
+            {{ 'clinical.toothNumbers' | translate }}
+            <input type="text" formControlName="toothNumbers" placeholder="11, 12" />
+          </label>
+          <div class="row-2">
+            <label>
+              {{ 'clinical.unitPrice' | translate }}
+              <input type="number" formControlName="unitPrice" min="0" step="0.01" />
+            </label>
+            <label>
+              {{ 'clinical.quantity' | translate }}
+              <input type="number" formControlName="quantity" min="1" />
+            </label>
+          </div>
+          @if (items.length > 1) {
+            <button type="button" class="link danger" (click)="removeItem(i)">{{ 'clinical.removeItem' | translate }}</button>
+          }
+        </fieldset>
+      }
+    </div>
+    <button type="button" class="btn ghost" (click)="addItem()">{{ 'clinical.addItem' | translate }}</button>
+
+    <div class="elegant-actions">
+      <button type="submit" class="btn primary">{{ 'patients.save' | translate }}</button>
+      <a routerLink="/clinical" class="btn ghost">{{ 'patients.cancel' | translate }}</a>
+    </div>
+  </form>
+</section>

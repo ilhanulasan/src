@@ -31,3 +31,8 @@ export interface AppointmentDensity {
   date: string;
   count: number;
 }
+
+export interface TimeSlot {
+  startAt: string;
+  endAt: string;
+}

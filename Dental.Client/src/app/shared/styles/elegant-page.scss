@@ -1,0 +1,130 @@
+.elegant-page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3.5rem;
+}
+
+.elegant-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.35rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--admin-accent, #03a9f4) 18%, var(--border, #e3e8ef));
+}
+
+.elegant-header h1 {
+  margin: 0.2rem 0 0;
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-navy, #1c2529);
+}
+
+.elegant-eyebrow {
+  margin: 0;
+  font-size: 0.72rem;
+  font-weight: 750;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--admin-accent-strong, #0277bd);
+}
+
+.elegant-card {
+  border-radius: 18px;
+  border: 1px solid color-mix(in srgb, var(--admin-accent, #03a9f4) 14%, var(--border, #e3e8ef));
+  background: linear-gradient(
+    165deg,
+    color-mix(in srgb, #fff 96%, var(--admin-accent, #03a9f4)),
+    color-mix(in srgb, #fff 98%, var(--color-mist, #90a4ae))
+  );
+  box-shadow:
+    0 1px 0 color-mix(in srgb, #fff 80%, transparent) inset,
+    0 16px 40px color-mix(in srgb, var(--color-navy, #1c2529) 8%, transparent);
+  padding: 1.35rem 1.25rem;
+}
+
+.elegant-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.elegant-form label {
+  display: grid;
+  gap: 0.4rem;
+  font-weight: 650;
+  color: var(--color-navy, #1c2529);
+  font-size: 0.88rem;
+}
+
+.elegant-form input,
+.elegant-form select,
+.elegant-form textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid color-mix(in srgb, var(--color-mist, #90a4ae) 55%, var(--border, #e3e8ef));
+  padding: 0.62rem 0.75rem;
+  font: inherit;
+  background: #fff;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.elegant-form input:focus,
+.elegant-form select:focus,
+.elegant-form textarea:focus {
+  outline: none;
+  border-color: var(--admin-accent, #03a9f4);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-accent, #03a9f4) 22%, transparent);
+}
+
+.elegant-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed color-mix(in srgb, var(--border, #e3e8ef) 90%, transparent);
+}
+
+.elegant-page .btn {
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.88rem;
+  font-weight: 700;
+  border: 1px solid transparent;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.elegant-page .btn.primary {
+  background: linear-gradient(135deg, var(--admin-accent, #03a9f4), var(--admin-accent-strong, #0277bd));
+  color: #fff;
+  box-shadow: 0 8px 20px color-mix(in srgb, var(--admin-accent, #03a9f4) 35%, transparent);
+}
+
+.elegant-page .btn.ghost {
+  border-color: color-mix(in srgb, var(--color-mist, #90a4ae) 50%, var(--border, #e3e8ef));
+  background: #fff;
+  color: var(--color-navy, #1c2529);
+}
+
+.elegant-page .error {
+  border-radius: 12px;
+  padding: 0.65rem 0.85rem;
+  margin-bottom: 1rem;
+  background: color-mix(in srgb, #fef2f2 90%, #fff);
+  border: 1px solid color-mix(in srgb, #b91c1c 35%, transparent);
+  color: #b91c1c;
+  font-weight: 650;
+}
+
+.elegant-page .muted {
+  color: color-mix(in srgb, var(--color-ink, #263238) 55%, transparent);
+}

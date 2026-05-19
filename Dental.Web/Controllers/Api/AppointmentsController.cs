@@ -1,14 +1,21 @@
+using System.Security.Claims;
 using Dental.Web.Data;
 using Dental.Web.Models;
+using Dental.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/appointments")]
 public class AppointmentsController(ApplicationDbContext db, ILogger<AppointmentsController> log) : ControllerBase
 {
+    private string? CurrentUserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+    private bool IsDoctorOnly => User.IsInRole(AppRoles.Doctor) && !User.IsInRole(AppRoles.Admin);
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Appointment>>> List(
         [FromQuery] Guid? patientId,
@@ -30,8 +37,22 @@ public class AppointmentsController(ApplicationDbContext db, ILogger<Appointment
         if (from.HasValue) q = q.Where(a => a.EndAt >= from);
         if (to.HasValue) q = q.Where(a => a.StartAt <= to);
         if (status.HasValue) q = q.Where(a => a.Status == status);
+        if (IsDoctorOnly && CurrentUserId is not null)
+        {
+            q = await DoctorScope.ApplyAppointmentFilterAsync(q, db, CurrentUserId, ct);
+        }
 
         return Ok(await q.OrderBy(a => a.StartAt).ToListAsync(ct));
+    }
+
+    [HttpGet("availability")]
+    public async Task<ActionResult<IEnumerable<TimeSlotDto>>> Availability(
+        [FromQuery] Guid resourceId,
+        [FromQuery] DateOnly date,
+        CancellationToken ct)
+    {
+        var slots = await AppointmentScheduling.GetAvailableSlotsAsync(db, resourceId, date, ct);
+        return Ok(slots.Select(s => new TimeSlotDto(s.StartAt, s.EndAt)));
     }
 
     [HttpGet("{id:guid}")]
@@ -45,9 +66,18 @@ public class AppointmentsController(ApplicationDbContext db, ILogger<Appointment
     }
 
     [HttpPost]
-    public async Task<ActionResult<Appointment>> Create([FromBody] CreateAppointmentRequest request, CancellationToken ct)
+    public async Task<ActionResult<AppointmentSummaryDto>> Create([FromBody] CreateAppointmentRequest request, CancellationToken ct)
     {
-        if (await HasConflict(request.PrimaryResourceId, request.AdditionalResourceIds, request.StartAt, request.EndAt, null, ct))
+        var startAt = AppointmentScheduling.ToUtc(request.StartAt);
+        var endAt = AppointmentScheduling.ToUtc(request.EndAt);
+
+        if (endAt <= startAt)
+        {
+            return BadRequest("End time must be after start time.");
+        }
+
+        if (await AppointmentScheduling.HasResourceConflictAsync(
+                db, request.PrimaryResourceId, request.AdditionalResourceIds, startAt, endAt, null, ct))
         {
             return Conflict("Resource is not available for the selected time slot.");
         }
@@ -57,8 +87,8 @@ public class AppointmentsController(ApplicationDbContext db, ILogger<Appointment
             Id = Guid.NewGuid(),
             PatientId = request.PatientId,
             PrimaryResourceId = request.PrimaryResourceId,
-            StartAt = request.StartAt,
-            EndAt = request.EndAt,
+            StartAt = startAt,
+            EndAt = endAt,
             Notes = request.Notes,
             Status = AppointmentStatus.Scheduled,
             IsOnlineBooking = request.IsOnlineBooking,
@@ -81,8 +111,8 @@ public class AppointmentsController(ApplicationDbContext db, ILogger<Appointment
                     Id = Guid.NewGuid(),
                     AppointmentId = appt.Id,
                     PhoneNumber = patient.Phone,
-                    Message = $"Randevu hatırlatması: {request.StartAt.LocalDateTime:dd.MM.yyyy HH:mm}",
-                    ScheduledFor = request.StartAt.AddHours(-24),
+                    Message = $"Randevu hatırlatması: {startAt.LocalDateTime:dd.MM.yyyy HH:mm}",
+                    ScheduledFor = startAt.AddHours(-24),
                     Status = SmsReminderStatus.Pending,
                 });
             }
@@ -90,7 +120,22 @@ public class AppointmentsController(ApplicationDbContext db, ILogger<Appointment
 
         await db.SaveChangesAsync(ct);
         log.LogInformation("Created appointment {Id}", appt.Id);
-        return CreatedAtAction(nameof(Get), new { id = appt.Id }, appt);
+        var resource = await db.AppointmentResources.AsNoTracking()
+            .FirstOrDefaultAsync(r => r.Id == appt.PrimaryResourceId, ct);
+
+        return CreatedAtAction(
+            nameof(Get),
+            new { id = appt.Id },
+            new AppointmentSummaryDto(
+                appt.Id,
+                appt.PatientId,
+                appt.PrimaryResourceId,
+                appt.StartAt,
+                appt.EndAt,
+                appt.Status,
+                appt.Notes,
+                appt.IsOnlineBooking,
+                resource?.Name));
     }
 
     [HttpPost("{id:guid}/confirm")]
@@ -126,13 +171,22 @@ public class AppointmentsController(ApplicationDbContext db, ILogger<Appointment
         var appt = await db.Appointments.FindAsync([id], ct);
         if (appt is null) return NotFound();
 
-        if (await HasConflict(appt.PrimaryResourceId, null, request.StartAt, request.EndAt, id, ct))
+        var startAt = AppointmentScheduling.ToUtc(request.StartAt);
+        var endAt = AppointmentScheduling.ToUtc(request.EndAt);
+
+        if (endAt <= startAt)
+        {
+            return BadRequest("End time must be after start time.");
+        }
+
+        if (await AppointmentScheduling.HasResourceConflictAsync(
+                db, appt.PrimaryResourceId, null, startAt, endAt, id, ct))
         {
             return Conflict("Resource is not available for the selected time slot.");
         }
 
-        appt.StartAt = request.StartAt;
-        appt.EndAt = request.EndAt;
+        appt.StartAt = startAt;
+        appt.EndAt = endAt;
         appt.Status = AppointmentStatus.Rescheduled;
         appt.UpdatedAt = DateTimeOffset.UtcNow;
         await db.SaveChangesAsync(ct);
@@ -164,33 +218,16 @@ public class AppointmentsController(ApplicationDbContext db, ILogger<Appointment
         return Ok(grouped);
     }
 
-    private async Task<bool> HasConflict(
-        Guid primaryResourceId,
-        IEnumerable<Guid>? additionalIds,
-        DateTimeOffset start,
-        DateTimeOffset end,
-        Guid? excludeAppointmentId,
-        CancellationToken ct)
-    {
-        var resourceIds = new List<Guid> { primaryResourceId };
-        if (additionalIds != null) resourceIds.AddRange(additionalIds);
-
-        var q = db.Appointments.Where(a =>
-            a.Status != AppointmentStatus.Cancelled &&
-            a.StartAt < end && a.EndAt > start &&
-            (resourceIds.Contains(a.PrimaryResourceId) ||
-             a.AdditionalResources.Any(l => resourceIds.Contains(l.ResourceId))));
-
-        if (excludeAppointmentId.HasValue) q = q.Where(a => a.Id != excludeAppointmentId);
-
-        return await q.AnyAsync(ct);
-    }
 }
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/appointment-resources")]
 public class AppointmentResourcesController(ApplicationDbContext db) : ControllerBase
 {
+    private string? CurrentUserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+    private bool IsDoctorOnly => User.IsInRole(AppRoles.Doctor) && !User.IsInRole(AppRoles.Admin);
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<AppointmentResource>>> List(
         CancellationToken ct,
@@ -200,6 +237,11 @@ public class AppointmentResourcesController(ApplicationDbContext db) : Controlle
         var q = db.AppointmentResources.AsNoTracking().AsQueryable();
         if (type.HasValue) q = q.Where(r => r.ResourceType == type);
         if (activeOnly) q = q.Where(r => r.IsActive);
+        if (IsDoctorOnly && CurrentUserId is not null)
+        {
+            q = q.Where(r => r.UserId == CurrentUserId);
+        }
+
         return Ok(await q.OrderBy(r => r.Name).ToListAsync(ct));
     }
 
@@ -230,6 +272,7 @@ public class AppointmentResourcesController(ApplicationDbContext db) : Controlle
     }
 }
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/waitlist")]
 public class WaitlistController(ApplicationDbContext db) : ControllerBase
@@ -265,6 +308,7 @@ public class WaitlistController(ApplicationDbContext db) : ControllerBase
     }
 }
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/recurring-appointments")]
 public class RecurringAppointmentsController(ApplicationDbContext db) : ControllerBase

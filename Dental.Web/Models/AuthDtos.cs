@@ -28,8 +28,9 @@ public class RegisterDto
     [MaxLength(512)]
     public string? Address { get; set; }
 
-    [MaxLength(2048)]
-    public string? PictureUrl { get; set; }
+    /// <summary>Optional data URL (image/jpeg, image/png, image/webp) for profile picture.</summary>
+    [MaxLength(1_500_000)]
+    public string? PictureData { get; set; }
 }
 
 public class LoginDto

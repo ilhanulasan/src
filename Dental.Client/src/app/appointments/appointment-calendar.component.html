@@ -1,0 +1,81 @@
+<section class="page calendar-page">
+  <div class="toolbar">
+    <h1>{{ 'appointments.calendarTitle' | translate }}</h1>
+    <div class="toolbar-actions">
+      <a routerLink="/appointments/list" class="btn ghost">{{ 'appointments.listView' | translate }}</a>
+      <a routerLink="/appointments/new" class="btn primary">{{ 'appointments.new' | translate }}</a>
+    </div>
+  </div>
+
+  <div class="calendar-controls">
+    <button type="button" class="btn ghost" (click)="prevWeek()">‹</button>
+    <button type="button" class="btn ghost" (click)="today()">{{ 'appointments.today' | translate }}</button>
+    <button type="button" class="btn ghost" (click)="nextWeek()">›</button>
+    <label>
+      {{ 'appointments.resource' | translate }}
+      <select [value]="selectedResourceId()" (change)="onResourceChange($event)">
+        <option value="">{{ 'appointments.allResources' | translate }}</option>
+        @for (r of resources(); track r.id) {
+          <option [value]="r.id">{{ r.name }} ({{ r.resourceType }})</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  @if (loadFailed()) {
+    <p class="error">{{ 'common.loadError' | translate }}</p>
+  }
+
+  <div class="calendar-grid">
+    <div class="corner"></div>
+    @for (day of weekDays(); track day.getTime(); let i = $index) {
+      <div class="day-header" [style.grid-column]="i + 2">{{ day | date: 'EEE d MMM' }}</div>
+    }
+
+    <div class="time-gutter">
+      @for (h of hours; track h) {
+        <div class="hour-label">{{ h }}:00</div>
+      }
+    </div>
+
+    @for (day of weekDays(); track day.getTime(); let i = $index) {
+      <div class="day-column" [style.grid-column]="i + 2">
+        @for (h of hours; track h) {
+          <div class="hour-cell"></div>
+        }
+        @for (a of apptsForDay(day); track a.id) {
+          <button
+            type="button"
+            class="appt-block"
+            [class]="statusClass(a.status)"
+            [style.top]="blockStyle(a)['top']"
+            [style.height]="blockStyle(a)['height']"
+            (click)="selectAppt(a, $event)">
+            <span class="appt-time">{{ a.startAt | date: 'HH:mm' }}</span>
+            <span class="appt-title">{{ patientName(a.patientId) }}</span>
+          </button>
+        }
+      </div>
+    }
+  </div>
+
+  @if (selectedAppt(); as a) {
+    <aside class="detail-panel" role="dialog">
+      <button type="button" class="close" (click)="closeDetail()">×</button>
+      <h2>{{ patientName(a.patientId) }}</h2>
+      <p>{{ a.startAt | date: 'medium' }} – {{ a.endAt | date: 'shortTime' }}</p>
+      <p>{{ 'appointments.status' | translate }}: <strong>{{ a.status }}</strong></p>
+      @if (a.notes) {
+        <p>{{ a.notes }}</p>
+      }
+      <div class="panel-actions">
+        @if (a.status === 'Scheduled') {
+          <button type="button" class="btn primary" (click)="confirmSelected()">{{ 'appointments.confirm' | translate }}</button>
+        }
+        @if (a.status !== 'Cancelled' && a.status !== 'Completed') {
+          <button type="button" class="btn ghost danger" (click)="cancelSelected()">{{ 'appointments.cancel' | translate }}</button>
+        }
+      </div>
+    </aside>
+  }
+</section>

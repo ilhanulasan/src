@@ -1,7 +1,11 @@
 <section class="page">
   <div class="toolbar">
     <h1>{{ 'clinical.title' | translate }}</h1>
-    <a routerLink="/patients" class="btn ghost">{{ 'patients.title' | translate }}</a>
+    <div class="toolbar-actions">
+      <a routerLink="/clinical/examinations/new" class="btn primary">{{ 'clinical.newExam' | translate }}</a>
+      <a routerLink="/clinical/treatment-plans/new" class="btn secondary">{{ 'clinical.newPlan' | translate }}</a>
+      <a routerLink="/patients" class="btn ghost">{{ 'patients.title' | translate }}</a>
+    </div>
   </div>
 
   @if (loadFailed()) {

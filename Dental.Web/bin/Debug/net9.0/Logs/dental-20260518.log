@@ -94,3 +94,29 @@
 2026-05-18 23:08:59.100 +03:00 [INF] HTTP GET /api/patients responded 200 in 1.7983 ms
 2026-05-18 23:09:01.246 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d responded 200 in 1.5664 ms
 2026-05-18 23:09:02.483 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d/odontogram responded 200 in 1.7756 ms
+2026-05-18 23:31:04.689 +03:00 [INF] Dental.Web started
+2026-05-18 23:31:05.959 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-18 23:31:05.961 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-18 23:31:05.962 +03:00 [INF] Hosting environment: Development
+2026-05-18 23:31:05.962 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-18 23:31:14.376 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-18 23:31:14.490 +03:00 [INF] HTTP GET /api/patients/2ad5d450-0321-438e-939b-4a3b0556591d/odontogram responded 200 in 114.2580 ms
+2026-05-18 23:31:18.584 +03:00 [INF] HTTP GET /api/patients responded 200 in 67.3954 ms
+2026-05-18 23:31:24.017 +03:00 [INF] HTTP GET /api/treatment-plans responded 200 in 56.8140 ms
+2026-05-18 23:31:24.047 +03:00 [INF] HTTP GET /api/examinations responded 200 in 86.5465 ms
+2026-05-18 23:31:32.076 +03:00 [INF] HTTP GET /api/financial-accounts responded 200 in 17.3255 ms
+2026-05-18 23:31:32.076 +03:00 [INF] HTTP GET /api/payments responded 200 in 17.4264 ms
+2026-05-18 23:31:32.076 +03:00 [INF] HTTP GET /api/invoices responded 200 in 17.7044 ms
+2026-05-18 23:31:33.769 +03:00 [INF] HTTP GET /api/suppliers responded 200 in 10.5069 ms
+2026-05-18 23:31:33.769 +03:00 [INF] HTTP GET /api/products responded 200 in 11.4994 ms
+2026-05-18 23:31:33.774 +03:00 [INF] HTTP GET /api/stock/expiry-alerts responded 200 in 15.3832 ms
+2026-05-18 23:31:35.870 +03:00 [INF] HTTP GET /api/waitlist responded 200 in 21.6176 ms
+2026-05-18 23:31:35.870 +03:00 [INF] HTTP GET /api/appointments responded 200 in 21.6829 ms
+2026-05-18 23:31:36.638 +03:00 [INF] HTTP GET /api/patients responded 200 in 2.1127 ms
+2026-05-18 23:31:38.419 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc responded 200 in 9.7403 ms
+2026-05-18 23:31:38.437 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/clinical-notes responded 200 in 10.5871 ms
+2026-05-18 23:31:38.445 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/balance responded 200 in 17.9359 ms
+2026-05-18 23:31:38.477 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/allergies responded 200 in 51.3978 ms
+2026-05-18 23:31:38.479 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/kvkk-consents responded 200 in 52.4232 ms
+2026-05-18 23:31:38.479 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/documents responded 200 in 52.5058 ms
+2026-05-18 23:31:38.575 +03:00 [INF] HTTP GET /api/patients/8ecacf68-324d-499e-9ba5-141aecfb5bfc/medical-histories responded 200 in 148.0527 ms

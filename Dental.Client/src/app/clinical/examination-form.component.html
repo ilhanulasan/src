@@ -1,0 +1,79 @@
+<section class="elegant-page">
+  <header class="elegant-header">
+    <div>
+      <p class="elegant-eyebrow">{{ 'clinical.eyebrow' | translate }}</p>
+      <h1>{{ 'clinical.newExam' | translate }}</h1>
+    </div>
+    <a routerLink="/clinical" class="btn ghost">{{ 'clinical.title' | translate }}</a>
+  </header>
+
+  @if (errorKey(); as key) {
+    <p class="error">{{ key | translate }}</p>
+  }
+
+  <form class="elegant-card elegant-form" [formGroup]="form" (ngSubmit)="save()">
+    <label>
+      {{ 'appointments.patient' | translate }}
+      <select formControlName="patientId">
+        <option value="">{{ 'appointments.selectPatient' | translate }}</option>
+        @for (p of patients(); track p.id) {
+          <option [value]="p.id">{{ p.name }} {{ p.surname }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      {{ 'clinical.complaint' | translate }}
+      <textarea formControlName="chiefComplaint" rows="2"></textarea>
+    </label>
+
+    <label>
+      {{ 'clinical.findings' | translate }}
+      <textarea formControlName="clinicalFindings" rows="3"></textarea>
+    </label>
+
+    <label>
+      {{ 'clinical.notes' | translate }}
+      <textarea formControlName="notes" rows="2"></textarea>
+    </label>
+
+    <label>
+      {{ 'clinical.status' | translate }}
+      <select formControlName="status">
+        <option value="Draft">Draft</option>
+        <option value="InProgress">InProgress</option>
+        <option value="Completed">Completed</option>
+      </select>
+    </label>
+
+    <fieldset class="icd-fieldset">
+      <legend>{{ 'clinical.icd10' | translate }}</legend>
+      <label>
+        {{ 'clinical.icdSearch' | translate }}
+        <input type="search" formControlName="icdSearch" autocomplete="off" />
+      </label>
+      @if (icdResults().length) {
+        <ul class="icd-suggest">
+          @for (c of icdResults(); track c.id) {
+            <li>
+              <button type="button" class="link" (click)="addIcd(c)">{{ c.code }} — {{ c.descriptionTr }}</button>
+            </li>
+          }
+        </ul>
+      }
+      <ul class="icd-selected">
+        @for (c of selectedIcd(); track c.id) {
+          <li>
+            {{ c.code }} — {{ c.descriptionTr }}
+            <button type="button" class="link danger" (click)="removeIcd(c.id)">×</button>
+          </li>
+        }
+      </ul>
+    </fieldset>
+
+    <div class="elegant-actions">
+      <button type="submit" class="btn primary">{{ 'patients.save' | translate }}</button>
+      <a routerLink="/clinical" class="btn ghost">{{ 'patients.cancel' | translate }}</a>
+    </div>
+  </form>
+</section>

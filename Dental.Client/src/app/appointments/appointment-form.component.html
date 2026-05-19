@@ -1,0 +1,80 @@
+<section class="elegant-page">
+  <header class="elegant-header">
+    <div>
+      <p class="elegant-eyebrow">{{ 'appointments.eyebrow' | translate }}</p>
+      <h1>{{ 'appointments.new' | translate }}</h1>
+    </div>
+    <a routerLink="/appointments" class="btn ghost">{{ 'appointments.calendarTitle' | translate }}</a>
+  </header>
+
+  @if (errorKey(); as key) {
+    <p class="error">{{ key | translate }}</p>
+  }
+
+  <form class="elegant-card elegant-form" [formGroup]="form" (ngSubmit)="save()">
+    <label>
+      {{ 'appointments.patient' | translate }}
+      <select formControlName="patientId">
+        <option value="">{{ 'appointments.selectPatient' | translate }}</option>
+        @for (p of patients(); track p.id) {
+          <option [value]="p.id">{{ p.name }} {{ p.surname }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      {{ 'appointments.resource' | translate }}
+      <select formControlName="primaryResourceId" (change)="onScheduleParamsChange()">
+        <option value="">{{ 'appointments.selectResource' | translate }}</option>
+        @for (r of resources(); track r.id) {
+          <option [value]="r.id">{{ r.name }}</option>
+        }
+      </select>
+    </label>
+
+    <label>
+      {{ 'appointments.date' | translate }}
+      <input type="date" formControlName="date" (change)="onScheduleParamsChange()" />
+    </label>
+
+    <p class="slots-label">{{ 'portal.availableSlots' | translate }}</p>
+    <div class="slots">
+      @for (s of slots(); track s.startAt) {
+        <button
+          type="button"
+          class="slot-btn"
+          [class.selected]="selectedSlotStart() === s.startAt"
+          (click)="pickSlot(s)">
+          {{ s.startAt | date: 'HH:mm' }}
+        </button>
+      } @empty {
+        <span class="muted">{{ 'portal.noSlots' | translate }}</span>
+      }
+    </div>
+
+    <label>
+      {{ 'appointments.startTime' | translate }}
+      <input type="time" formControlName="startTime" (change)="selectedSlotStart.set('')" />
+    </label>
+
+    <label>
+      {{ 'appointments.duration' | translate }}
+      <input type="number" formControlName="durationMinutes" min="15" step="15" />
+    </label>
+
+    <label>
+      {{ 'appointments.notes' | translate }}
+      <textarea formControlName="notes" rows="3"></textarea>
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" formControlName="scheduleSmsReminder" />
+      {{ 'appointments.smsReminder' | translate }}
+    </label>
+
+    <div class="elegant-actions">
+      <button type="submit" class="btn primary">{{ 'patients.save' | translate }}</button>
+      <a routerLink="/appointments" class="btn ghost">{{ 'patients.cancel' | translate }}</a>
+    </div>
+  </form>
+</section>

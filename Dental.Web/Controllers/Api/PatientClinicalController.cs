@@ -1,11 +1,13 @@
 using Dental.Web.Data;
 using Dental.Web.Models;
 using Dental.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/patients/{patientId:guid}")]
 public class PatientClinicalController(

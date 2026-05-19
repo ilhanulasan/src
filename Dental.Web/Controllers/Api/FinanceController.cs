@@ -1,10 +1,12 @@
 using Dental.Web.Data;
 using Dental.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
+[Authorize(Policy = "AdminOnly")]
 [ApiController]
 [Route("api/financial-accounts")]
 public class FinancialAccountsController(ApplicationDbContext db) : ControllerBase
@@ -23,6 +25,7 @@ public class FinancialAccountsController(ApplicationDbContext db) : ControllerBa
     }
 }
 
+[Authorize(Policy = "AdminOnly")]
 [ApiController]
 [Route("api/invoices")]
 public class InvoicesController(ApplicationDbContext db, ILogger<InvoicesController> log) : ControllerBase
@@ -82,6 +85,7 @@ public class InvoicesController(ApplicationDbContext db, ILogger<InvoicesControl
     }
 }
 
+[Authorize(Policy = "AdminOnly")]
 [ApiController]
 [Route("api/payments")]
 public class PaymentsController(ApplicationDbContext db, ILogger<PaymentsController> log) : ControllerBase
@@ -135,6 +139,7 @@ public class PaymentsController(ApplicationDbContext db, ILogger<PaymentsControl
     }
 }
 
+[Authorize(Policy = "AdminOnly")]
 [ApiController]
 [Route("api/installment-plans")]
 public class InstallmentPlansController(ApplicationDbContext db) : ControllerBase

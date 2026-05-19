@@ -17,29 +17,49 @@
       <div class="alert" role="alert">{{ errKey | translate }}</div>
     }
 
-    @if (form.errors?.['mismatch'] && (form.touched || form.dirty)) {
+    @if (showPasswordMismatch()) {
       <div class="alert" role="alert">{{ 'auth.passwordMismatch' | translate }}</div>
     }
 
     <div class="grid2">
-      <label class="field">
+      <label class="field" [class.field-invalid]="showFieldError('firstName')">
         <span>{{ 'auth.firstName' | translate }} *</span>
         <input type="text" autocomplete="given-name" formControlName="firstName" />
+        @if (showFieldError('firstName')) {
+          @if (fieldErrorKey('firstName'); as key) {
+            <small class="field-error">{{ key | translate }}</small>
+          }
+        }
       </label>
-      <label class="field">
+      <label class="field" [class.field-invalid]="showFieldError('lastName')">
         <span>{{ 'auth.lastName' | translate }} *</span>
         <input type="text" autocomplete="family-name" formControlName="lastName" />
+        @if (showFieldError('lastName')) {
+          @if (fieldErrorKey('lastName'); as key) {
+            <small class="field-error">{{ key | translate }}</small>
+          }
+        }
       </label>
     </div>
 
-    <label class="field">
+    <label class="field" [class.field-invalid]="showFieldError('email')">
       <span>{{ 'auth.email' | translate }} *</span>
       <input type="email" autocomplete="email" formControlName="email" />
+      @if (showFieldError('email')) {
+        @if (fieldErrorKey('email'); as key) {
+          <small class="field-error">{{ key | translate }}</small>
+        }
+      }
     </label>
 
-    <label class="field">
+    <label class="field" [class.field-invalid]="showFieldError('phoneNumber')">
       <span>{{ 'auth.phone' | translate }} *</span>
       <input type="tel" autocomplete="tel" formControlName="phoneNumber" />
+      @if (showFieldError('phoneNumber')) {
+        @if (fieldErrorKey('phoneNumber'); as key) {
+          <small class="field-error">{{ key | translate }}</small>
+        }
+      }
     </label>
 
     <label class="field">
@@ -47,23 +67,56 @@
       <textarea rows="3" formControlName="address"></textarea>
     </label>
 
-    <label class="field">
-      <span>{{ 'auth.pictureUrl' | translate }}</span>
-      <input type="url" formControlName="pictureUrl" [placeholder]="heroExampleUrl" />
-      <small class="hint">{{ 'auth.pictureHint' | translate }}</small>
-    </label>
+    <div class="picture-block">
+      <span class="picture-label">{{ 'auth.profilePhoto' | translate }}</span>
+      <p class="hint">{{ 'auth.profilePhotoHint' | translate }}</p>
+
+      @if (picturePreview(); as preview) {
+        <div class="picture-preview">
+          <img [src]="preview" alt="" />
+          <button type="button" class="picture-remove" (click)="clearPicture()">
+            {{ 'auth.removePhoto' | translate }}
+          </button>
+        </div>
+      }
+
+      <div class="picture-actions">
+        <label class="picture-btn">
+          <span class="material-symbols-outlined" aria-hidden="true">photo_camera</span>
+          {{ 'auth.takePhoto' | translate }}
+          <input type="file" accept="image/*" capture="user" hidden (change)="onPictureSelected($event)" />
+        </label>
+        <label class="picture-btn secondary">
+          <span class="material-symbols-outlined" aria-hidden="true">upload_file</span>
+          {{ 'auth.chooseFile' | translate }}
+          <input type="file" accept="image/*" hidden (change)="onPictureSelected($event)" />
+        </label>
+      </div>
+
+      @if (pictureError(); as picErr) {
+        <small class="field-error">{{ picErr | translate }}</small>
+      }
+    </div>
 
     <div class="grid2">
-      <label class="field">
+      <label class="field" [class.field-invalid]="showFieldError('password')">
         <span>{{ 'auth.password' | translate }} *</span>
         <input type="password" autocomplete="new-password" formControlName="password" />
+        <small class="hint">{{ 'auth.passwordPolicy' | translate }}</small>
+        @if (showFieldError('password')) {
+          @if (fieldErrorKey('password'); as key) {
+            <small class="field-error">{{ key | translate }}</small>
+          }
+        }
       </label>
-      <label class="field">
+      <label class="field" [class.field-invalid]="showFieldError('confirmPassword')">
         <span>{{ 'auth.confirmPassword' | translate }} *</span>
-        <input
-          type="password"
-          autocomplete="new-password"
-          formControlName="confirmPassword" />
+        <input type="password" autocomplete="new-password" formControlName="confirmPassword" />
+        @if (showFieldError('confirmPassword')) {
+          @if (fieldErrorKey('confirmPassword'); as key) {
+            <small class="field-error">{{ key | translate }}</small>
+          }
+        }
       </label>
     </div>
 

@@ -8,6 +8,10 @@
       <h1>{{ 'appointments.title' | translate }}</h1>
       <p class="muted">{{ 'appointments.waitlistCount' | translate }}: {{ waitlistCount() }}</p>
     </div>
+    <div class="toolbar-actions">
+      <a routerLink="/appointments" class="btn ghost">{{ 'appointments.calendarTitle' | translate }}</a>
+      <a routerLink="/appointments/new" class="btn primary">{{ 'appointments.new' | translate }}</a>
+    </div>
   </div>
 
   <table class="table">

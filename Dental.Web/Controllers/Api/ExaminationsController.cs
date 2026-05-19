@@ -1,14 +1,21 @@
+using System.Security.Claims;
 using Dental.Web.Data;
 using Dental.Web.Models;
+using Dental.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/examinations")]
 public class ExaminationsController(ApplicationDbContext db, ILogger<ExaminationsController> log) : ControllerBase
 {
+    private string? CurrentUserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+    private bool IsDoctorOnly => User.IsInRole(AppRoles.Doctor) && !User.IsInRole(AppRoles.Admin);
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Examination>>> List(
         [FromQuery] Guid? patientId,
@@ -18,6 +25,11 @@ public class ExaminationsController(ApplicationDbContext db, ILogger<Examination
         var q = db.Examinations.AsNoTracking().Include(e => e.Diagnoses).ThenInclude(d => d.Icd10Code).AsQueryable();
         if (patientId.HasValue) q = q.Where(e => e.PatientId == patientId);
         if (status.HasValue) q = q.Where(e => e.Status == status);
+        if (IsDoctorOnly && CurrentUserId is not null)
+        {
+            q = await DoctorScope.ApplyExaminationFilterAsync(q, db, CurrentUserId, ct);
+        }
+
         return Ok(await q.OrderByDescending(e => e.ExaminedAt).ToListAsync(ct));
     }
 
@@ -32,15 +44,34 @@ public class ExaminationsController(ApplicationDbContext db, ILogger<Examination
     }
 
     [HttpPost]
-    public async Task<ActionResult<Examination>> Create([FromBody] Examination input, CancellationToken ct)
+    public async Task<ActionResult<Examination>> Create([FromBody] CreateExaminationRequest request, CancellationToken ct)
     {
-        if (!await db.Patients.AnyAsync(p => p.Id == input.PatientId, ct)) return BadRequest("Patient not found.");
-        input.Id = Guid.NewGuid();
-        input.ExaminedAt = input.ExaminedAt == default ? DateTimeOffset.UtcNow : input.ExaminedAt;
-        db.Examinations.Add(input);
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        if (!await db.Patients.AnyAsync(p => p.Id == request.PatientId, ct))
+        {
+            return BadRequest("Patient not found.");
+        }
+
+        var entity = new Examination
+        {
+            Id = Guid.NewGuid(),
+            PatientId = request.PatientId,
+            DoctorUserId = request.DoctorUserId,
+            ExaminedAt = request.ExaminedAt ?? DateTimeOffset.UtcNow,
+            Status = request.Status,
+            ChiefComplaint = request.ChiefComplaint,
+            ClinicalFindings = request.ClinicalFindings,
+            Notes = request.Notes,
+        };
+
+        db.Examinations.Add(entity);
         await db.SaveChangesAsync(ct);
-        log.LogInformation("Created examination {Id}", input.Id);
-        return CreatedAtAction(nameof(Get), new { id = input.Id }, input);
+        log.LogInformation("Created examination {Id}", entity.Id);
+        return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
     }
 
     [HttpPut("{id:guid}")]
@@ -61,15 +92,24 @@ public class ExaminationsController(ApplicationDbContext db, ILogger<Examination
 
     [HttpPost("{id:guid}/diagnoses")]
     public async Task<ActionResult<ExaminationDiagnosis>> AddDiagnosis(
-        Guid id, [FromBody] ExaminationDiagnosis input, CancellationToken ct)
+        Guid id, [FromBody] AddExaminationDiagnosisRequest request, CancellationToken ct)
     {
         if (!await db.Examinations.AnyAsync(e => e.Id == id, ct)) return NotFound();
-        if (!await db.Icd10Codes.AnyAsync(c => c.Id == input.Icd10CodeId, ct)) return BadRequest("ICD-10 code not found.");
-        input.Id = Guid.NewGuid();
-        input.ExaminationId = id;
-        db.ExaminationDiagnoses.Add(input);
+        if (request.Icd10CodeId == Guid.Empty) return BadRequest("ICD-10 code id is required.");
+        if (!await db.Icd10Codes.AnyAsync(c => c.Id == request.Icd10CodeId, ct)) return BadRequest("ICD-10 code not found.");
+
+        var diagnosis = new ExaminationDiagnosis
+        {
+            Id = Guid.NewGuid(),
+            ExaminationId = id,
+            Icd10CodeId = request.Icd10CodeId,
+            IsPrimary = request.IsPrimary,
+            Notes = request.Notes,
+        };
+
+        db.ExaminationDiagnoses.Add(diagnosis);
         await db.SaveChangesAsync(ct);
-        return Ok(input);
+        return Ok(diagnosis);
     }
 
     [HttpDelete("{examId:guid}/diagnoses/{diagId:guid}")]

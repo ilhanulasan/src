@@ -3,6 +3,7 @@ import { afterNextRender, inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 
 import { AuthResponse, UserProfile } from '../models/auth';
+import { AppRoles } from './roles';
 
 const TOKEN_KEY = 'dental-auth-token';
 const USER_KEY = 'dental-auth-user';
@@ -53,7 +54,7 @@ export class AuthService {
     lastName: string;
     phoneNumber: string;
     address?: string | null;
-    pictureUrl?: string | null;
+    pictureData?: string | null;
   }): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.api}/register`, payload).pipe(tap((r) => this.persist(r)));
   }
@@ -85,6 +86,43 @@ export class AuthService {
     }
 
     return `${u.firstName} ${u.lastName}`.trim();
+  }
+
+  roles(): string[] {
+    return this.user()?.roles ?? [];
+  }
+
+  hasRole(role: string): boolean {
+    return this.roles().includes(role);
+  }
+
+  hasAnyRole(allowed: string[]): boolean {
+    const mine = this.roles();
+    return allowed.some((r) => mine.includes(r));
+  }
+
+  isPatient(): boolean {
+    return this.hasRole(AppRoles.Patient) && !this.hasRole(AppRoles.Admin);
+  }
+
+  isDoctor(): boolean {
+    return this.hasRole(AppRoles.Doctor) && !this.hasRole(AppRoles.Admin);
+  }
+
+  isAdmin(): boolean {
+    return this.hasRole(AppRoles.Admin);
+  }
+
+  defaultRoute(): string {
+    if (this.isPatient()) {
+      return '/portal';
+    }
+
+    if (this.isDoctor()) {
+      return '/appointments';
+    }
+
+    return '/';
   }
 
   private persist(response: AuthResponse): void {

@@ -41,7 +41,7 @@ export class LoginComponent {
 
     const { email, password } = this.form.getRawValue();
     this.auth.login(email, password).subscribe({
-      next: () => void this.router.navigateByUrl('/'),
+      next: () => void this.router.navigateByUrl(this.auth.defaultRoute()),
       error: () => {
         this.submitting.set(false);
         this.error.set('auth.invalidCredentials');

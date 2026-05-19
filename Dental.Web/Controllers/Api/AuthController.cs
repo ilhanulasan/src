@@ -13,6 +13,7 @@ public class AuthController(
     UserManager<ApplicationUser> users,
     SignInManager<ApplicationUser> signIn,
     IJwtTokenService jwt,
+    IProfilePictureStorageService profilePictures,
     ILogger<AuthController> log) : ControllerBase
 {
     [HttpPost("register")]
@@ -31,7 +32,6 @@ public class AuthController(
             LastName = dto.LastName.Trim(),
             PhoneNumber = dto.PhoneNumber.Trim(),
             Address = string.IsNullOrWhiteSpace(dto.Address) ? null : dto.Address.Trim(),
-            PictureUrl = string.IsNullOrWhiteSpace(dto.PictureUrl) ? null : dto.PictureUrl.Trim(),
             EmailConfirmed = true,
         };
 
@@ -44,6 +44,16 @@ public class AuthController(
             }
 
             return ValidationProblem(ModelState);
+        }
+
+        if (!string.IsNullOrWhiteSpace(dto.PictureData))
+        {
+            var pictureUrl = await profilePictures.SaveFromDataUrlAsync(user.Id, dto.PictureData, ct);
+            if (pictureUrl is not null)
+            {
+                user.PictureUrl = pictureUrl;
+                await users.UpdateAsync(user);
+            }
         }
 
         var roleAdd = await users.AddToRoleAsync(user, AppRoles.Patient);

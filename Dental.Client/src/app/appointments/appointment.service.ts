@@ -1,7 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Appointment, AppointmentDensity, AppointmentResource, WaitlistEntry } from '../models/appointments';
+import {
+  Appointment,
+  AppointmentDensity,
+  AppointmentResource,
+  TimeSlot,
+  WaitlistEntry,
+} from '../models/appointments';
 
 @Injectable({ providedIn: 'root' })
 export class AppointmentService {
@@ -19,8 +25,26 @@ export class AppointmentService {
     return this.http.get<AppointmentResource[]>('/api/appointment-resources');
   }
 
-  create(body: unknown): Observable<Appointment> {
+  availability(resourceId: string, date: string): Observable<TimeSlot[]> {
+    const params = new HttpParams().set('resourceId', resourceId).set('date', date);
+    return this.http.get<TimeSlot[]>('/api/appointments/availability', { params });
+  }
+
+  create(body: {
+    patientId: string;
+    primaryResourceId: string;
+    startAt: string;
+    endAt: string;
+    notes?: string | null;
+    isOnlineBooking: boolean;
+    scheduleSmsReminder?: boolean;
+    additionalResourceIds?: string[];
+  }): Observable<Appointment> {
     return this.http.post<Appointment>('/api/appointments', body);
+  }
+
+  reschedule(id: string, startAt: string, endAt: string): Observable<void> {
+    return this.http.post<void>(`/api/appointments/${id}/reschedule`, { startAt, endAt });
   }
 
   confirm(id: string): Observable<void> {

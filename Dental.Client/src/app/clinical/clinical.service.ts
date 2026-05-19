@@ -22,4 +22,19 @@ export class ClinicalService {
     if (patientId) params = params.set('patientId', patientId);
     return this.http.get<TreatmentPlan[]>('/api/treatment-plans', { params });
   }
+
+  createExamination(body: Partial<Examination> & { patientId: string }): Observable<Examination> {
+    return this.http.post<Examination>('/api/examinations', body);
+  }
+
+  addDiagnosis(
+    examId: string,
+    body: { icd10CodeId: string; isPrimary: boolean },
+  ): Observable<unknown> {
+    return this.http.post(`/api/examinations/${examId}/diagnoses`, body);
+  }
+
+  createTreatmentPlan(body: unknown): Observable<TreatmentPlan> {
+    return this.http.post<TreatmentPlan>('/api/treatment-plans', body);
+  }
 }

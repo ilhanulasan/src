@@ -1,26 +1,45 @@
+using System.Security.Claims;
 using System.Text.Json;
 using Dental.Web.Data;
 using Dental.Web.Models;
+using Dental.Web.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
+[Authorize(Policy = "Staff")]
 [ApiController]
 [Route("api/patients")]
 public class PatientsController(ApplicationDbContext db, ILogger<PatientsController> log) : ControllerBase
 {
+    private string? CurrentUserId => User.FindFirstValue(ClaimTypes.NameIdentifier);
+    private bool IsDoctorOnly => User.IsInRole(AppRoles.Doctor) && !User.IsInRole(AppRoles.Admin);
+
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Patient>>> GetAll(CancellationToken ct)
     {
-        var list = await db.Patients.AsNoTracking().OrderBy(p => p.Surname).ThenBy(p => p.Name).ToListAsync(ct);
+        var q = db.Patients.AsNoTracking().AsQueryable();
+        if (IsDoctorOnly && CurrentUserId is not null)
+        {
+            q = await DoctorScope.ApplyPatientFilterAsync(q, db, CurrentUserId, ct);
+        }
+
+        var list = await q.OrderBy(p => p.Surname).ThenBy(p => p.Name).ToListAsync(ct);
         return Ok(list);
     }
 
     [HttpGet("{id:guid}")]
     public async Task<ActionResult<Patient>> GetById(Guid id, CancellationToken ct)
     {
-        var patient = await db.Patients.AsNoTracking().FirstOrDefaultAsync(p => p.Id == id, ct);
+        var q = db.Patients.AsNoTracking().Where(p => p.Id == id);
+        if (IsDoctorOnly && CurrentUserId is not null)
+        {
+            q = await DoctorScope.ApplyPatientFilterAsync(q, db, CurrentUserId, ct);
+        }
+
+        var patient = await q.FirstOrDefaultAsync(ct);
         if (patient is null)
         {
             return NotFound();

@@ -1,14 +1,17 @@
-<section class="page">
-  <div class="toolbar">
-    <h1>{{ titleKey() | translate }}</h1>
+<section class="elegant-page">
+  <header class="elegant-header">
+    <div>
+      <p class="elegant-eyebrow">{{ 'patients.eyebrow' | translate }}</p>
+      <h1>{{ titleKey() | translate }}</h1>
+    </div>
     <a routerLink="/patients" class="btn ghost">{{ 'patients.back' | translate }}</a>
-  </div>
+  </header>
 
   @if (submitErrorKey(); as errKey) {
     <p class="error">{{ errKey | translate }}</p>
   }
 
-  <form [formGroup]="form" class="card" (ngSubmit)="save()">
+  <form [formGroup]="form" class="elegant-card elegant-form card" (ngSubmit)="save()">
     <label>
       <span>{{ 'patients.name' | translate }}</span>
       <input formControlName="name" autocomplete="given-name" />
@@ -50,7 +53,7 @@
       </select>
     </label>
 
-    <div class="actions">
+    <div class="elegant-actions actions">
       <button type="button" class="btn ghost" (click)="cancel()">{{ 'patients.cancel' | translate }}</button>
       <button type="submit" class="btn primary" [disabled]="form.invalid">
         {{ 'patients.save' | translate }}
