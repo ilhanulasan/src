@@ -1,0 +1,80 @@
+<section class="elegant-page">
+  <header class="elegant-header">
+    <div>
+      <p class="elegant-eyebrow">{{ 'staff.eyebrow' | translate }}</p>
+      <h1>{{ titleKey() | translate }}</h1>
+    </div>
+    <a routerLink="/staff" class="btn ghost">{{ 'staff.back' | translate }}</a>
+  </header>
+
+  @if (submitErrorKey(); as errKey) {
+    <p class="error">{{ errKey | translate }}</p>
+  }
+
+  <form [formGroup]="form" class="elegant-card elegant-form card" (ngSubmit)="save()">
+    <label>
+      <span>{{ 'auth.firstName' | translate }}</span>
+      <input formControlName="firstName" autocomplete="given-name" />
+    </label>
+    <label>
+      <span>{{ 'auth.lastName' | translate }}</span>
+      <input formControlName="lastName" autocomplete="family-name" />
+    </label>
+    <label>
+      <span>{{ 'auth.email' | translate }}</span>
+      <input type="email" formControlName="email" autocomplete="email" />
+    </label>
+    <label>
+      <span>{{ 'auth.phone' | translate }}</span>
+      <input formControlName="phoneNumber" autocomplete="tel" />
+    </label>
+    <label class="full">
+      <span>{{ 'auth.address' | translate }}</span>
+      <input formControlName="address" autocomplete="street-address" />
+    </label>
+
+    <fieldset class="full roles-field">
+      <legend>{{ 'staff.roles' | translate }}</legend>
+      <div class="role-grid">
+        @for (role of assignableRoles; track role) {
+          <label class="role-check">
+            <input
+              type="checkbox"
+              [checked]="isRoleChecked(role)"
+              (change)="toggleRole(role, $any($event.target).checked)" />
+            <span>{{ roleKey(role) | translate }}</span>
+          </label>
+        }
+      </div>
+      @if (form.controls.roles.touched && form.controls.roles.invalid) {
+        <p class="field-error">{{ 'staff.rolesRequired' | translate }}</p>
+      }
+    </fieldset>
+
+    @if (!isEdit) {
+      <label>
+        <span>{{ 'auth.password' | translate }}</span>
+        <input type="password" formControlName="password" autocomplete="new-password" />
+      </label>
+      <label>
+        <span>{{ 'auth.confirmPassword' | translate }}</span>
+        <input type="password" formControlName="confirmPassword" autocomplete="new-password" />
+      </label>
+    } @else {
+      <p class="full password-hint">{{ 'staff.passwordResetHint' | translate }}</p>
+      <label>
+        <span>{{ 'staff.newPassword' | translate }}</span>
+        <input type="password" formControlName="newPassword" autocomplete="new-password" />
+      </label>
+      <label>
+        <span>{{ 'auth.confirmPassword' | translate }}</span>
+        <input type="password" formControlName="confirmNewPassword" autocomplete="new-password" />
+      </label>
+    }
+
+    <div class="form-actions full">
+      <button type="submit" class="btn primary">{{ 'staff.save' | translate }}</button>
+      <a routerLink="/staff" class="btn ghost">{{ 'staff.cancel' | translate }}</a>
+    </div>
+  </form>
+</section>

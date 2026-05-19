@@ -1355,3 +1355,30 @@ System.Text.Json.JsonException: A possible object cycle was detected. This can e
 2026-05-19 10:01:09.043 +03:00 [INF] HTTP GET /api/profile-pictures/e1cb4cc1-c1ce-4dde-98c0-6404da405a27 responded 200 in 7.8692 ms
 2026-05-19 10:01:09.069 +03:00 [INF] HTTP GET /api/portal/appointments responded 200 in 37.8977 ms
 2026-05-19 10:01:09.070 +03:00 [INF] HTTP GET /api/portal/resources responded 200 in 38.0425 ms
+2026-05-19 10:07:56.772 +03:00 [INF] HTTP GET /api/portal/resources responded 200 in 43.4061 ms
+2026-05-19 10:07:56.774 +03:00 [INF] HTTP GET /api/portal/patient responded 404 in 45.1848 ms
+2026-05-19 10:07:56.861 +03:00 [INF] HTTP GET /api/portal/appointments responded 200 in 131.4117 ms
+2026-05-19 10:07:58.099 +03:00 [INF] HTTP GET /api/portal/appointments responded 200 in 0.9389 ms
+2026-05-19 10:07:58.100 +03:00 [INF] HTTP GET /api/portal/patient responded 404 in 3.2077 ms
+2026-05-19 10:07:58.100 +03:00 [INF] HTTP GET /api/portal/resources responded 200 in 2.6711 ms
+2026-05-19 10:08:00.062 +03:00 [INF] HTTP GET /api/portal/resources responded 200 in 1.4247 ms
+2026-05-19 10:08:00.064 +03:00 [INF] HTTP GET /api/portal/appointments responded 200 in 1.4767 ms
+2026-05-19 10:08:00.062 +03:00 [INF] HTTP GET /api/portal/patient responded 404 in 1.4956 ms
+2026-05-19 10:08:03.051 +03:00 [INF] HTTP GET /api/portal/patient responded 404 in 1.3250 ms
+2026-05-19 10:08:03.051 +03:00 [INF] HTTP GET /api/portal/resources responded 200 in 1.3015 ms
+2026-05-19 10:08:03.053 +03:00 [INF] HTTP GET /api/portal/appointments responded 200 in 1.1531 ms
+2026-05-19 10:09:08.035 +03:00 [INF] Dental.Web started
+2026-05-19 10:09:09.328 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-19 10:09:09.330 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-19 10:09:09.330 +03:00 [INF] Hosting environment: Development
+2026-05-19 10:09:09.331 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-19 10:09:16.522 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-19 10:09:16.740 +03:00 [INF] HTTP GET /api/portal/patient responded 404 in 219.1535 ms
+2026-05-19 10:09:16.815 +03:00 [INF] HTTP GET /api/portal/appointments responded 200 in 295.4448 ms
+2026-05-19 10:09:16.818 +03:00 [INF] HTTP GET /api/portal/resources responded 200 in 298.0407 ms
+2026-05-19 10:09:50.356 +03:00 [INF] HTTP POST /api/auth/login responded 401 in 94.8800 ms
+2026-05-19 10:10:22.810 +03:00 [INF] HTTP POST /api/auth/login responded 401 in 55.5074 ms
+2026-05-19 10:10:24.602 +03:00 [INF] HTTP POST /api/auth/login responded 401 in 62.9287 ms
+2026-05-19 10:10:59.747 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 78.7175 ms
+2026-05-19 10:11:08.496 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 40.3053 ms
+2026-05-19 10:11:23.446 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 42.2494 ms

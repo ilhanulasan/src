@@ -158,6 +158,9 @@ try
         }
 
         await ClinicSeedData.SeedAsync(db);
+
+        var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+        await IdentitySeedData.SeedDefaultAdminAsync(userManager, app.Environment.IsDevelopment());
     }
 
     app.Run();

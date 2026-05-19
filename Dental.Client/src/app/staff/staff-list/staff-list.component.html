@@ -1,0 +1,51 @@
+<section class="page">
+  @if (loadFailed()) {
+    <p class="error">{{ 'staff.loadError' | translate }}</p>
+  }
+
+  <div class="toolbar">
+    <div>
+      <p class="eyebrow">{{ 'staff.eyebrow' | translate }}</p>
+      <h1>{{ 'staff.title' | translate }}</h1>
+    </div>
+    <a routerLink="/staff/new" class="btn primary">{{ 'staff.add' | translate }}</a>
+  </div>
+
+  @if (!loadFailed()) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ 'staff.name' | translate }}</th>
+          <th>{{ 'auth.email' | translate }}</th>
+          <th>{{ 'auth.phone' | translate }}</th>
+          <th>{{ 'staff.roles' | translate }}</th>
+          <th>{{ 'staff.actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (u of rows(); track u.id) {
+          <tr>
+            <td>{{ u.firstName }} {{ u.lastName }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.phoneNumber || '—' }}</td>
+            <td>
+              @for (role of u.roles; track role) {
+                <span class="role-tag">{{ roleKey(role) | translate }}</span>
+              }
+            </td>
+            <td class="actions">
+              <a routerLink="/staff/{{ u.id }}/edit" class="link">{{ 'staff.edit' | translate }}</a>
+              <button type="button" class="link danger" (click)="delete(u.id, $event)">
+                {{ 'staff.delete' | translate }}
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="5">{{ 'staff.empty' | translate }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

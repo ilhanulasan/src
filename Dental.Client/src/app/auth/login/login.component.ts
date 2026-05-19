@@ -40,11 +40,12 @@ export class LoginComponent {
     this.error.set(null);
 
     const { email, password } = this.form.getRawValue();
-    this.auth.login(email, password).subscribe({
+    this.auth.login(email.trim(), password).subscribe({
       next: () => void this.router.navigateByUrl(this.auth.defaultRoute()),
-      error: () => {
+      error: (err: { error?: { code?: string } }) => {
         this.submitting.set(false);
-        this.error.set('auth.invalidCredentials');
+        const code = err?.error?.code;
+        this.error.set(code === 'locked_out' ? 'auth.accountLocked' : 'auth.invalidCredentials');
       },
     });
   }

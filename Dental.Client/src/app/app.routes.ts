@@ -53,9 +53,7 @@ export const routes: Routes = [
       {
         path: 'staff',
         canActivate: [authGuard, roleGuard(...AdminOnlyRoles)],
-        loadComponent: () =>
-          import('./sections/section-placeholder.component').then((m) => m.SectionPlaceholderComponent),
-        data: { titleKey: 'nav.staff' },
+        loadChildren: () => import('./staff/staff.routes').then((m) => m.staffRoutes),
       },
       {
         path: 'finance',

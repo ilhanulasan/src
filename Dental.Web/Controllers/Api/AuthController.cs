@@ -81,16 +81,28 @@ public class AuthController(
             return ValidationProblem(ModelState);
         }
 
-        var user = await users.FindByEmailAsync(dto.Email);
+        var email = dto.Email.Trim();
+        var user = await users.FindByEmailAsync(email);
         if (user is null)
         {
+            log.LogWarning("Login failed: unknown email {Email}", email);
             return Unauthorized();
+        }
+
+        if (await users.IsLockedOutAsync(user))
+        {
+            log.LogWarning("Login failed: account locked for {UserId}", user.Id);
+            return Unauthorized(new { code = "locked_out" });
         }
 
         var valid = await signIn.CheckPasswordSignInAsync(user, dto.Password, lockoutOnFailure: true);
         if (!valid.Succeeded)
         {
-            return Unauthorized();
+            log.LogWarning(
+                "Login failed for {UserId}: {Result}",
+                user.Id,
+                valid.IsLockedOut ? "locked_out" : "invalid_password");
+            return Unauthorized(new { code = valid.IsLockedOut ? "locked_out" : "invalid_credentials" });
         }
 
         var roles = await users.GetRolesAsync(user);
