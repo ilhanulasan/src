@@ -1,0 +1,324 @@
+.editor-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 1200px;
+  padding-bottom: 2.5rem;
+}
+
+.editor-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.odontograph-heading {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 0.25rem 0 0;
+  font-size: 1.35rem;
+}
+
+.odontograph-type-tag {
+  background: #edf4ff;
+  color: #1d4f91;
+  border: 1px solid #cfe0fb;
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.muted-link {
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  color: inherit;
+  text-decoration: none;
+  opacity: 0.85;
+  font-size: 0.9rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.hint {
+  margin: 0.35rem 0 0;
+  font-size: 0.88rem;
+  max-width: 40rem;
+}
+
+.loading-line {
+  margin: 0;
+}
+
+.editor-toolbar {
+  background: #fff;
+  border: 1px solid #e3e8f0;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(15, 35, 70, 0.06);
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+
+  &.busy {
+    opacity: 0.55;
+    pointer-events: none;
+  }
+}
+
+.toolbar-row-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eef2f7;
+}
+
+.toolbar-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b7a90;
+}
+
+.view-switcher {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.25rem;
+  background: #f4f7fb;
+  border-radius: 8px;
+}
+
+.view-btn {
+  min-width: 5.5rem;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  background: transparent;
+  color: #4a5568;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+
+  &:hover:not(:disabled) {
+    background: #fff;
+    color: #1d4f91;
+  }
+
+  &.active {
+    background: #fff;
+    color: #1d4f91;
+    border-color: #cfe0fb;
+    box-shadow: 0 1px 4px rgba(29, 79, 145, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.view-btn-danger:hover:not(:disabled) {
+  color: #b71c1c;
+}
+
+.active-tool-box {
+  min-width: 12rem;
+  text-align: right;
+}
+
+.active-tool-name {
+  margin: 0.15rem 0 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #1d4f91;
+}
+
+.active-tool-hint {
+  margin: 0.15rem 0 0;
+  font-size: 0.85rem;
+  color: #6b7a90;
+}
+
+.tools-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.tool-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.group-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #8a96a8;
+  padding-left: 0.1rem;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.4rem;
+}
+
+.tool-chip {
+  min-height: 2.25rem;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #fafbfc;
+  color: #3d4a5c;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  cursor: pointer;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease,
+    color 0.12s ease;
+
+  &:hover:not(:disabled) {
+    background: #f0f4f9;
+    border-color: #c5d3e3;
+    color: #1d4f91;
+  }
+
+  &.active {
+    background: #1d4f91;
+    border-color: #1d4f91;
+    color: #fff;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.canvas-panel {
+  align-self: center;
+  width: fit-content;
+  max-width: 100%;
+  border: 1px solid #e3e8f0;
+  border-radius: 14px;
+  background: #f8fafc;
+  box-shadow: 0 4px 18px rgba(15, 35, 70, 0.06);
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  &.busy {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+}
+
+.canvas-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0.25rem 0.5rem 0;
+  line-height: 0;
+}
+
+#odontograph-canvas {
+  display: block;
+  width: auto;
+  max-width: 100%;
+  height: auto;
+  vertical-align: top;
+}
+
+.notes-panel {
+  display: grid;
+  gap: 1rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+  }
+
+  textarea {
+    width: 100%;
+    resize: vertical;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    font: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #93b8e8;
+      box-shadow: 0 0 0 3px rgba(29, 79, 145, 0.12);
+    }
+  }
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+
+  &.ok {
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #c8e6c9;
+  }
+
+  &.err {
+    background: #ffebee;
+    color: #b71c1c;
+    border: 1px solid #ffcdd2;
+  }
+}
+
+@media (max-width: 900px) {
+  .tool-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .active-tool-box {
+    text-align: left;
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .tool-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .view-switcher {
+    width: 100%;
+  }
+
+  .view-btn {
+    flex: 1;
+  }
+}

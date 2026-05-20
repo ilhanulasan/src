@@ -2,12 +2,13 @@ import { DatePipe } from '@angular/common';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
-import { AppointmentResource } from '../models/appointments';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
+import { DoctorAppointmentOption } from '../models/personnel';
 import { Patient } from '../models/patient';
 import { TimeSlot } from '../models/appointments';
 import { addMinutesToOffsetIso, localDateTimePartsToOffsetIso } from '../shared/datetime.util';
 import { PatientService } from '../patients/patient.service';
+import { PersonnelService } from '../personnel/personnel.service';
 import { AppointmentService } from './appointment.service';
 
 @Component({
@@ -21,9 +22,11 @@ export class AppointmentFormComponent implements OnInit {
   private readonly router = inject(Router);
   private readonly api = inject(AppointmentService);
   private readonly patientsApi = inject(PatientService);
+  private readonly personnelApi = inject(PersonnelService);
+  private readonly translate = inject(TranslateService);
 
   readonly patients = signal<Patient[]>([]);
-  readonly resources = signal<AppointmentResource[]>([]);
+  readonly doctors = signal<DoctorAppointmentOption[]>([]);
   readonly slots = signal<TimeSlot[]>([]);
   readonly errorKey = signal<string | undefined>(undefined);
   readonly selectedSlotStart = signal<string>('');
@@ -43,7 +46,21 @@ export class AppointmentFormComponent implements OnInit {
     this.form.patchValue({ date: today });
 
     this.patientsApi.list().subscribe({ next: (p) => this.patients.set(p) });
-    this.api.resources().subscribe({ next: (r) => this.resources.set(r) });
+    this.personnelApi.doctorsForAppointments().subscribe({ next: (d) => this.doctors.set(d) });
+  }
+
+  specialtyKey(specialty: string): string {
+    return `personnel.specialty.${specialty}`;
+  }
+
+  doctorOptionLabel(doctor: DoctorAppointmentOption): string {
+    if (!doctor.specialties.length) {
+      return doctor.displayName;
+    }
+    const labels = doctor.specialties.map((s) =>
+      this.translate.instant(this.specialtyKey(s)),
+    );
+    return `${doctor.displayName} — ${labels.join(', ')}`;
   }
 
   onScheduleParamsChange(): void {

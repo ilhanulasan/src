@@ -2,9 +2,11 @@ import { DatePipe } from '@angular/common';
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { Appointment, AppointmentResource } from '../models/appointments';
+import { Appointment } from '../models/appointments';
+import { DoctorAppointmentOption } from '../models/personnel';
 import { Patient } from '../models/patient';
 import { PatientService } from '../patients/patient.service';
+import { PersonnelService } from '../personnel/personnel.service';
 import { AppointmentService } from './appointment.service';
 
 const HOUR_START = 8;
@@ -20,8 +22,9 @@ const HOUR_COUNT = HOUR_END - HOUR_START;
 export class AppointmentCalendarComponent implements OnInit {
   private readonly api = inject(AppointmentService);
   private readonly patientsApi = inject(PatientService);
+  private readonly personnelApi = inject(PersonnelService);
 
-  readonly resources = signal<AppointmentResource[]>([]);
+  readonly doctors = signal<DoctorAppointmentOption[]>([]);
   readonly patients = signal<Patient[]>([]);
   readonly appointments = signal<Appointment[]>([]);
   readonly selectedResourceId = signal<string>('');
@@ -42,11 +45,11 @@ export class AppointmentCalendarComponent implements OnInit {
 
   ngOnInit(): void {
     this.patientsApi.list().subscribe({ next: (p) => this.patients.set(p) });
-    this.api.resources().subscribe({
-      next: (r) => {
-        this.resources.set(r);
-        if (r.length && !this.selectedResourceId()) {
-          this.selectedResourceId.set(r[0].id);
+    this.personnelApi.doctorsForAppointments().subscribe({
+      next: (d) => {
+        this.doctors.set(d);
+        if (d.length && !this.selectedResourceId()) {
+          this.selectedResourceId.set(d[0].resourceId);
         }
         this.loadWeek();
       },

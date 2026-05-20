@@ -1,0 +1,90 @@
+<section class="auth-card">
+  <div class="auth-head">
+    <p class="eyebrow">
+      <app-tooth-icon />
+      {{ 'booking.eyebrow' | translate }}
+    </p>
+    <h1>{{ 'booking.title' | translate }}</h1>
+    <p class="sub">{{ 'booking.subtitle' | translate }}</p>
+  </div>
+
+  @if (submitted()) {
+    <div class="success-panel" role="status">
+      <p>{{ 'booking.success' | translate }}</p>
+      <p class="hint">{{ 'booking.successEmail' | translate }}</p>
+      <a routerLink="/" class="submit link-home">{{ 'booking.backHome' | translate }}</a>
+    </div>
+  } @else {
+    @if (errorKey(); as key) {
+      <div class="alert" role="alert">{{ key | translate }}</div>
+    }
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <div class="grid2">
+        <label class="field">
+          <span>{{ 'auth.firstName' | translate }} *</span>
+          <input type="text" formControlName="firstName" autocomplete="given-name" />
+        </label>
+        <label class="field">
+          <span>{{ 'auth.lastName' | translate }} *</span>
+          <input type="text" formControlName="lastName" autocomplete="family-name" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span>{{ 'auth.email' | translate }} *</span>
+        <input type="email" formControlName="email" autocomplete="email" />
+      </label>
+
+      <label class="field">
+        <span>{{ 'auth.phone' | translate }} *</span>
+        <input type="tel" formControlName="phone" autocomplete="tel" />
+      </label>
+
+      <label class="field">
+        <span>{{ 'appointments.doctor' | translate }} *</span>
+        <select formControlName="resourceId" (change)="onScheduleParamsChange()">
+          <option value="">{{ 'appointments.selectDoctor' | translate }}</option>
+          @for (d of doctors(); track d.resourceId) {
+            <option [value]="d.resourceId">{{ doctorLabel(d) }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="field">
+        <span>{{ 'appointments.date' | translate }} *</span>
+        <input type="date" formControlName="date" (change)="onScheduleParamsChange()" />
+      </label>
+
+      <p class="slots-label">{{ 'portal.availableSlots' | translate }}</p>
+      <div class="slots">
+        @for (s of slots(); track s.startAt) {
+          <button
+            type="button"
+            class="slot-btn"
+            [class.selected]="selectedSlotStart() === s.startAt"
+            (click)="pickSlot(s)">
+            {{ s.startAt | date: 'HH:mm' }}
+          </button>
+        } @empty {
+          <span class="muted">{{ 'portal.noSlots' | translate }}</span>
+        }
+      </div>
+
+      <label class="field">
+        <span>{{ 'appointments.notes' | translate }}</span>
+        <textarea formControlName="notes" rows="2"></textarea>
+      </label>
+
+      <button class="submit" type="submit" [disabled]="submitting()">
+        <app-tooth-icon />
+        {{ 'booking.submit' | translate }}
+      </button>
+
+      <p class="switch">
+        {{ 'auth.haveAccount' | translate }}
+        <a routerLink="/login">{{ 'auth.goLogin' | translate }}</a>
+      </p>
+    </form>
+  }
+</section>

@@ -5,6 +5,7 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { authInterceptor } from './core/auth.interceptor';
+import { provideI18nInitializer, readStoredLang } from './core/i18n.initializer';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -15,12 +16,13 @@ export const appConfig: ApplicationConfig = {
     // Register HTTP loader *after* provideTranslateService so it overrides the default NoOp loader.
     ...provideTranslateService({
       fallbackLang: 'en',
-      lang: 'en',
+      lang: readStoredLang(),
       extend: true,
     }),
     ...provideTranslateHttpLoader({
       prefix: '/assets/i18n/',
       suffix: '.json',
     }),
+    provideI18nInitializer(),
   ],
 };

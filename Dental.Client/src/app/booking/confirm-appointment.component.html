@@ -1,0 +1,25 @@
+<section class="auth-card">
+  <div class="auth-head">
+    <p class="eyebrow">
+      <app-tooth-icon />
+      {{ 'booking.confirmEyebrow' | translate }}
+    </p>
+    <h1>{{ 'booking.confirmTitle' | translate }}</h1>
+  </div>
+
+  @switch (state()) {
+    @case ('loading') {
+      <p class="sub">{{ 'booking.confirmLoading' | translate }}</p>
+    }
+    @case ('ok') {
+      <div class="success-panel">
+        <p>{{ 'booking.confirmSuccess' | translate }}</p>
+        <a routerLink="/" class="submit link-home">{{ 'booking.backHome' | translate }}</a>
+      </div>
+    }
+    @default {
+      <div class="alert" role="alert">{{ 'booking.confirmFailed' | translate }}</div>
+      <a routerLink="/book-appointment" class="submit link-home">{{ 'website.makeAppointment' | translate }}</a>
+    }
+  }
+</section>

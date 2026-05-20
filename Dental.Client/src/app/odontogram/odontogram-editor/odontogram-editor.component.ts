@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { TranslatePipe } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { finalize, filter, map } from 'rxjs';
 import { PatientService } from '../../patients/patient.service';
 import {
@@ -34,8 +34,12 @@ import { clinicTreatments, orderedPathologies, treatmentById } from '../dental-c
 export class OdontogramEditorComponent implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly translate = inject(TranslateService);
   private readonly odontogramApi = inject(OdontogramService);
   private readonly patientsApi = inject(PatientService);
+
+  /** Bumps when language changes so toolbar labels re-resolve from tr.json. */
+  readonly langTick = signal(0);
 
   private readonly ADULT_UPPER_TEETH = [
     18, 17, 16, 15, 14, 13, 12, 11, 21, 22, 23, 24, 25, 26, 27, 28,
@@ -92,6 +96,10 @@ export class OdontogramEditorComponent implements OnInit {
   ngOnInit(): void {
     this.pathologies.set(orderedPathologies());
 
+    this.translate.onLangChange
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe(() => this.langTick.update((n) => n + 1));
+
     this.route.paramMap
       .pipe(
         takeUntilDestroyed(this.destroyRef),
@@ -102,11 +110,13 @@ export class OdontogramEditorComponent implements OnInit {
   }
 
   pathologyLabel(id: number): string {
-    return `odontogram.pathology.${id}`;
+    void this.langTick();
+    return this.translate.instant(`odontogram.pathology.${id}`);
   }
 
   treatmentLabel(id: number): string {
-    return `odontogram.treatment.${id}`;
+    void this.langTick();
+    return this.translate.instant(`odontogram.treatment.${id}`);
   }
 
   private loadCharts(patientId: string): void {

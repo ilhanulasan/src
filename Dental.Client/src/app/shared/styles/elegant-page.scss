@@ -11,37 +11,31 @@
   gap: 1rem;
   margin-bottom: 1.35rem;
   padding-bottom: 1rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--admin-accent, #03a9f4) 18%, var(--border, #e3e8ef));
+  border-bottom: 1px solid var(--border);
 }
 
 .elegant-header h1 {
   margin: 0.2rem 0 0;
   font-size: clamp(1.35rem, 2.5vw, 1.75rem);
-  font-weight: 800;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--color-navy, #1c2529);
+  color: var(--color-navy);
 }
 
 .elegant-eyebrow {
   margin: 0;
   font-size: 0.72rem;
-  font-weight: 750;
-  letter-spacing: 0.1em;
+  font-weight: 650;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--admin-accent-strong, #0277bd);
+  color: var(--admin-accent-strong);
 }
 
 .elegant-card {
-  border-radius: 18px;
-  border: 1px solid color-mix(in srgb, var(--admin-accent, #03a9f4) 14%, var(--border, #e3e8ef));
-  background: linear-gradient(
-    165deg,
-    color-mix(in srgb, #fff 96%, var(--admin-accent, #03a9f4)),
-    color-mix(in srgb, #fff 98%, var(--color-mist, #90a4ae))
-  );
-  box-shadow:
-    0 1px 0 color-mix(in srgb, #fff 80%, transparent) inset,
-    0 16px 40px color-mix(in srgb, var(--color-navy, #1c2529) 8%, transparent);
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
   padding: 1.35rem 1.25rem;
 }
 
@@ -53,8 +47,8 @@
 .elegant-form label {
   display: grid;
   gap: 0.4rem;
-  font-weight: 650;
-  color: var(--color-navy, #1c2529);
+  font-weight: 600;
+  color: var(--color-navy);
   font-size: 0.88rem;
 }
 
@@ -62,11 +56,11 @@
 .elegant-form select,
 .elegant-form textarea {
   width: 100%;
-  border-radius: 12px;
-  border: 1px solid color-mix(in srgb, var(--color-mist, #90a4ae) 55%, var(--border, #e3e8ef));
+  border-radius: 10px;
+  border: 1px solid var(--border);
   padding: 0.62rem 0.75rem;
   font: inherit;
-  background: #fff;
+  background: var(--surface);
   transition:
     border-color 0.15s ease,
     box-shadow 0.15s ease;
@@ -76,8 +70,8 @@
 .elegant-form select:focus,
 .elegant-form textarea:focus {
   outline: none;
-  border-color: var(--admin-accent, #03a9f4);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-accent, #03a9f4) 22%, transparent);
+  border-color: var(--admin-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--admin-accent) 18%, transparent);
 }
 
 .elegant-actions {
@@ -87,14 +81,14 @@
   gap: 0.65rem;
   margin-top: 0.35rem;
   padding-top: 0.85rem;
-  border-top: 1px dashed color-mix(in srgb, var(--border, #e3e8ef) 90%, transparent);
+  border-top: 1px dashed var(--border);
 }
 
 .elegant-page .btn {
-  border-radius: 999px;
+  border-radius: 8px;
   padding: 0.5rem 1.1rem;
   font-size: 0.88rem;
-  font-weight: 700;
+  font-weight: 600;
   border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
@@ -104,27 +98,27 @@
 }
 
 .elegant-page .btn.primary {
-  background: linear-gradient(135deg, var(--admin-accent, #03a9f4), var(--admin-accent-strong, #0277bd));
+  background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-strong));
   color: #fff;
-  box-shadow: 0 8px 20px color-mix(in srgb, var(--admin-accent, #03a9f4) 35%, transparent);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--admin-accent) 28%, transparent);
 }
 
 .elegant-page .btn.ghost {
-  border-color: color-mix(in srgb, var(--color-mist, #90a4ae) 50%, var(--border, #e3e8ef));
-  background: #fff;
-  color: var(--color-navy, #1c2529);
+  border-color: var(--border);
+  background: var(--surface);
+  color: var(--color-navy);
 }
 
 .elegant-page .error {
-  border-radius: 12px;
+  border-radius: 10px;
   padding: 0.65rem 0.85rem;
   margin-bottom: 1rem;
-  background: color-mix(in srgb, #fef2f2 90%, #fff);
-  border: 1px solid color-mix(in srgb, #b91c1c 35%, transparent);
+  background: #fef2f2;
+  border: 1px solid #fecaca;
   color: #b91c1c;
-  font-weight: 650;
+  font-weight: 600;
 }
 
 .elegant-page .muted {
-  color: color-mix(in srgb, var(--color-ink, #263238) 55%, transparent);
+  color: var(--muted-fg);
 }

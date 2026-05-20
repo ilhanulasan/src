@@ -1,20 +1,31 @@
 :host {
   display: block;
-  max-width: 920px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 2.25rem 1rem 3rem;
+}
+
+.placeholder {
+  padding: 2rem 1.75rem;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-md);
 }
 
 .placeholder h1 {
   margin: 0.35rem 0 0.65rem;
-  color: var(--color-navy, #0d324d);
+  font-size: clamp(1.5rem, 2.5vw, 1.85rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--color-navy);
 }
 
 .body {
-  margin: 0 0 1rem;
+  margin: 0 0 1.25rem;
   max-width: 70ch;
-  line-height: 1.6;
-  color: color-mix(in srgb, var(--color-ink, #020202) 72%, transparent);
+  line-height: 1.65;
+  color: var(--muted-fg);
+  font-size: 0.98rem;
 }
 
 .eyebrow {
@@ -22,18 +33,24 @@
   gap: 0.45rem;
   align-items: center;
   margin: 0;
-  font-weight: 750;
+  font-weight: 650;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-size: 0.78rem;
-  color: var(--color-mauve-dark, #7f5a83);
+  font-size: 0.72rem;
+  color: var(--admin-accent-strong);
 }
 
 .back {
   display: inline-flex;
   gap: 0.45rem;
   align-items: center;
-  font-weight: 850;
-  color: var(--color-mauve-dark, #7f5a83);
+  font-weight: 650;
+  font-size: 0.9rem;
+  color: var(--admin-accent-strong);
   text-decoration: none;
+  padding: 0.5rem 0;
+}
+
+.back:hover {
+  text-decoration: underline;
 }

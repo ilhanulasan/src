@@ -32,15 +32,13 @@
           <span>{{ 'nav.clinical' | translate }}</span>
         </a>
       }
-      @if (showPortalNav()) {
-        <a routerLink="/portal" routerLinkActive="active" (click)="sidebarOpen.set(false)">
-          <span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>
-          <span>{{ 'nav.portal' | translate }}</span>
-        </a>
-      }
       @if (showAdminNav()) {
+        <a routerLink="/personnel" routerLinkActive="active" (click)="sidebarOpen.set(false)">
+          <span class="material-symbols-outlined" aria-hidden="true">groups</span>
+          <span>{{ 'nav.personnel' | translate }}</span>
+        </a>
         <a routerLink="/staff" routerLinkActive="active" (click)="sidebarOpen.set(false)">
-          <span class="material-symbols-outlined" aria-hidden="true">badge</span>
+          <span class="material-symbols-outlined" aria-hidden="true">manage_accounts</span>
           <span>{{ 'nav.staff' | translate }}</span>
         </a>
         <a routerLink="/finance" routerLinkActive="active" (click)="sidebarOpen.set(false)">
@@ -65,7 +63,7 @@
     <p class="sidebar-foot">{{ 'layout.sidebarHint' | translate }}</p>
   </aside>
 
-  <div class="shell-main">
+  <div class="shell-main admin-canvas-bg">
     <header class="topbar">
       <div class="topbar-left">
         <button type="button" class="icon-btn menu-toggle" (click)="toggleSidebar()" aria-label="Menu">

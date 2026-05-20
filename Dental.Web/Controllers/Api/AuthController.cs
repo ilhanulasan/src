@@ -1,9 +1,11 @@
 using System.Security.Claims;
+using Dental.Web.Data;
 using Dental.Web.Models;
 using Dental.Web.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dental.Web.Controllers.Api;
 
@@ -14,6 +16,7 @@ public class AuthController(
     SignInManager<ApplicationUser> signIn,
     IJwtTokenService jwt,
     IProfilePictureStorageService profilePictures,
+    ApplicationDbContext db,
     ILogger<AuthController> log) : ControllerBase
 {
     [HttpPost("register")]
@@ -109,6 +112,110 @@ public class AuthController(
         var token = jwt.CreateToken(user, roles);
 
         return Ok(new AuthResponseDto { Token = token, User = MapUser(user, roles) });
+    }
+
+    [AllowAnonymous]
+    [HttpGet("invite/{token}")]
+    public async Task<ActionResult<RegistrationInviteInfoDto>> GetInvite(string token, CancellationToken ct)
+    {
+        var patient = await db.Patients.AsNoTracking()
+            .FirstOrDefaultAsync(
+                p => p.RegistrationInviteToken == token.Trim()
+                     && p.RegistrationInviteExpiresAt > DateTimeOffset.UtcNow,
+                ct);
+
+        if (patient is null)
+        {
+            return NotFound();
+        }
+
+        return Ok(new RegistrationInviteInfoDto
+        {
+            FirstName = patient.Name,
+            LastName = patient.Surname,
+            Email = patient.Email ?? string.Empty,
+            Phone = patient.Phone,
+        });
+    }
+
+    [AllowAnonymous]
+    [HttpPost("invite/{token}/complete")]
+    public async Task<ActionResult<AuthResponseDto>> CompleteInvite(
+        string token,
+        [FromBody] CompleteRegistrationInviteDto dto,
+        CancellationToken ct)
+    {
+        if (!ModelState.IsValid)
+        {
+            return ValidationProblem(ModelState);
+        }
+
+        var patient = await db.Patients.FirstOrDefaultAsync(
+            p => p.RegistrationInviteToken == token.Trim()
+                 && p.RegistrationInviteExpiresAt > DateTimeOffset.UtcNow,
+            ct);
+
+        if (patient is null)
+        {
+            return NotFound();
+        }
+
+        if (patient.UserId is not null)
+        {
+            return BadRequest("This patient profile already has an account.");
+        }
+
+        var email = (patient.Email ?? dto.Email).Trim();
+        if (string.IsNullOrWhiteSpace(email))
+        {
+            return BadRequest("Email is required to complete registration.");
+        }
+
+        var existing = await users.FindByEmailAsync(email);
+        if (existing is not null)
+        {
+            return Conflict("An account with this email already exists. Please sign in.");
+        }
+
+        var user = new ApplicationUser
+        {
+            UserName = email,
+            Email = email,
+            FirstName = patient.Name,
+            LastName = patient.Surname,
+            PhoneNumber = patient.Phone ?? dto.Phone?.Trim(),
+            EmailConfirmed = true,
+        };
+
+        var create = await users.CreateAsync(user, dto.Password);
+        if (!create.Succeeded)
+        {
+            foreach (var err in create.Errors)
+            {
+                ModelState.AddModelError(string.Empty, err.Description);
+            }
+
+            return ValidationProblem(ModelState);
+        }
+
+        var roleAdd = await users.AddToRoleAsync(user, AppRoles.Patient);
+        if (!roleAdd.Succeeded)
+        {
+            await users.DeleteAsync(user);
+            return Problem("Could not complete registration.");
+        }
+
+        patient.UserId = user.Id;
+        patient.RegistrationInviteToken = null;
+        patient.RegistrationInviteExpiresAt = null;
+        patient.UpdatedAt = DateTimeOffset.UtcNow;
+        await db.SaveChangesAsync(ct);
+
+        var roles = await users.GetRolesAsync(user);
+        var jwtToken = jwt.CreateToken(user, roles);
+        log.LogInformation("Completed invite registration for patient {PatientId}", patient.Id);
+
+        return Ok(new AuthResponseDto { Token = jwtToken, User = MapUser(user, roles) });
     }
 
     [Authorize]

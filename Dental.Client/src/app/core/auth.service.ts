@@ -113,9 +113,13 @@ export class AuthService {
     return this.hasRole(AppRoles.Admin);
   }
 
+  applyAuthResponse(response: AuthResponse): void {
+    this.persist(response);
+  }
+
   defaultRoute(): string {
     if (this.isPatient()) {
-      return '/portal';
+      return '/';
     }
 
     if (this.isDoctor()) {

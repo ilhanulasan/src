@@ -9,6 +9,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 {
     public DbSet<Patient> Patients => Set<Patient>();
     public DbSet<PatientOdontogram> PatientOdontograms => Set<PatientOdontogram>();
+    public DbSet<PatientOdontograph> PatientOdontographs => Set<PatientOdontograph>();
     public DbSet<PatientMedicalHistory> PatientMedicalHistories => Set<PatientMedicalHistory>();
     public DbSet<PatientClinicalNote> PatientClinicalNotes => Set<PatientClinicalNote>();
     public DbSet<PatientAllergy> PatientAllergies => Set<PatientAllergy>();
@@ -23,6 +24,7 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     public DbSet<TreatmentPlan> TreatmentPlans => Set<TreatmentPlan>();
     public DbSet<TreatmentPlanItem> TreatmentPlanItems => Set<TreatmentPlanItem>();
 
+    public DbSet<ClinicPersonnel> ClinicPersonnel => Set<ClinicPersonnel>();
     public DbSet<AppointmentResource> AppointmentResources => Set<AppointmentResource>();
     public DbSet<Appointment> Appointments => Set<Appointment>();
     public DbSet<AppointmentResourceLink> AppointmentResourceLinks => Set<AppointmentResourceLink>();

@@ -12,11 +12,11 @@
     <button type="button" class="btn ghost" (click)="today()">{{ 'appointments.today' | translate }}</button>
     <button type="button" class="btn ghost" (click)="nextWeek()">›</button>
     <label>
-      {{ 'appointments.resource' | translate }}
+      {{ 'appointments.doctor' | translate }}
       <select [value]="selectedResourceId()" (change)="onResourceChange($event)">
         <option value="">{{ 'appointments.allResources' | translate }}</option>
-        @for (r of resources(); track r.id) {
-          <option [value]="r.id">{{ r.name }} ({{ r.resourceType }})</option>
+        @for (d of doctors(); track d.resourceId) {
+          <option [value]="d.resourceId">{{ d.displayName }}</option>
         }
       </select>
     </label>

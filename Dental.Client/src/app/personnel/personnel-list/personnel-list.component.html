@@ -1,0 +1,83 @@
+<section class="page">
+  @if (loadFailed()) {
+    <p class="error">{{ 'personnel.loadError' | translate }}</p>
+  }
+
+  <div class="toolbar">
+    <div>
+      <p class="eyebrow">{{ 'personnel.eyebrow' | translate }}</p>
+      <h1>{{ 'personnel.title' | translate }}</h1>
+    </div>
+    <a routerLink="/personnel/new" class="btn primary">{{ 'personnel.add' | translate }}</a>
+  </div>
+
+  <div class="filters">
+    <label>
+      {{ 'personnel.filterType' | translate }}
+      <select [value]="filterType()" (change)="onFilterChange($event)">
+        <option value="">{{ 'personnel.filterAll' | translate }}</option>
+        @for (t of personnelTypes; track t) {
+          <option [value]="t">{{ typeKey(t) | translate }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  @if (!loadFailed()) {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ 'personnel.name' | translate }}</th>
+          <th>{{ 'personnel.typeColumn' | translate }}</th>
+          <th class="specialties-col">{{ 'personnel.specialties' | translate }}</th>
+          <th>{{ 'auth.email' | translate }}</th>
+          <th>{{ 'auth.phone' | translate }}</th>
+          <th>{{ 'personnel.status' | translate }}</th>
+          <th>{{ 'personnel.actions' | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (p of filteredRows(); track p.id) {
+          <tr [class.inactive-row]="!p.isActive">
+            <td class="name-cell">{{ p.firstName }} {{ p.lastName }}</td>
+            <td>
+              <span class="type-tag" [attr.data-type]="p.personnelType">{{ typeKey(p.personnelType) | translate }}</span>
+            </td>
+            <td class="specialties-cell">
+              @if (p.personnelType === 'Doctor' && p.specialties.length) {
+                <div class="specialty-tags">
+                  @for (s of p.specialties; track s) {
+                    <span class="specialty-tag">{{ specialtyKey(s) | translate }}</span>
+                  }
+                </div>
+              } @else if (p.personnelType === 'Doctor') {
+                <span class="muted">{{ 'personnel.noSpecialties' | translate }}</span>
+              } @else {
+                <span class="muted">—</span>
+              }
+            </td>
+            <td>{{ p.email || '—' }}</td>
+            <td>{{ p.phone || '—' }}</td>
+            <td>
+              @if (p.isActive) {
+                <span class="status-active">{{ 'personnel.active' | translate }}</span>
+              } @else {
+                <span class="status-inactive">{{ 'personnel.inactive' | translate }}</span>
+              }
+            </td>
+            <td class="actions">
+              <a routerLink="/personnel/{{ p.id }}/edit" class="link">{{ 'personnel.edit' | translate }}</a>
+              <button type="button" class="link danger" (click)="delete(p.id, $event)">
+                {{ 'personnel.delete' | translate }}
+              </button>
+            </td>
+          </tr>
+        } @empty {
+          <tr>
+            <td colspan="7">{{ 'personnel.empty' | translate }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</section>

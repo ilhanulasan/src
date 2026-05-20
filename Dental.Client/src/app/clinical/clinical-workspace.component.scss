@@ -7,8 +7,8 @@
 }
 
 .btn.secondary {
-  border: 1px solid var(--accent, #0f766e);
-  color: var(--accent, #0f766e);
+  border: 1px solid var(--admin-accent-strong);
+  color: var(--admin-accent-strong);
   border-radius: 6px;
   padding: 0.45rem 0.85rem;
   text-decoration: none;
@@ -17,5 +17,8 @@
 
 h2 {
   margin: 2rem 0 0.75rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
 }

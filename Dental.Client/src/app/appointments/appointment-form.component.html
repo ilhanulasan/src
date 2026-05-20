@@ -23,13 +23,16 @@
     </label>
 
     <label>
-      {{ 'appointments.resource' | translate }}
+      {{ 'appointments.doctor' | translate }}
       <select formControlName="primaryResourceId" (change)="onScheduleParamsChange()">
-        <option value="">{{ 'appointments.selectResource' | translate }}</option>
-        @for (r of resources(); track r.id) {
-          <option [value]="r.id">{{ r.name }}</option>
+        <option value="">{{ 'appointments.selectDoctor' | translate }}</option>
+        @for (d of doctors(); track d.resourceId) {
+          <option [value]="d.resourceId">{{ doctorOptionLabel(d) }}</option>
         }
       </select>
+      @if (!doctors().length) {
+        <span class="muted">{{ 'appointments.noDoctors' | translate }}</span>
+      }
     </label>
 
     <label>

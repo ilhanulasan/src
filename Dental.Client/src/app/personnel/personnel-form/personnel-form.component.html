@@ -1,0 +1,73 @@
+<section class="elegant-page">
+  <header class="elegant-header">
+    <div>
+      <p class="elegant-eyebrow">{{ 'personnel.eyebrow' | translate }}</p>
+      <h1>{{ titleKey() | translate }}</h1>
+    </div>
+    <a routerLink="/personnel" class="btn ghost">{{ 'personnel.back' | translate }}</a>
+  </header>
+
+  @if (submitErrorKey(); as errKey) {
+    <p class="error">{{ errKey | translate }}</p>
+  }
+
+  <form [formGroup]="form" class="elegant-card elegant-form card" (ngSubmit)="save()">
+    <label>
+      <span>{{ 'auth.firstName' | translate }}</span>
+      <input formControlName="firstName" autocomplete="given-name" />
+    </label>
+    <label>
+      <span>{{ 'auth.lastName' | translate }}</span>
+      <input formControlName="lastName" autocomplete="family-name" />
+    </label>
+    <label>
+      <span>{{ 'auth.email' | translate }}</span>
+      <input type="email" formControlName="email" autocomplete="email" />
+    </label>
+    <label>
+      <span>{{ 'auth.phone' | translate }}</span>
+      <input formControlName="phone" autocomplete="tel" />
+    </label>
+    <label class="full">
+      <span>{{ 'personnel.notes' | translate }}</span>
+      <textarea formControlName="notes" rows="2"></textarea>
+    </label>
+
+    <label class="full">
+      <span>{{ 'personnel.typeLabel' | translate }}</span>
+      <select formControlName="personnelType" (change)="onTypeChange()">
+        @for (t of personnelTypes; track t) {
+          <option [value]="t">{{ typeKey(t) | translate }}</option>
+        }
+      </select>
+    </label>
+
+    @if (isDoctor()) {
+      <fieldset class="full specialties-field">
+        <legend>{{ 'personnel.specialties' | translate }}</legend>
+        <p class="field-hint">{{ 'personnel.specialtiesHint' | translate }}</p>
+        <div class="specialty-grid">
+          @for (s of dentalSpecialties; track s) {
+            <label class="specialty-check">
+              <input
+                type="checkbox"
+                [checked]="isSpecialtyChecked(s)"
+                (change)="toggleSpecialty(s, $any($event.target).checked)" />
+              <span>{{ specialtyKey(s) | translate }}</span>
+            </label>
+          }
+        </div>
+      </fieldset>
+    }
+
+    <label class="checkbox full">
+      <input type="checkbox" formControlName="isActive" />
+      {{ 'personnel.active' | translate }}
+    </label>
+
+    <div class="form-actions full">
+      <button type="submit" class="btn primary">{{ 'personnel.save' | translate }}</button>
+      <a routerLink="/personnel" class="btn ghost">{{ 'personnel.cancel' | translate }}</a>
+    </div>
+  </form>
+</section>

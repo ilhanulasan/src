@@ -10,6 +10,7 @@ internal static class DbContextModelConfiguration
         ConfigurePatient(modelBuilder);
         ConfigurePatientSubEntities(modelBuilder);
         ConfigureClinical(modelBuilder);
+        ConfigurePersonnel(modelBuilder);
         ConfigureAppointments(modelBuilder);
         ConfigureInventory(modelBuilder);
         ConfigureFinance(modelBuilder);
@@ -26,11 +27,22 @@ internal static class DbContextModelConfiguration
                 .WithMany()
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.SetNull);
+            entity.HasIndex(p => p.RegistrationInviteToken);
         });
 
         modelBuilder.Entity<PatientOdontogram>(entity =>
         {
             entity.ToTable("patient_odontograms");
+            entity.HasIndex(o => o.PatientId).IsUnique();
+            entity.HasOne(o => o.Patient)
+                .WithMany()
+                .HasForeignKey(o => o.PatientId)
+                .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<PatientOdontograph>(entity =>
+        {
+            entity.ToTable("patient_odontographs");
             entity.HasIndex(o => o.PatientId).IsUnique();
             entity.HasOne(o => o.Patient)
                 .WithMany()
@@ -137,6 +149,27 @@ internal static class DbContextModelConfiguration
         });
     }
 
+    private static void ConfigurePersonnel(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<ClinicPersonnel>(e =>
+        {
+            e.ToTable("clinic_personnel");
+            e.Property(x => x.PersonnelType).HasConversion<string>();
+            e.Property(x => x.Specialties)
+                .HasConversion(
+                    v => string.Join(',', v.Select(s => s.ToString())),
+                    v => string.IsNullOrWhiteSpace(v)
+                        ? new List<DentalSpecialty>()
+                        : v.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                            .Select(Enum.Parse<DentalSpecialty>)
+                            .ToList());
+            e.HasOne(x => x.User).WithMany().HasForeignKey(x => x.UserId).OnDelete(DeleteBehavior.SetNull);
+            e.HasOne(x => x.AppointmentResource).WithMany().HasForeignKey(x => x.AppointmentResourceId)
+                .OnDelete(DeleteBehavior.SetNull);
+            e.HasIndex(x => new { x.PersonnelType, x.IsActive });
+        });
+    }
+
     private static void ConfigureAppointments(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<AppointmentResource>(e =>
@@ -150,6 +183,7 @@ internal static class DbContextModelConfiguration
         {
             e.ToTable("appointments");
             e.Property(x => x.Status).HasConversion<string>();
+            e.HasIndex(x => x.GuestConfirmationToken);
             e.HasIndex(x => new { x.PrimaryResourceId, x.StartAt });
             e.HasOne(x => x.Patient).WithMany().HasForeignKey(x => x.PatientId).OnDelete(DeleteBehavior.Cascade);
             e.HasOne(x => x.PrimaryResource).WithMany(r => r.Appointments).HasForeignKey(x => x.PrimaryResourceId)

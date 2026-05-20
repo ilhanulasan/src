@@ -1,0 +1,50 @@
+.specialties-field {
+  border: 1px solid var(--border, #e2e8f0);
+  border-radius: 8px;
+  padding: 1rem;
+  background: #f8fafc;
+
+  legend {
+    font-weight: 600;
+    padding: 0 0.25rem;
+  }
+}
+
+.field-hint {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  color: var(--muted-fg, #64748b);
+}
+
+.specialty-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 0.5rem;
+}
+
+.specialty-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding: 0.45rem 0.55rem;
+  border-radius: 6px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  font-size: 0.88rem;
+  line-height: 1.35;
+
+  input {
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  &:has(input:checked) {
+    border-color: #0284c7;
+    background: #e0f2fe;
+  }
+}
+
+.error {
+  color: #b91c1c;
+}

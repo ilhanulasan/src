@@ -52,6 +52,11 @@ public class Patient : AuditableEntity
 
     public ApplicationUser? User { get; set; }
 
+    [MaxLength(64)]
+    public string? RegistrationInviteToken { get; set; }
+
+    public DateTimeOffset? RegistrationInviteExpiresAt { get; set; }
+
     public bool IsActive { get; set; } = true;
 
     public ICollection<PatientMedicalHistory> MedicalHistories { get; set; } = [];

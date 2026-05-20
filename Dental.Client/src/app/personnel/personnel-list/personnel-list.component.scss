@@ -1,0 +1,189 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 3rem;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.filters {
+  margin-bottom: 1rem;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    max-width: 240px;
+  }
+
+  select {
+    padding: 0.45rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid var(--border, #e2e8f0);
+  }
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.eyebrow {
+  margin: 0 0 0.25rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted-fg, #64748b);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface, #fff);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgb(15 23 42 / 8%);
+}
+
+thead {
+  background: var(--muted, #f1f5f9);
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid var(--border, #e2e8f0);
+  font-size: 0.9rem;
+  vertical-align: top;
+}
+
+.specialties-col {
+  min-width: 280px;
+}
+
+.name-cell {
+  font-weight: 600;
+}
+
+.specialties-cell {
+  max-width: 420px;
+}
+
+.specialty-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.specialty-tag {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.35;
+  background: var(--admin-accent-soft);
+  color: var(--admin-accent-strong);
+  border: 1px solid color-mix(in srgb, var(--admin-accent) 35%, var(--border));
+}
+
+.type-tag {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--muted, #f1f5f9);
+  color: var(--fg, #0f172a);
+
+  &[data-type='Doctor'] {
+    background: #dcfce7;
+    color: #166534;
+  }
+
+  &[data-type='Nurse'] {
+    background: #fce7f3;
+    color: #9d174d;
+  }
+
+  &[data-type='Technician'] {
+    background: #fef3c7;
+    color: #92400e;
+  }
+
+  &[data-type='PatientCaregiver'] {
+    background: #ede9fe;
+    color: #5b21b6;
+  }
+
+  &[data-type='Secretary'] {
+    background: #e2e8f0;
+    color: #334155;
+  }
+}
+
+.status-active {
+  color: #166534;
+  font-weight: 600;
+}
+
+.status-inactive {
+  color: #64748b;
+}
+
+.inactive-row {
+  opacity: 0.72;
+}
+
+.muted {
+  color: var(--muted-fg, #64748b);
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.btn {
+  border-radius: 6px;
+  padding: 0.45rem 0.85rem;
+  text-decoration: none;
+  font-size: 0.9rem;
+  border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--admin-accent, #03a9f4);
+  color: #fff;
+  border-color: var(--admin-accent-strong, #0277bd);
+}
+
+.link {
+  border: none;
+  background: none;
+  color: var(--admin-accent-strong, #0277bd);
+  cursor: pointer;
+  padding: 0;
+  font: inherit;
+  text-decoration: underline;
+}
+
+.link.danger {
+  color: #b91c1c;
+}
+
+.error {
+  color: #b91c1c;
+}

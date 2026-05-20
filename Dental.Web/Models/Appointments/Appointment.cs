@@ -29,6 +29,9 @@ public class Appointment : AuditableEntity
     public DateTimeOffset? CancelledAt { get; set; }
     public string? CancellationReason { get; set; }
 
+    [MaxLength(64)]
+    public string? GuestConfirmationToken { get; set; }
+
     public ICollection<AppointmentResourceLink> AdditionalResources { get; set; } = [];
     public ICollection<SmsReminderLog> SmsReminders { get; set; } = [];
 }

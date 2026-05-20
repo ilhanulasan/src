@@ -1,0 +1,41 @@
+<section class="auth-card">
+  <div class="auth-head">
+    <p class="eyebrow">
+      <app-tooth-icon />
+      {{ 'booking.completeEyebrow' | translate }}
+    </p>
+    <h1>{{ 'booking.completeTitle' | translate }}</h1>
+    <p class="sub">{{ 'booking.completeSubtitle' | translate }}</p>
+  </div>
+
+  @if (loadFailed()) {
+    <div class="alert" role="alert">{{ 'booking.inviteInvalid' | translate }}</div>
+  } @else {
+    @if (errorKey(); as key) {
+      <div class="alert" role="alert">{{ key | translate }}</div>
+    }
+
+    <form class="form" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+      <label class="field">
+        <span>{{ 'auth.email' | translate }}</span>
+        <input type="email" formControlName="email" />
+      </label>
+
+      <label class="field">
+        <span>{{ 'auth.password' | translate }} *</span>
+        <input type="password" formControlName="password" autocomplete="new-password" />
+        <small class="hint">{{ 'auth.passwordPolicy' | translate }}</small>
+      </label>
+
+      <label class="field">
+        <span>{{ 'auth.confirmPassword' | translate }} *</span>
+        <input type="password" formControlName="confirmPassword" autocomplete="new-password" />
+      </label>
+
+      <button class="submit" type="submit" [disabled]="submitting()">
+        <app-tooth-icon />
+        {{ 'booking.completeCta' | translate }}
+      </button>
+    </form>
+  }
+</section>

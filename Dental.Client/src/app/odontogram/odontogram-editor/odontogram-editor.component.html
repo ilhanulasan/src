@@ -54,8 +54,8 @@
               [class.active]="selectedPathology()?.id === p.id"
               (click)="selectPathology(p)"
               [style.border-left-color]="p.color"
-              [title]="pathologyLabel(p.id) | translate">
-              {{ pathologyLabel(p.id) | translate }}
+              [title]="pathologyLabel(p.id)">
+              {{ pathologyLabel(p.id) }}
             </button>
           }
         </div>
@@ -72,8 +72,8 @@
                 (click)="selectTreatment(t); selectedTreatmentStatus.set('pending')"
                 class="treatment-btn"
                 [style.border-left-color]="selectedTreatmentStatus() === 'pending' ? '#FF0000' : '#666'"
-                [title]="treatmentLabel(t.id) | translate">
-                {{ treatmentLabel(t.id) | translate }}
+                [title]="treatmentLabel(t.id)">
+                {{ treatmentLabel(t.id) }}
               </button>
             }
           </div>
@@ -87,8 +87,8 @@
                 (click)="selectTreatment(t); selectedTreatmentStatus.set('done')"
                 class="treatment-btn"
                 [style.border-left-color]="selectedTreatmentStatus() === 'done' ? '#0000FF' : '#666'"
-                [title]="treatmentLabel(t.id) | translate">
-                {{ treatmentLabel(t.id) | translate }}
+                [title]="treatmentLabel(t.id)">
+                {{ treatmentLabel(t.id) }}
               </button>
             }
           </div>

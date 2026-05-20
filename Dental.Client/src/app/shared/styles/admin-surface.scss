@@ -1,0 +1,141 @@
+// Shared surfaces for authenticated admin/staff pages (tables, toolbars, cards).
+
+@mixin admin-canvas-bg {
+  background-color: var(--admin-page-bg-base);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36' viewBox='0 0 36 36'%3E%3Ccircle cx='1' cy='1' r='0.75' fill='%2394a3b8' fill-opacity='0.22'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse 100% 80% at 0% 0%, rgba(13, 148, 136, 0.045), transparent 55%),
+    radial-gradient(ellipse 90% 65% at 100% 0%, rgba(30, 41, 59, 0.035), transparent 50%),
+    radial-gradient(ellipse 80% 55% at 100% 100%, rgba(13, 148, 136, 0.03), transparent 48%),
+    linear-gradient(165deg, #fafafa 0%, #f4f5f7 48%, #eceff2 100%);
+  background-size:
+    36px 36px,
+    auto,
+    auto,
+    auto,
+    auto;
+}
+
+.admin-canvas-bg {
+  @include admin-canvas-bg;
+}
+
+.admin-page {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.admin-page .toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.35rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-page .toolbar h1 {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-navy);
+}
+
+.admin-page .eyebrow {
+  margin: 0 0 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--admin-accent-strong);
+}
+
+.admin-table-wrap {
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.admin-page h2 {
+  margin: 2rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+.admin-page .table {
+  width: 100%;
+  border-collapse: collapse;
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.admin-page thead {
+  background: var(--muted);
+}
+
+.admin-page thead th {
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--color-ink) 65%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-page th,
+.admin-page td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-page tbody tr {
+  transition: background 0.12s ease;
+}
+
+.admin-page tbody tr:hover {
+  background: color-mix(in srgb, var(--admin-accent) 4%, var(--surface));
+}
+
+.admin-page tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.admin-page .btn {
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.12s ease;
+}
+
+.admin-page .btn.primary {
+  background: linear-gradient(135deg, var(--admin-accent), var(--admin-accent-strong));
+  border-color: var(--admin-accent-strong);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--admin-accent) 28%, transparent);
+}
+
+.admin-page .btn.primary:hover {
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--admin-accent) 35%, transparent);
+  transform: translateY(-1px);
+}
+
+.admin-page .link {
+  color: var(--admin-accent-strong);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-page .link:hover {
+  text-decoration: underline;
+}

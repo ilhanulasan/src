@@ -10,6 +10,7 @@
       <div class="toolbar-actions">
         <a routerLink="/patients" class="btn ghost">{{ 'patients.back' | translate }}</a>
         <a routerLink="/patients/{{ id }}/odontogram" class="btn secondary">{{ 'odontogram.openChart' | translate }}</a>
+        <a routerLink="/patients/{{ id }}/odontograph" class="btn secondary">{{ 'odontograph.openChart' | translate }}</a>
         <a routerLink="/clinical/examinations/new" [queryParams]="{ patientId: id }" class="btn secondary">{{ 'clinical.newExam' | translate }}</a>
         <a routerLink="/patients/{{ id }}/edit" class="btn primary">{{ 'patients.edit' | translate }}</a>
       </div>

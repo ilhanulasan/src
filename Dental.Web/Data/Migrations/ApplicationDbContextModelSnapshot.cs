@@ -128,6 +128,10 @@ namespace Dental.Web.Data.Migrations
                     b.Property<DateTimeOffset>("EndAt")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("GuestConfirmationToken")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
                     b.Property<bool>("IsOnlineBooking")
                         .HasColumnType("boolean");
 
@@ -158,6 +162,8 @@ namespace Dental.Web.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GuestConfirmationToken");
 
                     b.HasIndex("PatientId");
 
@@ -231,6 +237,74 @@ namespace Dental.Web.Data.Migrations
                     b.HasIndex("ResourceId");
 
                     b.ToTable("appointment_resource_links", (string)null);
+                });
+
+            modelBuilder.Entity("Dental.Web.Models.ClinicPersonnel", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid?>("AppointmentResourceId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CreatedByUserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(256)
+                        .HasColumnType("character varying(256)");
+
+                    b.Property<string>("FirstName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasMaxLength(128)
+                        .HasColumnType("character varying(128)");
+
+                    b.Property<string>("Notes")
+                        .HasMaxLength(512)
+                        .HasColumnType("character varying(512)");
+
+                    b.Property<string>("PersonnelType")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
+
+                    b.Property<string>("Specialties")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("UpdatedByUserId")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentResourceId");
+
+                    b.HasIndex("UserId");
+
+                    b.HasIndex("PersonnelType", "IsActive");
+
+                    b.ToTable("clinic_personnel", (string)null);
                 });
 
             modelBuilder.Entity("Dental.Web.Models.Examination", b =>
@@ -693,6 +767,13 @@ namespace Dental.Web.Data.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
+                    b.Property<DateTimeOffset?>("RegistrationInviteExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RegistrationInviteToken")
+                        .HasMaxLength(64)
+                        .HasColumnType("character varying(64)");
+
                     b.Property<string>("SocialSecurityNumber")
                         .IsRequired()
                         .HasMaxLength(32)
@@ -713,6 +794,8 @@ namespace Dental.Web.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("RegistrationInviteToken");
 
                     b.HasIndex("SocialSecurityNumber")
                         .IsUnique();
@@ -1089,6 +1172,32 @@ namespace Dental.Web.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("patient_odontograms", (string)null);
+                });
+
+            modelBuilder.Entity("Dental.Web.Models.PatientOdontograph", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("PayloadJson")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId")
+                        .IsUnique();
+
+                    b.ToTable("patient_odontographs", (string)null);
                 });
 
             modelBuilder.Entity("Dental.Web.Models.Payment", b =>
@@ -1912,6 +2021,23 @@ namespace Dental.Web.Data.Migrations
                     b.Navigation("Resource");
                 });
 
+            modelBuilder.Entity("Dental.Web.Models.ClinicPersonnel", b =>
+                {
+                    b.HasOne("Dental.Web.Models.AppointmentResource", "AppointmentResource")
+                        .WithMany()
+                        .HasForeignKey("AppointmentResourceId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Dental.Web.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("AppointmentResource");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Dental.Web.Models.Examination", b =>
                 {
                     b.HasOne("Dental.Web.Models.ApplicationUser", "Doctor")
@@ -2098,6 +2224,17 @@ namespace Dental.Web.Data.Migrations
                 });
 
             modelBuilder.Entity("Dental.Web.Models.PatientOdontogram", b =>
+                {
+                    b.HasOne("Dental.Web.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+                });
+
+            modelBuilder.Entity("Dental.Web.Models.PatientOdontograph", b =>
                 {
                     b.HasOne("Dental.Web.Models.Patient", "Patient")
                         .WithMany()

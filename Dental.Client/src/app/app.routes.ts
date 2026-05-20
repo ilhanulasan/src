@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/auth.guard';
 import { guestGuard } from './core/guest.guard';
 import { roleGuard } from './core/role.guard';
-import { AdminOnlyRoles, AppRoles, PatientPortalRoles, StaffRoles } from './core/roles';
+import { AdminOnlyRoles, AppRoles, StaffRoles } from './core/roles';
 
 export const routes: Routes = [
   {
@@ -24,7 +24,27 @@ export const routes: Routes = [
         canActivate: [guestGuard],
         loadComponent: () => import('./auth/register/register.component').then((m) => m.RegisterComponent),
       },
+      {
+        path: 'book-appointment',
+        loadComponent: () =>
+          import('./booking/book-appointment.component').then((m) => m.BookAppointmentComponent),
+      },
+      {
+        path: 'confirm-appointment',
+        loadComponent: () =>
+          import('./booking/confirm-appointment.component').then((m) => m.ConfirmAppointmentComponent),
+      },
+      {
+        path: 'complete-account',
+        loadComponent: () =>
+          import('./booking/complete-account.component').then((m) => m.CompleteAccountComponent),
+      },
     ],
+  },
+  {
+    path: 'portal',
+    redirectTo: '',
+    pathMatch: 'full',
   },
   {
     path: '',
@@ -56,14 +76,14 @@ export const routes: Routes = [
         loadChildren: () => import('./clinical/clinical.routes').then((m) => m.clinicalRoutes),
       },
       {
-        path: 'portal',
-        canActivate: [roleGuard(...PatientPortalRoles)],
-        loadChildren: () => import('./portal/portal.routes').then((m) => m.portalRoutes),
-      },
-      {
         path: 'staff',
         canActivate: [roleGuard(...AdminOnlyRoles)],
         loadChildren: () => import('./staff/staff.routes').then((m) => m.staffRoutes),
+      },
+      {
+        path: 'personnel',
+        canActivate: [roleGuard(...AdminOnlyRoles)],
+        loadChildren: () => import('./personnel/personnel.routes').then((m) => m.personnelRoutes),
       },
       {
         path: 'finance',

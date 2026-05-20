@@ -1,21 +1,28 @@
 @import './app/shared/styles/elegant-page.scss';
+@import './app/shared/styles/admin-surface.scss';
 
 :root {
-  --color-ink: #263238;
-  --color-navy: #1c2529;
-  --color-mauve-dark: #0277bd;
-  --color-mauve: #03a9f4;
-  --color-mist: #90a4ae;
-  --page-bg: #eef5f9;
-  --admin-accent: #03a9f4;
-  --admin-accent-strong: #0277bd;
-  --admin-ink: #263238;
-  --admin-page-bg: #eef5f9;
-  --admin-sidebar-width: 240px;
-  --admin-font: Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --surface: #fff;
-  --muted: #f5f7fa;
-  --border: #e3e8ef;
+  --color-ink: #334155;
+  --color-navy: #0f172a;
+  --color-mauve-dark: #0f766e;
+  --color-mauve: #14b8a6;
+  --color-mist: #94a3b8;
+  --page-bg: #f4f5f7;
+  --admin-accent: #0d9488;
+  --admin-accent-strong: #0f766e;
+  --admin-accent-soft: #ccfbf1;
+  --admin-ink: #1e293b;
+  --admin-page-bg-base: #f0f2f5;
+  --admin-page-bg: #f4f5f7;
+  --admin-sidebar-width: 252px;
+  --admin-font: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  --surface: #ffffff;
+  --muted: #f8fafc;
+  --muted-fg: #64748b;
+  --border: #e2e8f0;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 16px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 32px rgba(15, 23, 42, 0.1);
 }
 
 *,
@@ -28,7 +35,7 @@ body {
   margin: 0;
   font-family: var(--admin-font);
   color: var(--admin-ink);
-  background: var(--page-bg);
+  @include admin-canvas-bg;
 }
 
 html,

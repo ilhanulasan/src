@@ -65,7 +65,10 @@ builder.Services.ConfigureApplicationCookie(options =>
     };
 });
 
+builder.Services.Configure<EmailOptions>(builder.Configuration.GetSection(EmailOptions.SectionName));
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
+builder.Services.AddScoped<GuestBookingService>();
+builder.Services.AddSingleton<IEmailSender, SmtpEmailSender>();
 builder.Services.AddSingleton<IPatientDocumentStorageService, PatientDocumentStorageService>();
 builder.Services.AddSingleton<IProfilePictureStorageService, ProfilePictureStorageService>();
 

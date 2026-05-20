@@ -7,6 +7,10 @@
     <h1>{{ 'home.title' | translate }}</h1>
     <p class="lead">{{ 'home.lead' | translate }}</p>
     <div class="hero-actions">
+      <a class="btn btn-outline" routerLink="/">
+        <app-tooth-icon />
+        {{ 'home.ctaPortal' | translate }}
+      </a>
       <a class="btn btn-primary" routerLink="/patients">
         <app-tooth-icon />
         {{ 'home.ctaPatients' | translate }}

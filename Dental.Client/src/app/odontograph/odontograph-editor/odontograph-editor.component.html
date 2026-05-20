@@ -1,0 +1,124 @@
+@if (alert(); as a) {
+  <div class="banner" [class.ok]="a.level === 'ok'" [class.err]="a.level === 'err'" role="status">
+    <span>{{ a.key | translate }}</span>
+    <button type="button" class="banner-dismiss btn ghost" (click)="dismissAlert()">
+      {{ 'odontograph.dismiss' | translate }}
+    </button>
+  </div>
+}
+
+<div class="editor-page">
+  <header class="editor-header">
+    <div class="header-titles">
+      <a class="muted-link" [routerLink]="['/patients', patientRouteId()]">
+        ← {{ 'patients.back' | translate }}
+      </a>
+      <h2 class="odontograph-heading">
+        {{ 'odontograph.title' | translate }}
+        <span class="odontograph-type-tag">
+          {{ chartType() === 'child' ? ('odontograph.child' | translate) : ('odontograph.adult' | translate) }}
+        </span>
+      </h2>
+      <p class="hint muted">{{ 'odontograph.canvasHint' | translate }}</p>
+    </div>
+    <button class="save-button btn primary" type="button" (click)="save()" [disabled]="saveBusy() || chartBusy()">
+      {{ saveBusy() ? ('odontograph.saving' | translate) : ('odontograph.save' | translate) }}
+    </button>
+  </header>
+
+  @if (chartBusy()) {
+    <p class="muted loading-line">{{ 'odontograph.loading' | translate }}</p>
+  }
+
+  <div class="editor-toolbar" [class.busy]="chartBusy()">
+    <div class="toolbar-row toolbar-row-top">
+      <div class="toolbar-section view-section">
+        <span class="section-label">{{ 'odontograph.toolbarChart' | translate }}</span>
+        <div class="view-switcher" role="group" [attr.aria-label]="'odontograph.toolbarChart' | translate">
+          <button
+            type="button"
+            class="view-btn"
+            [class.active]="chartType() === 'adult'"
+            [disabled]="chartBusy()"
+            (click)="setAdultView()">
+            {{ 'odontograph.view.adult' | translate }}
+          </button>
+          <button
+            type="button"
+            class="view-btn"
+            [class.active]="chartType() === 'child'"
+            [disabled]="chartBusy()"
+            (click)="setChildView()">
+            {{ 'odontograph.view.child' | translate }}
+          </button>
+          <button type="button" class="view-btn view-btn-danger" [disabled]="chartBusy()" (click)="resetChart()">
+            {{ 'odontograph.view.reset' | translate }}
+          </button>
+        </div>
+      </div>
+
+      <div class="active-tool-box">
+        @if (selectedDamageId(); as activeId) {
+          <span class="section-label">{{ 'odontograph.activeTool' | translate }}</span>
+          <p class="active-tool-name">{{ damageLabel(activeId) }}</p>
+        } @else {
+          <span class="section-label">{{ 'odontograph.toolbarTools' | translate }}</span>
+          <p class="active-tool-hint">{{ 'odontograph.pickTool' | translate }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="toolbar-section tools-section">
+      @for (group of toolGroups; track group.key) {
+        <div class="tool-group">
+          <span class="group-label">{{ 'odontograph.toolGroup.' + group.key | translate }}</span>
+          <div class="tool-grid">
+            @for (tool of group.tools; track tool.id) {
+              <button
+                type="button"
+                class="tool-chip"
+                [class.active]="selectedDamageId() === tool.id"
+                [disabled]="chartBusy()"
+                [title]="damageLabel(tool.id)"
+                (click)="selectDamage(tool.id)">
+                {{ damageLabel(tool.id) }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="canvas-panel" [class.busy]="chartBusy()">
+    <div class="canvas-wrap">
+      <canvas
+        #canvas
+        id="odontograph-canvas"
+        [attr.width]="canvasPixelWidth"
+        [attr.height]="canvasPixelHeight"
+        crossorigin="anonymous"
+        (contextmenu)="$event.preventDefault()">
+      </canvas>
+    </div>
+  </div>
+
+  <div class="notes-panel">
+    <label>
+      <span>{{ 'odontograph.observations' | translate }}</span>
+      <textarea
+        rows="3"
+        [value]="observations()"
+        (input)="onObservationsInput($any($event.target).value)"
+        [disabled]="chartBusy()"></textarea>
+    </label>
+    <label>
+      <span>{{ 'odontograph.specifications' | translate }}</span>
+      <textarea
+        rows="3"
+        [value]="specifications()"
+        (input)="onSpecificationsInput($any($event.target).value)"
+        [disabled]="chartBusy()"></textarea>
+    </label>
+  </div>
+</div>

@@ -52,15 +52,7 @@ export class LandingComponent {
   });
 
   appointmentRoute(): string {
-    if (!this.auth.isLoggedIn()) {
-      return '/register';
-    }
-
-    if (this.auth.isPatient()) {
-      return '/portal';
-    }
-
-    return this.auth.defaultRoute();
+    return '/book-appointment';
   }
 
   submitContact(): void {
@@ -70,14 +62,12 @@ export class LandingComponent {
     }
 
     if (!this.auth.isLoggedIn()) {
-      void this.router.navigate(['/register'], {
-        queryParams: { intent: 'appointment' },
-      });
+      void this.router.navigate(['/book-appointment']);
       return;
     }
 
     if (this.auth.isPatient()) {
-      void this.router.navigateByUrl('/portal');
+      void this.router.navigateByUrl('/book-appointment');
       return;
     }
 

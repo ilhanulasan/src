@@ -122,3 +122,24 @@ public enum WaitlistStatus
     Cancelled,
     Expired,
 }
+
+public enum PersonnelType
+{
+    Doctor,
+    Nurse,
+    Technician,
+    PatientCaregiver,
+    Secretary,
+}
+
+public enum DentalSpecialty
+{
+    OralMaxillofacialSurgery,
+    Orthodontics,
+    Pedodontics,
+    Periodontics,
+    Endodontics,
+    Prosthodontics,
+    RestorativeDentistry,
+    OralMaxillofacialRadiology,
+}
