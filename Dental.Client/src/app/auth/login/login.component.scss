@@ -3,7 +3,6 @@
   max-width: 520px;
   margin: 0 auto;
   padding: 2.25rem 1rem 3rem;
-  min-height: 100%;
 }
 
 .auth-card {
@@ -63,8 +62,8 @@
 
 .submit {
   margin-top: 0.35rem;
-  border: 1px solid var(--admin-accent-strong, #0277bd);
-  background: var(--admin-accent, #03a9f4);
+  border: 1px solid #006daf;
+  background: #009eff;
   color: #fff;
   font-weight: 800;
   padding: 0.78rem 1rem;
@@ -97,5 +96,5 @@
 
 .switch a {
   font-weight: 800;
-  color: var(--admin-accent-strong, #0277bd);
+  color: #006daf;
 }

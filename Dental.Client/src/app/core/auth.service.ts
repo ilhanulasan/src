@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { afterNextRender, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 
 import { AuthResponse, UserProfile } from '../models/auth';
@@ -17,7 +17,7 @@ export class AuthService {
   readonly user = signal<UserProfile | null>(null);
 
   constructor() {
-    afterNextRender(() => this.restoreFromStorage());
+    this.restoreFromStorage();
   }
 
   isLoggedIn(): boolean {
@@ -122,7 +122,7 @@ export class AuthService {
       return '/appointments';
     }
 
-    return '/';
+    return '/dashboard';
   }
 
   private persist(response: AuthResponse): void {

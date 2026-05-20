@@ -52,7 +52,7 @@ export class MainLayoutComponent {
 
   logout(): void {
     this.auth.logout();
-    void this.router.navigateByUrl('/login');
+    void this.router.navigateByUrl('/');
   }
 
   closeUserMenu(details: HTMLDetailsElement): void {

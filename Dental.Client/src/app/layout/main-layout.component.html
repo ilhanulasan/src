@@ -1,7 +1,7 @@
 <div class="shell" [class.sidebar-open]="sidebarOpen()">
   <aside class="sidebar" aria-label="Main navigation">
     <div class="sidebar-brand">
-      <a class="brand" [routerLink]="auth.isLoggedIn() ? auth.defaultRoute() : '/login'" (click)="sidebarOpen.set(false)">
+      <a class="brand" [routerLink]="auth.isLoggedIn() ? auth.defaultRoute() : '/'" (click)="sidebarOpen.set(false)">
         <app-tooth-icon />
         <span>{{ 'app.title' | translate }}</span>
       </a>
@@ -10,7 +10,7 @@
     <nav class="sidebar-nav">
       @if (showAdminNav()) {
         <a
-          routerLink="/"
+          routerLink="/dashboard"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }"
           (click)="sidebarOpen.set(false)">

@@ -5,7 +5,7 @@
   </p>
   <h1>{{ titleKey | translate }}</h1>
   <p class="body">{{ 'sections.body' | translate }}</p>
-  <a class="back" routerLink="/">
+  <a class="back" [routerLink]="auth.defaultRoute()">
     <app-tooth-icon />
     {{ 'sections.back' | translate }}
   </a>

@@ -1,0 +1,114 @@
+<section class="home" id="home">
+  <div class="home-inner">
+    <div class="home-copy">
+      <h1>{{ 'website.hero.title' | translate }}</h1>
+      <p>{{ 'website.hero.lead' | translate }}</p>
+      <a class="link-btn" [routerLink]="appointmentRoute()">
+        <app-tooth-icon />
+        {{ 'website.makeAppointment' | translate }}
+      </a>
+      <div class="visitor-actions">
+        <a routerLink="/register" class="outline-btn">{{ 'website.hero.register' | translate }}</a>
+        <a routerLink="/login" class="outline-btn">{{ 'website.hero.login' | translate }}</a>
+      </div>
+    </div>
+    <div class="home-visual">
+      <img [src]="heroImageUrl" alt="" decoding="async" loading="eager" />
+    </div>
+  </div>
+</section>
+
+<section class="about section" id="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <img
+        src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=800&q=80"
+        alt=""
+        loading="lazy"
+        decoding="async" />
+    </div>
+    <div class="about-copy">
+      <span class="section-tag">{{ 'website.about.tag' | translate }}</span>
+      <h2 class="heading">{{ 'website.about.title' | translate }}</h2>
+      <p>{{ 'website.about.body' | translate }}</p>
+      <a class="link-btn" [routerLink]="appointmentRoute()">{{ 'website.makeAppointment' | translate }}</a>
+    </div>
+  </div>
+</section>
+
+<section class="services section" id="services">
+  <h2 class="heading">{{ 'website.services.title' | translate }}</h2>
+  <div class="box-grid">
+    @for (s of services; track s.key) {
+      <article class="box">
+        <span class="material-symbols-outlined box-icon" aria-hidden="true">{{ s.icon }}</span>
+        <h3>{{ 'website.services.' + s.key + '.title' | translate }}</h3>
+        <p>{{ 'website.services.' + s.key + '.body' | translate }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="process section" id="process">
+  <h2 class="heading">{{ 'website.process.title' | translate }}</h2>
+  <div class="process-grid">
+    @for (p of processes; track p.key) {
+      <article class="process-card">
+        <img [src]="p.image" alt="" loading="lazy" decoding="async" />
+        <h3>{{ 'website.process.' + p.key + '.title' | translate }}</h3>
+        <p>{{ 'website.process.' + p.key + '.body' | translate }}</p>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="reviews section" id="reviews">
+  <h2 class="heading">{{ 'website.reviews.title' | translate }}</h2>
+  <div class="reviews-grid">
+    @for (r of reviews; track r.key) {
+      <article class="review-card">
+        <div class="stars" aria-hidden="true">
+          @for (star of [1, 2, 3, 4, 5]; track star) {
+            <span class="material-symbols-outlined" [class.dim]="star > r.stars">star</span>
+          }
+        </div>
+        <p>{{ 'website.reviews.' + r.key + '.quote' | translate }}</p>
+        <h3>{{ 'website.reviews.' + r.key + '.name' | translate }}</h3>
+        <span>{{ 'website.reviews.' + r.key + '.role' | translate }}</span>
+      </article>
+    }
+  </div>
+</section>
+
+<section class="contact section" id="contact">
+  <h2 class="heading">{{ 'website.contact.title' | translate }}</h2>
+
+  @if (contactSent()) {
+    <p class="contact-message success">{{ 'website.contact.sent' | translate }}</p>
+  }
+
+  <form class="contact-form" [formGroup]="contactForm" (ngSubmit)="submitContact()" novalidate>
+    @if (!auth.isLoggedIn()) {
+      <p class="contact-message">{{ 'website.contact.guestHint' | translate }}</p>
+    }
+
+    <label>
+      <span>{{ 'website.contact.name' | translate }}</span>
+      <input type="text" formControlName="name" autocomplete="name" />
+    </label>
+    <label>
+      <span>{{ 'website.contact.email' | translate }}</span>
+      <input type="email" formControlName="email" autocomplete="email" />
+    </label>
+    <label>
+      <span>{{ 'website.contact.phone' | translate }}</span>
+      <input type="tel" formControlName="phone" autocomplete="tel" />
+    </label>
+    <label>
+      <span>{{ 'website.contact.date' | translate }}</span>
+      <input type="date" formControlName="date" />
+    </label>
+
+    <button type="submit" class="link-btn full">{{ 'website.contact.submit' | translate }}</button>
+  </form>
+</section>

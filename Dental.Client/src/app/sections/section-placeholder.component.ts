@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 
+import { AuthService } from '../core/auth.service';
 import { ToothIconComponent } from '../shared/tooth-icon.component';
 
 @Component({
@@ -13,6 +14,7 @@ import { ToothIconComponent } from '../shared/tooth-icon.component';
 })
 export class SectionPlaceholderComponent {
   private readonly route = inject(ActivatedRoute);
+  readonly auth = inject(AuthService);
 
   readonly titleKey = (this.route.snapshot.data['titleKey'] as string | undefined) ?? 'sections.titleFallback';
 }

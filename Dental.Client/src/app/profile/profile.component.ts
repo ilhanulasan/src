@@ -14,7 +14,7 @@ import { ToothIconComponent } from '../shared/tooth-icon.component';
   styleUrl: './profile.component.scss',
 })
 export class ProfileComponent implements OnInit {
-  private readonly auth = inject(AuthService);
+  readonly auth = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
 
   readonly user = this.auth.user;

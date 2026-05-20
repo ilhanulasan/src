@@ -1,0 +1,70 @@
+<div class="public-shell" (scroll)="onScroll($event)">
+  <header class="header" [class.scrolled]="headerScrolled()">
+    <a class="logo" routerLink="/" (click)="menuOpen.set(false)">
+      <app-tooth-icon />
+      <span>{{ 'website.brand' | translate }}<em>{{ 'website.brandAccent' | translate }}</em></span>
+    </a>
+
+    <nav class="nav" [class.open]="menuOpen()">
+      <a routerLink="/" fragment="home" (click)="menuOpen.set(false)">{{ 'website.nav.home' | translate }}</a>
+      <a routerLink="/" fragment="about" (click)="menuOpen.set(false)">{{ 'website.nav.about' | translate }}</a>
+      <a routerLink="/" fragment="services" (click)="menuOpen.set(false)">{{ 'website.nav.services' | translate }}</a>
+      <a routerLink="/" fragment="reviews" (click)="menuOpen.set(false)">{{ 'website.nav.reviews' | translate }}</a>
+      <a routerLink="/" fragment="contact" (click)="menuOpen.set(false)">{{ 'website.nav.contact' | translate }}</a>
+    </nav>
+
+    <div class="header-actions">
+      <label class="lang">
+        <span class="sr-only">Language</span>
+        <select [value]="translate.getCurrentLang()" (change)="onLangChange($event)">
+          <option value="en">{{ 'lang.en' | translate }}</option>
+          <option value="tr">{{ 'lang.tr' | translate }}</option>
+        </select>
+      </label>
+
+      @if (auth.isLoggedIn()) {
+        <a class="btn-text" [routerLink]="workspaceRoute()">{{ 'website.myWorkspace' | translate }}</a>
+        <button type="button" class="btn-text" (click)="logout()">{{ 'auth.logout' | translate }}</button>
+      } @else {
+        <a class="btn-text" routerLink="/login">{{ 'auth.login' | translate }}</a>
+        <a class="btn-text" routerLink="/register">{{ 'auth.register' | translate }}</a>
+      }
+
+      <a class="btn-cta" [routerLink]="appointmentRoute()">{{ 'website.makeAppointment' | translate }}</a>
+
+      <button type="button" class="menu-btn" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()">
+        <span class="material-symbols-outlined" aria-hidden="true">{{ menuOpen() ? 'close' : 'menu' }}</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="public-main">
+    <router-outlet />
+  </main>
+
+  <footer class="footer" id="footer">
+    <div class="footer-grid">
+      <div class="footer-box">
+        <span class="footer-icon material-symbols-outlined" aria-hidden="true">call</span>
+        <h3>{{ 'website.footer.phoneTitle' | translate }}</h3>
+        <p>{{ 'website.footer.phone' | translate }}</p>
+      </div>
+      <div class="footer-box">
+        <span class="footer-icon material-symbols-outlined" aria-hidden="true">location_on</span>
+        <h3>{{ 'website.footer.addressTitle' | translate }}</h3>
+        <p>{{ 'website.footer.address' | translate }}</p>
+      </div>
+      <div class="footer-box">
+        <span class="footer-icon material-symbols-outlined" aria-hidden="true">schedule</span>
+        <h3>{{ 'website.footer.hoursTitle' | translate }}</h3>
+        <p>{{ 'website.footer.hours' | translate }}</p>
+      </div>
+      <div class="footer-box">
+        <span class="footer-icon material-symbols-outlined" aria-hidden="true">mail</span>
+        <h3>{{ 'website.footer.emailTitle' | translate }}</h3>
+        <p>{{ 'website.footer.email' | translate }}</p>
+      </div>
+    </div>
+    <p class="credit">{{ 'website.footer.credit' | translate }}</p>
+  </footer>
+</div>

@@ -39,7 +39,7 @@
         </ul>
       </div>
 
-      <a class="back" routerLink="/">
+      <a class="back" [routerLink]="auth.defaultRoute()">
         <app-tooth-icon />
         {{ 'profile.backHome' | translate }}
       </a>
