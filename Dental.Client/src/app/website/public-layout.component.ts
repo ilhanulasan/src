@@ -27,15 +27,7 @@ export class PublicLayoutComponent {
   }
 
   appointmentRoute(): string {
-    if (!this.auth.isLoggedIn()) {
-      return '/register';
-    }
-
-    if (this.auth.isPatient()) {
-      return '/portal';
-    }
-
-    return this.auth.defaultRoute();
+    return '/book-appointment';
   }
 
   workspaceRoute(): string {

@@ -4,3 +4,70 @@
 2026-05-22 11:16:17.027 +03:00 [INF] Application started. Press Ctrl+C to shut down.
 2026-05-22 11:16:17.027 +03:00 [INF] Hosting environment: Development
 2026-05-22 11:16:17.028 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 11:45:20.996 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 11:45:21.063 +03:00 [INF] HTTP GET /api/personnel responded 401 in 67.5288 ms
+2026-05-22 11:45:34.505 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 182.7070 ms
+2026-05-22 11:45:38.151 +03:00 [INF] HTTP GET /api/personnel responded 200 in 83.0922 ms
+2026-05-22 11:45:40.633 +03:00 [INF] HTTP GET /api/personnel/24ca02f8-afbb-4b48-bdfe-b4a5dee7bb1f responded 200 in 10.2640 ms
+2026-05-22 11:51:14.831 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 200.2901 ms
+2026-05-22 11:52:02.114 +03:00 [WRN] Login failed: unknown email hasta@gmail.com
+2026-05-22 11:52:02.122 +03:00 [INF] HTTP POST /api/auth/login responded 401 in 14.5276 ms
+2026-05-22 11:52:19.963 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 99.8819 ms
+2026-05-22 11:52:58.875 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 32.8535 ms
+2026-05-22 11:53:04.767 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 97.3692 ms
+2026-05-22 11:53:27.666 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 4.7247 ms
+2026-05-22 11:53:32.667 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 4.7922 ms
+2026-05-22 11:54:00.354 +03:00 [INF] Email disabled. Would send to ilhan.ulasan@gmail.com subject Randevu talebiniz — onay bekleniyor
+<p>Merhaba Ilhan Ulasan,</p>
+<p>Randevu talebiniz alındı. Lütfen aşağıdaki bilgileri kontrol edip randevunuzu onaylayın.</p>
+<ul>
+  <li><strong>Doktor:</strong> Dr. Doktor1 Doktor</li>
+  <li><strong>Tarih ve saat:</strong> 23.05.2026 09:30</li>
+  <li><strong>Durum:</strong> Onay bekliyor</li>
+</ul>
+<p><a href="http://localhost:4300/confirm-appointment?appointmentId=bf9b19ae-ecd8-4c8c-9116-5886b3370b8b&token=B4F53FA4FE0A96A7E48433D11BA283EC877893B582362ECF98E3004DE92FB3CE">Randevumu onayla</a></p>
+<p>Hesabınız henüz oluşturulmadı. Randevularınızı yönetmek ve şifrenizi belirlemek için kayıt işlemini tamamlayın:</p>
+<p><a href="http://localhost:4300/complete-account?token=46C2B8CF9A9B9F5AB1CA237066877413BA89171D999AA357B8C4A9CD085682FB">Kayıt işlemini tamamla ve şifre oluştur</a></p>
+<p>Bu e-postayı siz talep etmediyseniz lütfen kliniğimizle iletişime geçin.</p>
+2026-05-22 11:54:00.365 +03:00 [INF] Guest booking "bf9b19ae-ecd8-4c8c-9116-5886b3370b8b" for patient "a4e350bb-e7a1-49bf-bbed-694fb461bc05" (newPatient=true)
+2026-05-22 11:54:00.394 +03:00 [INF] HTTP POST /api/public/booking responded 200 in 399.1527 ms
+2026-05-22 11:55:40.858 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 73.3516 ms
+2026-05-22 11:56:30.409 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 102.8552 ms
+2026-05-22 11:57:16.458 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 64.2416 ms
+2026-05-22 11:57:22.981 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 5.1048 ms
+2026-05-22 11:59:15.398 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 1.7823 ms
+2026-05-22 12:04:56.326 +03:00 [INF] Dental.Web started
+2026-05-22 12:04:56.808 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:04:57.626 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-22 12:04:57.628 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:04:57.628 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:04:57.628 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:05:01.822 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:05:02.031 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 210.3641 ms
+2026-05-22 12:05:17.730 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 100.5822 ms
+2026-05-22 12:05:23.899 +03:00 [ERR] Failed to send guest booking email for appointment "d82198b4-6880-48b9-b579-4b61b05ef82d"
+System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.7.0 Authentication Required. For more information, go to
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location ---
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location ---
+   at Dental.Web.Services.SmtpEmailSender.SendAsync(String toEmail, String subject, String htmlBody, CancellationToken ct) in C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\Services\SmtpEmailSender.cs:line 49
+   at Dental.Web.Services.GuestBookingService.BookAsync(GuestBookRequest request, CancellationToken ct) in C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\Services\GuestBookingService.cs:line 171
+2026-05-22 12:05:23.924 +03:00 [INF] Guest booking "d82198b4-6880-48b9-b579-4b61b05ef82d" for patient "a4e350bb-e7a1-49bf-bbed-694fb461bc05" (newPatient=false)
+2026-05-22 12:05:23.927 +03:00 [INF] HTTP POST /api/public/booking responded 200 in 1276.6514 ms
+2026-05-22 12:06:13.689 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 117.0708 ms
+2026-05-22 12:06:27.797 +03:00 [INF] HTTP GET /api/personnel/doctors-for-appointments responded 200 in 14.5988 ms
+2026-05-22 12:06:27.837 +03:00 [INF] HTTP GET /api/patients responded 200 in 55.2363 ms
+2026-05-22 12:06:27.887 +03:00 [INF] HTTP GET /api/appointments responded 200 in 83.6801 ms
+2026-05-22 12:06:50.599 +03:00 [INF] HTTP POST /api/appointments/d82198b4-6880-48b9-b579-4b61b05ef82d/confirm responded 204 in 22.4886 ms
+2026-05-22 12:06:50.612 +03:00 [INF] HTTP GET /api/appointments responded 200 in 4.2270 ms
+2026-05-22 12:07:00.165 +03:00 [INF] HTTP POST /api/appointments/bf9b19ae-ecd8-4c8c-9116-5886b3370b8b/confirm responded 204 in 11.7360 ms
+2026-05-22 12:07:00.176 +03:00 [INF] HTTP GET /api/appointments responded 200 in 4.0543 ms
+2026-05-22 12:07:02.311 +03:00 [INF] HTTP GET /api/waitlist responded 200 in 30.6947 ms
+2026-05-22 12:07:02.338 +03:00 [INF] HTTP GET /api/appointments responded 200 in 57.4282 ms
+2026-05-22 12:07:19.152 +03:00 [INF] HTTP GET /api/personnel/doctors-for-appointments responded 200 in 2.4502 ms
+2026-05-22 12:07:19.154 +03:00 [INF] HTTP GET /api/patients responded 200 in 4.9295 ms
+2026-05-22 12:07:19.160 +03:00 [INF] HTTP GET /api/appointments responded 200 in 3.0666 ms

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Dental.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1febc2ff3fa9654a89e3656aa88934ac41420c23")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+034465eb31701f7316daa18f002e7b9b4d3ba8ac")]
 [assembly: System.Reflection.AssemblyProductAttribute("Dental.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Dental.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
