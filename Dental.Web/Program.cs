@@ -13,6 +13,11 @@ using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddJsonFile(
+    $"appsettings.{builder.Environment.EnvironmentName}.local.json",
+    optional: true,
+    reloadOnChange: true);
+
 builder.Host.UseSerilog((context, services, configuration) =>
 {
     var logsDir = Path.Combine(AppContext.BaseDirectory, "Logs");

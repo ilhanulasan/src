@@ -71,3 +71,129 @@ System.Net.Mail.SmtpException: The SMTP server requires a secure connection or t
 2026-05-22 12:07:19.152 +03:00 [INF] HTTP GET /api/personnel/doctors-for-appointments responded 200 in 2.4502 ms
 2026-05-22 12:07:19.154 +03:00 [INF] HTTP GET /api/patients responded 200 in 4.9295 ms
 2026-05-22 12:07:19.160 +03:00 [INF] HTTP GET /api/appointments responded 200 in 3.0666 ms
+2026-05-22 12:22:32.861 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 32.7297 ms
+2026-05-22 12:22:42.111 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 6.0542 ms
+2026-05-22 12:22:46.692 +03:00 [ERR] Failed to send guest booking email for appointment "a1999444-a15c-48cf-9916-124c87411bfd"
+System.Net.Mail.SmtpException: The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.7.0 Authentication Required. For more information, go to
+   at System.Net.Mail.MailCommand.CheckResponse(SmtpStatusCode statusCode, String response)
+   at System.Net.Mail.MailCommand.EndSend(IAsyncResult result)
+   at System.Net.Mail.SendMailAsyncResult.SendMailFromCompleted(IAsyncResult result)
+--- End of stack trace from previous location ---
+   at System.Net.Mail.SendMailAsyncResult.End(IAsyncResult result)
+   at System.Net.Mail.SmtpClient.SendMailCallback(IAsyncResult result)
+--- End of stack trace from previous location ---
+   at Dental.Web.Services.SmtpEmailSender.SendAsync(String toEmail, String subject, String htmlBody, CancellationToken ct) in C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\Services\SmtpEmailSender.cs:line 49
+   at Dental.Web.Services.GuestBookingService.BookAsync(GuestBookRequest request, CancellationToken ct) in C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web\Services\GuestBookingService.cs:line 171
+2026-05-22 12:22:46.694 +03:00 [INF] Guest booking "a1999444-a15c-48cf-9916-124c87411bfd" for patient "a4e350bb-e7a1-49bf-bbed-694fb461bc05" (newPatient=false)
+2026-05-22 12:22:46.695 +03:00 [INF] HTTP POST /api/public/booking responded 200 in 1027.2918 ms
+2026-05-22 12:25:36.405 +03:00 [INF] Dental.Web started
+2026-05-22 12:25:36.996 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:25:37.820 +03:00 [INF] Now listening on: http://localhost:5000
+2026-05-22 12:25:37.821 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:25:37.821 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:25:37.821 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:25:37.916 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:25:38.073 +03:00 [INF] HTTP GET / responded 200 in 157.3728 ms
+2026-05-22 12:25:38.516 +03:00 [INF] HTTP GET /css/site.css responded 200 in 405.7155 ms
+2026-05-22 12:25:38.516 +03:00 [INF] HTTP GET /js/site.js responded 200 in 305.5419 ms
+2026-05-22 12:25:38.516 +03:00 [INF] HTTP GET /Dental.Web.styles.css responded 200 in 405.6866 ms
+2026-05-22 12:25:38.524 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 382.1215 ms
+2026-05-22 12:25:38.524 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 383.4868 ms
+2026-05-22 12:25:38.524 +03:00 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.css responded 200 in 413.5433 ms
+2026-05-22 12:25:38.554 +03:00 [INF] HTTP GET /favicon.ico responded 200 in 5.3772 ms
+2026-05-22 12:27:34.860 +03:00 [INF] Dental.Web started
+2026-05-22 12:27:35.436 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:27:36.496 +03:00 [INF] Now listening on: http://localhost:5000
+2026-05-22 12:27:36.497 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:27:36.498 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:27:36.498 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:27:36.593 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:27:36.736 +03:00 [INF] HTTP GET / responded 200 in 143.7315 ms
+2026-05-22 12:27:36.918 +03:00 [INF] HTTP GET /css/site.css responded 200 in 143.6822 ms
+2026-05-22 12:27:36.918 +03:00 [INF] HTTP GET /Dental.Web.styles.css responded 200 in 142.2185 ms
+2026-05-22 12:27:36.918 +03:00 [INF] HTTP GET /js/site.js responded 200 in 44.5465 ms
+2026-05-22 12:27:36.924 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 147.9172 ms
+2026-05-22 12:27:36.924 +03:00 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.css responded 200 in 149.4676 ms
+2026-05-22 12:27:36.924 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 146.0476 ms
+2026-05-22 12:29:14.733 +03:00 [INF] Dental.Web started
+2026-05-22 12:29:15.331 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:29:16.162 +03:00 [INF] Now listening on: http://localhost:5000
+2026-05-22 12:29:16.163 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:29:16.163 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:29:16.163 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:29:16.251 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:29:16.395 +03:00 [INF] HTTP GET / responded 200 in 145.5083 ms
+2026-05-22 12:29:16.644 +03:00 [INF] HTTP GET /js/site.js responded 200 in 109.4527 ms
+2026-05-22 12:29:16.644 +03:00 [INF] HTTP GET /Dental.Web.styles.css responded 200 in 181.3498 ms
+2026-05-22 12:29:16.644 +03:00 [INF] HTTP GET /css/site.css responded 200 in 183.1145 ms
+2026-05-22 12:29:16.652 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 137.5922 ms
+2026-05-22 12:29:16.652 +03:00 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.css responded 200 in 190.3608 ms
+2026-05-22 12:29:16.652 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 137.5145 ms
+2026-05-22 12:31:18.060 +03:00 [INF] Dental.Web started
+2026-05-22 12:31:18.624 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:31:19.552 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-22 12:31:19.553 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:31:19.553 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:31:19.553 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:31:19.638 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:31:19.742 +03:00 [INF] HTTP GET / responded 200 in 104.3714 ms
+2026-05-22 12:31:20.089 +03:00 [INF] HTTP GET /css/site.css responded 200 in 279.1951 ms
+2026-05-22 12:31:20.089 +03:00 [INF] HTTP GET /Dental.Web.styles.css responded 200 in 280.6396 ms
+2026-05-22 12:31:20.089 +03:00 [INF] HTTP GET /js/site.js responded 200 in 210.6211 ms
+2026-05-22 12:31:20.093 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 284.1096 ms
+2026-05-22 12:31:20.093 +03:00 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.css responded 200 in 284.9245 ms
+2026-05-22 12:31:20.093 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 256.7483 ms
+2026-05-22 12:31:20.136 +03:00 [INF] HTTP GET /favicon.ico responded 200 in 2.2330 ms
+2026-05-22 12:31:31.896 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 89.0755 ms
+2026-05-22 12:31:39.363 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 78.1136 ms
+2026-05-22 12:35:15.057 +03:00 [INF] Dental.Web started
+2026-05-22 12:35:15.633 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:35:16.423 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-22 12:35:16.424 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:35:16.424 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:35:16.424 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:35:16.508 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:35:16.685 +03:00 [INF] HTTP GET / responded 200 in 177.6595 ms
+2026-05-22 12:35:16.844 +03:00 [INF] HTTP GET /Dental.Web.styles.css responded 200 in 90.0512 ms
+2026-05-22 12:35:16.844 +03:00 [INF] HTTP GET /css/site.css responded 200 in 90.2262 ms
+2026-05-22 12:35:16.844 +03:00 [INF] HTTP GET /js/site.js responded 200 in 31.4216 ms
+2026-05-22 12:35:16.935 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 143.8796 ms
+2026-05-22 12:35:16.935 +03:00 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.css responded 200 in 181.2276 ms
+2026-05-22 12:35:16.935 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 140.4874 ms
+2026-05-22 12:35:35.606 +03:00 [INF] HTTP POST /api/public/booking responded 409 in 12161.8923 ms
+2026-05-22 12:36:21.002 +03:00 [INF] Dental.Web started
+2026-05-22 12:36:21.577 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:36:22.378 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-22 12:36:22.379 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:36:22.379 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:36:22.379 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:36:22.475 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:36:22.586 +03:00 [INF] HTTP GET / responded 200 in 112.5086 ms
+2026-05-22 12:36:22.840 +03:00 [INF] HTTP GET /js/site.js responded 200 in 38.0230 ms
+2026-05-22 12:36:22.840 +03:00 [INF] HTTP GET /Dental.Web.styles.css responded 200 in 222.4794 ms
+2026-05-22 12:36:22.840 +03:00 [INF] HTTP GET /css/site.css responded 200 in 222.4781 ms
+2026-05-22 12:36:22.845 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 177.9257 ms
+2026-05-22 12:36:22.845 +03:00 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.css responded 200 in 230.1529 ms
+2026-05-22 12:36:22.845 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 175.1687 ms
+2026-05-22 12:36:45.892 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 92.7227 ms
+2026-05-22 12:36:51.864 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 75.5248 ms
+2026-05-22 12:39:17.310 +03:00 [INF] Dental.Web started
+2026-05-22 12:39:17.897 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 12:39:18.884 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-22 12:39:18.885 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 12:39:18.885 +03:00 [INF] Hosting environment: Development
+2026-05-22 12:39:18.885 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-05-22 12:39:18.972 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-05-22 12:39:19.115 +03:00 [INF] HTTP GET / responded 200 in 144.8256 ms
+2026-05-22 12:39:19.323 +03:00 [INF] HTTP GET /css/site.css responded 200 in 201.8019 ms
+2026-05-22 12:39:19.323 +03:00 [INF] HTTP GET /Dental.Web.styles.css responded 200 in 175.4328 ms
+2026-05-22 12:39:19.323 +03:00 [INF] HTTP GET /js/site.js responded 200 in 66.6435 ms
+2026-05-22 12:39:19.330 +03:00 [INF] HTTP GET /lib/bootstrap/dist/js/bootstrap.bundle.min.js responded 200 in 180.4230 ms
+2026-05-22 12:39:19.330 +03:00 [INF] HTTP GET /lib/jquery/dist/jquery.min.js responded 200 in 181.6172 ms
+2026-05-22 12:39:19.330 +03:00 [INF] HTTP GET /lib/bootstrap/dist/css/bootstrap.min.css responded 200 in 208.9785 ms
+2026-05-22 12:39:34.711 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 107.2882 ms
+2026-05-22 12:39:39.498 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 37.8028 ms
+2026-05-22 12:39:44.792 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 53.7630 ms
+2026-05-22 12:39:54.710 +03:00 [INF] Sent email to ilhan.ulasan@gmail.com with subject Randevu talebiniz — onay bekleniyor
+2026-05-22 12:39:59.334 +03:00 [INF] Guest booking "1017a288-d389-48d5-933d-26cf8d541125" for patient "a4e350bb-e7a1-49bf-bbed-694fb461bc05" (newPatient=false)
+2026-05-22 12:39:59.337 +03:00 [INF] HTTP POST /api/public/booking responded 200 in 12369.2757 ms

@@ -35,16 +35,22 @@ public class SmtpEmailSender(IOptions<EmailOptions> options, ILogger<SmtpEmailSe
         };
         message.To.Add(toEmail.Trim());
 
+        if (string.IsNullOrWhiteSpace(_options.UserName) || string.IsNullOrWhiteSpace(_options.Password))
+        {
+            log.LogWarning(
+                "Email enabled but SMTP credentials are missing. Set Email:Password in " +
+                "appsettings.Development.local.json (gitignored) or via user secrets. " +
+                "Gmail requires an App Password: https://myaccount.google.com/apppasswords");
+            return;
+        }
+
         using var client = new SmtpClient(_options.Host, _options.Port)
         {
             EnableSsl = _options.UseSsl,
             DeliveryMethod = SmtpDeliveryMethod.Network,
+            UseDefaultCredentials = false,
         };
-
-        if (!string.IsNullOrWhiteSpace(_options.UserName))
-        {
-            client.Credentials = new NetworkCredential(_options.UserName, _options.Password);
-        }
+        client.Credentials = new NetworkCredential(_options.UserName, _options.Password);
 
         await client.SendMailAsync(message, ct);
         log.LogInformation("Sent email to {To} with subject {Subject}", toEmail, subject);
