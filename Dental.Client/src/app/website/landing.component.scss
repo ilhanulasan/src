@@ -63,7 +63,7 @@
   padding: 3rem 1.25rem 4rem;
   background:
     linear-gradient(105deg, rgba(255, 255, 255, 0.92) 42%, rgba(255, 255, 255, 0.55) 58%),
-    url('https://images.unsplash.com/photo-1609840114035-3c981b782dfe?auto=format&fit=crop&w=1600&q=80') center / cover no-repeat;
+    url('/dentist-family-dental-20260404161918.webp') center / cover no-repeat;
 }
 
 .home-inner {
@@ -71,7 +71,7 @@
   margin: 0 auto;
   display: grid;
   gap: 2rem;
-  align-items: center;
+  align-items: stretch;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
 }
 
@@ -103,10 +103,21 @@
   margin-top: 1rem;
 }
 
-.home-visual img {
+.home-visual {
   width: 100%;
+  min-height: clamp(16rem, 40vw, 28rem);
   border-radius: 0.5rem;
+  overflow: hidden;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.12);
+}
+
+.home-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: center;
 }
 
 .about-inner {

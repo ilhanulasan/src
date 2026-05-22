@@ -20,8 +20,7 @@ export class LandingComponent {
 
   readonly contactSent = signal(false);
 
-  readonly heroImageUrl =
-    'https://images.unsplash.com/photo-1606811970810-945a1536f209?auto=format&fit=crop&w=1200&q=80';
+  readonly heroImageUrl = '/dentist-family-dental-20260404161918.webp';
 
   readonly services = [
     { icon: 'dentistry', key: 'alignment' },

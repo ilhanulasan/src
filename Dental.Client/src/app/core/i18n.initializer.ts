@@ -6,11 +6,15 @@ export type AppLang = 'en' | 'tr';
 
 export function readStoredLang(): AppLang {
   if (typeof localStorage === 'undefined') {
-    return 'en';
+    return 'tr';
   }
 
   const saved = localStorage.getItem('dental-lang');
-  return saved === 'tr' ? 'tr' : 'en';
+  if (saved === 'en' || saved === 'tr') {
+    return saved;
+  }
+
+  return 'tr';
 }
 
 /** Load saved language before the first route renders (avoids English flash / stale translate pipe cache). */

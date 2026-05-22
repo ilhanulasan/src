@@ -1,0 +1,6 @@
+2026-05-22 11:16:15.167 +03:00 [INF] Dental.Web started
+2026-05-22 11:16:16.169 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-05-22 11:16:17.026 +03:00 [INF] Now listening on: http://localhost:5180
+2026-05-22 11:16:17.027 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-05-22 11:16:17.027 +03:00 [INF] Hosting environment: Development
+2026-05-22 11:16:17.028 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web

@@ -1,0 +1,15 @@
+{
+  "name": "Diş Kliniği",
+  "short_name": "Diş Kliniği",
+  "lang": "tr",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "Tooth.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
