@@ -1,9 +1,39 @@
 <div class="public-shell" (scroll)="onScroll($event)">
   <header class="header" [class.scrolled]="headerScrolled()">
-    <a class="logo" routerLink="/" (click)="menuOpen.set(false)">
-      <app-tooth-icon />
-      <span>{{ 'website.brand' | translate }}<em>{{ 'website.brandAccent' | translate }}</em></span>
-    </a>
+    <div class="header-left">
+      <a class="logo" routerLink="/" (click)="menuOpen.set(false)">
+        <app-tooth-icon />
+        <span>{{ 'website.brand' | translate }}<em>{{ 'website.brandAccent' | translate }}</em></span>
+      </a>
+
+      @if (auth.isLoggedIn()) {
+        <details class="user-menu" #userMenu>
+          <summary class="user-summary">
+            @if (auth.avatarUrl(); as src) {
+              <img class="avatar-img" [src]="src" alt="" />
+            } @else {
+              <span class="avatar-fallback">{{ initials() }}</span>
+            }
+            <span class="user-name">{{ auth.displayName() }}</span>
+            <span class="material-symbols-outlined chev" aria-hidden="true">expand_more</span>
+          </summary>
+          <div class="menu-panel">
+            <a [routerLink]="workspaceRoute()" (click)="closeUserMenu(userMenu)">
+              <span class="material-symbols-outlined" aria-hidden="true">dashboard</span>
+              {{ 'website.myWorkspace' | translate }}
+            </a>
+            <a routerLink="/profile" (click)="closeUserMenu(userMenu)">
+              <span class="material-symbols-outlined" aria-hidden="true">person</span>
+              {{ 'nav.profile' | translate }}
+            </a>
+            <button type="button" (click)="logout(); closeUserMenu(userMenu)">
+              <span class="material-symbols-outlined" aria-hidden="true">logout</span>
+              {{ 'auth.logout' | translate }}
+            </button>
+          </div>
+        </details>
+      }
+    </div>
 
     <nav class="nav" [class.open]="menuOpen()">
       <a routerLink="/" fragment="home" (click)="menuOpen.set(false)">{{ 'website.nav.home' | translate }}</a>
@@ -22,10 +52,7 @@
         </select>
       </label>
 
-      @if (auth.isLoggedIn()) {
-        <a class="btn-text" [routerLink]="workspaceRoute()">{{ 'website.myWorkspace' | translate }}</a>
-        <button type="button" class="btn-text" (click)="logout()">{{ 'auth.logout' | translate }}</button>
-      } @else {
+      @if (!auth.isLoggedIn()) {
         <a class="btn-text" routerLink="/login">{{ 'auth.login' | translate }}</a>
         <a class="btn-text" routerLink="/register">{{ 'auth.register' | translate }}</a>
       }

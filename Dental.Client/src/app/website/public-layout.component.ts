@@ -34,6 +34,21 @@ export class PublicLayoutComponent {
     return this.auth.isLoggedIn() ? this.auth.defaultRoute() : '/login';
   }
 
+  initials(): string {
+    const u = this.auth.user();
+    if (!u) {
+      return '';
+    }
+
+    const a = u.firstName?.charAt(0) ?? '';
+    const b = u.lastName?.charAt(0) ?? '';
+    return `${a}${b}`.toUpperCase();
+  }
+
+  closeUserMenu(details: HTMLDetailsElement): void {
+    details.open = false;
+  }
+
   toggleMenu(): void {
     this.menuOpen.update((v) => !v);
   }
