@@ -176,7 +176,7 @@ public class GuestBookingService(
             }
             catch (Exception ex)
             {
-                log.LogError(ex, "Failed to send guest booking email for appointment 123 {AppointmentId}", appt.Id);
+                log.LogError(ex, "Failed to send guest booking email for appointment {AppointmentId}", appt.Id);
             }
         }
 

@@ -43,3 +43,5 @@
 2026-05-29 23:19:24.110 +03:00 [WRN] Login failed: unknown email ilhan.ulasan@gmail.com
 2026-05-29 23:19:24.120 +03:00 [INF] HTTP POST /api/auth/login responded 401 in 52.0359 ms
 2026-05-29 23:19:40.125 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 174.9647 ms
+2026-05-29 23:36:48.871 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 174.7791 ms
+2026-05-29 23:36:54.832 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 4.1481 ms
