@@ -1,0 +1,17 @@
+2026-06-06 13:40:35.088 +03:00 [INF] Dental.Web started
+2026-06-06 13:40:36.140 +03:00 [WRN] The property 'ClinicPersonnel.Specialties' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+2026-06-06 13:40:37.001 +03:00 [INF] Now listening on: http://localhost:5180
+2026-06-06 13:40:37.002 +03:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-06 13:40:37.002 +03:00 [INF] Hosting environment: Development
+2026-06-06 13:40:37.002 +03:00 [INF] Content root path: C:\Users\ilhan.ulasan\Source\repos\Dental\src\Dental.Web
+2026-06-06 13:41:39.479 +03:00 [WRN] Failed to determine the https port for redirect.
+2026-06-06 13:41:39.557 +03:00 [INF] HTTP GET /api/patients responded 401 in 78.0475 ms
+2026-06-06 13:42:03.836 +03:00 [INF] HTTP POST /api/auth/login responded 200 in 247.6960 ms
+2026-06-06 13:42:06.222 +03:00 [INF] HTTP GET /api/patients responded 200 in 191.0246 ms
+2026-06-06 13:42:08.633 +03:00 [INF] HTTP GET /api/patients responded 200 in 4.3344 ms
+2026-06-06 13:42:10.713 +03:00 [INF] HTTP GET /api/patients responded 200 in 2.5670 ms
+2026-06-06 13:42:15.367 +03:00 [INF] HTTP GET /api/public/booking/doctors responded 200 in 39.8288 ms
+2026-06-06 13:42:22.218 +03:00 [INF] HTTP GET /api/public/booking/availability responded 200 in 87.6460 ms
+2026-06-06 13:42:44.000 +03:00 [INF] Sent email to ilhan.ulasan@gmail.com with subject Randevu talebiniz — onay bekleniyor
+2026-06-06 13:42:44.006 +03:00 [INF] Guest booking "da921f32-4460-4392-93d8-916c0127d160" for patient "a4e350bb-e7a1-49bf-bbed-694fb461bc05" (newPatient=false)
+2026-06-06 13:42:44.037 +03:00 [INF] HTTP POST /api/public/booking responded 200 in 3508.5578 ms
